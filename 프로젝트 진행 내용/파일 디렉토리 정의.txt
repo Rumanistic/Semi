@@ -1,0 +1,40 @@
+페이지의 경우 .~
+디렉토리의 경우 /~
+
+** Springboot : root/
+
+
+
+** React : root/src/main/semiproject
+
+.index
+	/
+	.app
+	.mypage
+
+	/common
+		.header
+		.nav			(사이드 메뉴바)
+		.footer
+
+	/login 			(버튼식일 경우 페이지 분리 > 페이지 이동해서 로그인 후 사용자 정보 반환 식)
+		.login
+		.enroll
+
+	/popup
+		.popup_content
+		.popup_detail
+		/view			(하위에 있는건 content페이지에서 import해서 사용할것)  *편한 방식으로 해도 됌!
+			.view_list	(list형 뷰)
+			.view_card	(card형 뷰)
+
+	/event
+		.event_content
+		.event_detail
+
+	/sns
+		.sns_content
+		
+	/faq
+		.faq_content
+		.faq_detail
