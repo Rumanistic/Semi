@@ -1,6 +1,6 @@
 package com.example.demo.domain;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 
@@ -28,19 +28,20 @@ public class Support {
 				allocationSize=1
 			)
 	@GeneratedValue(generator="SEQ_SUPPORT_NO")
-	private Long no;
+	@Column(name="SUPPORT_NO")
+	private Long supportNo;
 	
 	@NonNull
-	@Column(name="ID", nullable=false)
-	private String id;
+	@Column(name="USER_ID", nullable=false)
+	private String userId;
 	
 	@NonNull
 	@Column(name="TITLE")
 	private String title;
 	
 	@NonNull
-	@Column(name="CONTENT")
-	private String content;
+	@Column(name="INQUIRY")
+	private String inquiry;
 	
 	@NonNull
 	@Column(name="REPLY")
@@ -51,11 +52,11 @@ public class Support {
 	
 	@CreatedDate
 	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
-	private LocalDate createdDate;
+	private LocalDateTime createdDate;
 	
 	@Column(name="IS_DELETED", insertable=false, columnDefinition="NUMBER(1) DEFAULT 0")
 	private boolean isDeleted;
 	
 	@Column(name="DELETED_DATE")
-	private LocalDate deletedDate;
+	private LocalDateTime deletedDate;
 }

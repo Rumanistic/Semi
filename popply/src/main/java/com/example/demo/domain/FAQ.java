@@ -29,12 +29,13 @@ public class FAQ {
 				allocationSize=1
 			)
 	@GeneratedValue(generator="SEQ_FAQ_NO")
-	private Long no;
+	@Column(name="FAQ_NO")
+	private Long faqNo;
 	
 	// USER 테이블 ID 외래키 사용
 	@NonNull
-	@Column(name="ID", nullable=false)
-	private String id;
+	@Column(name="USER_ID", nullable=false)
+	private String userId;
 	
 	@NonNull
 	@Column(name="QUESTION")
@@ -44,16 +45,18 @@ public class FAQ {
 	@Column(name="ANSWER")
 	private String answer;
 
+	@NonNull
 	@CreatedDate
 	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime createdDate;
 
+	@NonNull
 	@LastModifiedDate
-	@Column(name="MODIFIED_DATE")
+	@Column(name="MODIFIED_DATE", columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime modifiedDate;
 	
 	// 오라클에선 Boolean 타입 JPA 매핑 시, 자동으로 NUMBER(1)로 지정한다고 함
-	@Column(name="IS_DELETED", insertable=false, columnDefinition="NUMBER(1) DEFAULT 0")
+	@Column(name="IS_DELETED", insertable=false, columnDefinition="NUMBER DEFAULT 0")
 	private boolean isDeleted;
 	
 	@Column(name="DELETED_DATE")

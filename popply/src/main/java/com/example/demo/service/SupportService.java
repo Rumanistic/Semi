@@ -15,17 +15,18 @@ public class SupportService {
 	SupportRepository sr;
 
 	public List<Support> getAllSupports() {
-		// TODO Auto-generated method stub
-		return null;
+		return sr.findAll();
 	}
 
 	public void setSupport(Support s) {
-		// TODO Auto-generated method stub
-		
+		sr.save(s);		
 	}
 
 	public Support getSupport(Long no) {
-		// TODO Auto-generated method stub
-		return null;
+		return sr.findById(no).get();
+	}
+
+	public void deleteSupport(Support s) {
+		sr.save(s);		
 	}
 }
