@@ -6,7 +6,7 @@ function Detail(){
 			<img src={`${process.env.PUBLIC_URL}/img/img2.jpg`} className="img-style" />
 
 			<div className='summary'>
-				<h1 class="tit">🍀팝업스토어 요약🍀</h1>
+				<h1 className="tit">🍀팝업스토어 요약🍀</h1>
 				<p className='date'>24.08.16 - 24.09.29</p>
 				<p className='laoction'>서울특별시 강남구 더조은 학원</p>
 			</div>
