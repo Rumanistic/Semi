@@ -71,6 +71,7 @@ public class FAQController {
 		if(f != null) {
 			f.setQuestion(newFAQ.getQuestion());
 			f.setAnswer(newFAQ.getAnswer());
+			f.setModifiedDate(LocalDateTime.now());
 			fs.editFAQ(f);
 			// 성공 시
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
