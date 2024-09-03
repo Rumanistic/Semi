@@ -32,7 +32,6 @@ public class FAQ {
 	@Column(name="FAQ_NO")
 	private Long faqNo;
 	
-	// USER 테이블 ID 외래키 사용
 	@NonNull
 	@Column(name="USER_ID", nullable=false)
 	private String userId;
