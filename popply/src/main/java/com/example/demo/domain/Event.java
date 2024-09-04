@@ -15,9 +15,9 @@ import lombok.NonNull;
 
 @Data
 @NoArgsConstructor
-@Entity(name="DETAIL")
+@Entity(name="EVENT")
 @EntityListeners(AuditingEntityListener.class)
-public class Detail {
+public class Event {
 	
 	@Id
 	@Column(name="EVENT_NO")
@@ -37,7 +37,7 @@ public class Detail {
 	private String company;
 	
 	@CreatedDate
-	@Column(name="create_date")
+	@Column(name="CREATE_DATE")
 	private LocalDateTime createDate;
 	
 	@NonNull
@@ -50,6 +50,18 @@ public class Detail {
 	
 	@NonNull
 	private String type;
+	
+	@NonNull
+	private String content;
+	
+	private String caution;
+	
+	@NonNull
+	private String location;
+	
+	private String sns;
+	
+	
 	
 	
 }

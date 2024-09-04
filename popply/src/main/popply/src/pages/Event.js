@@ -1,12 +1,35 @@
-function Detail(){
+import { useEffect, useState } from "react";
+
+function Event(){
+
+	let [events, setEvents] = useState([]);
+		useEffect(()=>{
+			axios.get(`/api/events`) 
+			.then(result => {
+				console.log(result.data);
+				setEvents(result.data);
+			})
+			.catch(() =>{
+				console.log('실패');
+				alert('더이상 상품이 없습니다');
+			})
+		},[])
+		
+		
+
     return (
         <>
-        <h1>상세 페이지</h1>
+		{
+			events.map((t)=>{
+				return(
+					<>
+					 <h1>상세 페이지</h1>
 			<img src={`${process.env.PUBLIC_URL}/img/img1.jpg`} className="img-style" />
 			<img src={`${process.env.PUBLIC_URL}/img/img2.jpg`} className="img-style" />
 
 			<div className='summary'>
-				<h1 class="tit">🍀팝업스토어 요약🍀</h1>
+
+				<h1 className="tit">t.title</h1>
 				<p className='date'>24.08.16 - 24.09.29</p>
 				<p className='laoction'>서울특별시 강남구 더조은 학원</p>
 			</div>
@@ -54,6 +77,12 @@ function Detail(){
 					target="_blank"
 					rel="noopener noreferrer"> sns로 이동하기 </a>
 			</div>
+					</>
+				)
+			})
+
+		}
+       
             </>
 
     )
