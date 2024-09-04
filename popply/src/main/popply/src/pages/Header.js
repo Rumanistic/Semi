@@ -1,24 +1,49 @@
 import { useNavigate } from "react-router-dom";
+import { styled } from "styled-components";
 
 function Header() {
 	
 	const navigate = useNavigate();
 
   return (
-    <div>
-    	<span onClick={() => {navigate('/')}}><img src={`${process.env.PUBLIC_URL}/img/logo.jpg`} alt="Logo" className="img-logo" /></span>
-    	<nav>
+    <HeaderArea>
+    	<HeaderNavMenuContainer>
+	    	<HeaderLogoImgContainer onClick={() => {navigate('/')}}>
+	    		<LogoImg src={`${process.env.PUBLIC_URL}/img/logo.jpg`} alt="Logo"/>
+	  		</HeaderLogoImgContainer>
     		<ul>
-    			<li onClick={() => { navigate('/details')}}>Detail</li>
-    			<li></li>
-    			<li></li>
-    			<li onClick={() => { navigate('/faqs')}}>FAQ</li>
-    			<li onClick={() => { navigate('/support')}}>Support</li>
+    			<NavMenuContent onClick={() => { navigate('/details')}}>Detail</NavMenuContent>
+    			<NavMenuContent></NavMenuContent>
+    			<NavMenuContent></NavMenuContent>
+    			<NavMenuContent onClick={() => { navigate('/faqs')}}>FAQ</NavMenuContent>
+    			<NavMenuContent onClick={() => { navigate('/support')}}>Support</NavMenuContent>
     		</ul>
-    	</nav>
-    </div>
+    	</HeaderNavMenuContainer>
+    </HeaderArea>
   );
 }
 
 
 export default Header;
+
+/* CSS Export Area */
+export const HeaderArea = styled.header`
+	width: 100%;
+	height: 54px;
+`;
+
+export const HeaderLogoImgContainer = styled.span`
+	float: left;
+	margin: 0 10px;
+`;
+
+export const LogoImg = styled.img`
+	height: 54px;
+`;
+
+export const HeaderNavMenuContainer = styled.nav`
+`;
+
+export const NavMenuContent = styled.li`
+	float: left;
+`;
