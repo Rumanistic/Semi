@@ -15,8 +15,8 @@ public class FAQService {
 	@Autowired
 	FAQRepository fr;
 
-	public List<FAQ> getAllFAQs() {
-		return fr.findAll();
+	public List<FAQ> getAllFAQs(Boolean b) {
+		return fr.findByDeleted(b);
 	}
 	
 	public FAQ getFAQ(Long no) {

@@ -12,18 +12,16 @@ function Support() {
     	<SupportStyle.AsideNavContainer>
     		<SupportStyle.AsideNavMenuContainer>
     			<ul>
-	    			<SupportStyle.NavMenuContent onClick={() => { navigate('./faq')}}>FAQ</SupportStyle.NavMenuContent>
-	    			<SupportStyle.NavMenuContent onClick={() => { navigate('./usersupport')}}>고객지원</SupportStyle.NavMenuContent>
+	    			<SupportStyle.NavMenuContent onClick={() => { navigate('/supports/faq')}}>FAQ</SupportStyle.NavMenuContent>
+	    			<SupportStyle.NavMenuContent onClick={() => { navigate('/supports/usersupport')}}>고객지원</SupportStyle.NavMenuContent>
     			</ul>
     		</SupportStyle.AsideNavMenuContainer>
     	</SupportStyle.AsideNavContainer>
     	<SupportStyle.SectionContainer>
-    		<article>
-    			<Routes>
-    				<Route path='/faq' element={<Faq />}/>
-    				<Route path='/usersupport' element={<UserSupport />}/>
-    			</Routes>
-    		</article>
+  			<Routes>
+  				<Route path='faq' element={<Faq />}/>
+  				<Route path='usersupport' element={<UserSupport />}/>
+  			</Routes>
     	</SupportStyle.SectionContainer>
     </SupportStyle.SupportContainer>
   );
@@ -31,5 +29,3 @@ function Support() {
 
 
 export default Support;
-
-/* */
