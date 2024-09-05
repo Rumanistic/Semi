@@ -38,7 +38,8 @@ public class FAQController {
 	
 	@GetMapping
 	public ResponseEntity<List<FAQ>> getAllFAQs() {
-		List<FAQ> fList = fs.getAllFAQs();
+		Boolean isDeleted = false;
+		List<FAQ> fList = fs.getAllFAQs(isDeleted);
 		// 성공 시
 		if(fList != null) {
 			return ResponseEntity.ok().body(fList);
