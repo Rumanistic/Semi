@@ -1,21 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-function Faq() {
-	const [faqList, setFaqList] = useState([]);
-	useEffect(() => {
-		const result = axios.get(`/faqs/test`);
-		setFaqList(result.data);
-		console.log(result.data);
-	}, [])
+function ShareList() {
 
   return (
     <div>
-    	<h1 align='center'>F A Q</h1>
-    	<p>{faqList}</p>
+    	<h1 align='center'>Share List</h1>
+    	
     </div>
   );
 }
 
 
-export default Faq;
+export default ShareList;

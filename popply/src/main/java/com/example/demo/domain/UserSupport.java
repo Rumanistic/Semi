@@ -3,6 +3,7 @@ package com.example.demo.domain;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,10 +18,10 @@ import lombok.NonNull;
 
 @Data
 @Entity
-@Table(name="SUPPORT")
+@Table(name="USER_SUPPORT")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Support {
+public class UserSupport {
 	@Id
 	@SequenceGenerator(
 				name="SEQ_SUPPORT_NO",
@@ -43,10 +44,6 @@ public class Support {
 	@Column(name="INQUIRY")
 	private String inquiry;
 	
-	@NonNull
-	@Column(name="REPLY")
-	private String reply;
-	
 	@Column(name="TYPE")
 	private int type;
 	
@@ -54,8 +51,13 @@ public class Support {
 	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime createdDate;
 	
+	@NonNull
+	@LastModifiedDate
+	@Column(name="MODIFIED_DATE", columnDefinition="DATE DEFAULT SYSDATE")
+	private LocalDateTime modifiedDate;
+	
 	@Column(name="IS_DELETED", insertable=false, columnDefinition="NUMBER(1) DEFAULT 0")
-	private boolean isDeleted;
+	private boolean deleted;
 	
 	@Column(name="DELETED_DATE")
 	private LocalDateTime deletedDate;
