@@ -3,6 +3,7 @@ import List from './pages/List';
 //import Faq from './pages/Faq';
 import Support from './pages/Support'
 import { Route, Routes } from 'react-router-dom';
+import EventDetail from './pages/EventDetail';
 
 function App() {
 
@@ -11,7 +12,6 @@ function App() {
   		<Routes>
   			<Route path='/' />
 				<Route path='/lists/:page/*' element={<List />}/>
-   	  	{/*<Route path='/faqs' element={<Faq />} />*/}
    	  	<Route path='/supports/*' element={<Support />} />
 	  	</Routes>
     </div>

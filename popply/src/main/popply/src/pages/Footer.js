@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 function Footer() {
 	
@@ -7,6 +6,7 @@ function Footer() {
   return (
     <div>
     	<h1 align='center'>Footer</h1>
+
     </div>
   );
 }
