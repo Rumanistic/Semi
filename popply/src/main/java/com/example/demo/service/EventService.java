@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,9 @@ public class EventService {
 	@Autowired
 	EventRepository eventRepository;
 
-	public List<Event> eventinfo() {
-		
-		return eventRepository.findAll();
+	public Optional<Event> eventinfo(Long eventNo) {
+		return eventRepository.findById(eventNo);
 	}
+
+	
 }

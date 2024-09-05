@@ -61,6 +61,8 @@ public class Event {
 	
 	private String sns;
 	
+	@NonNull
+	private String date;
 	
 	
 	

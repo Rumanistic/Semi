@@ -6,6 +6,7 @@ import ShareList from './pages/list/ShareList';
 import Support from './pages/Support'
 import Footer from './pages/Footer';
 import { Route, Routes } from 'react-router-dom';
+import EventDetail from './pages/EventDetail';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
   			<Route path='/' />
 				<Route path='/lists/popup' element={<PopupList />}/>
 				<Route path='/lists/share' element={<ShareList />}/>
+				<Route path='/event' element={<EventDetail />}/>
    	  	{/*<Route path='/faqs' element={<Faq />} />*/}
    	  	<Route path='/supports/*' element={<Support />} />
 	  	</Routes>
