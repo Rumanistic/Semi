@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.domain.Answer;
-import com.example.demo.domain.Support;
+import com.example.demo.domain.UserSupport;
 import com.example.demo.service.AnswerService;
-import com.example.demo.service.SupportService;
+import com.example.demo.service.UserSupportService;
 
 /**
  * 고객지원 페이지용 Controller<br>
@@ -31,11 +31,11 @@ import com.example.demo.service.SupportService;
  * @version 0.1
  */
 @Controller
-@RequestMapping("/support")
-public class SupportController {
+@RequestMapping("/supports/usersupport")
+public class UserSupportController {
 	
 	@Autowired
-	SupportService ss;
+	UserSupportService ss;
 	
 	@Autowired
 	AnswerService as;
@@ -50,8 +50,9 @@ public class SupportController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<Support>> getAllSupports() {
-		List<Support> sList = ss.getAllSupports();
+	public ResponseEntity<List<UserSupport>> getAllUserSupports() {
+		Boolean isDeleted = false;
+		List<UserSupport> sList = ss.getAllSupports(isDeleted);
 		if(sList != null) {
 			return ResponseEntity.ok().body(sList);
 		}
@@ -59,8 +60,8 @@ public class SupportController {
 	}
 	
 	@GetMapping("/{no}")
-	public ResponseEntity<HashMap<String,Object>> getOneSupport(@RequestBody Long no){
-		Support s = ss.getSupport(no);
+	public ResponseEntity<HashMap<String,Object>> getOneUserSupport(@RequestBody Long no){
+		UserSupport s = ss.getSupport(no);
 		Answer a = as.getAnswer(no);
 
 		HashMap<String, Object> result = new HashMap<>();
@@ -75,7 +76,7 @@ public class SupportController {
 	}
 	
 	@PostMapping("/new")
-	public ResponseEntity<Void> setFAQ(@RequestBody Support s) {
+	public ResponseEntity<Void> setUserSupport(@RequestBody UserSupport s) {
 		ss.setSupport(s);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
@@ -88,11 +89,11 @@ public class SupportController {
 	 * @return 200 ok 게시글 수정 가능
 	 */
 	@PutMapping("/{no}")
-	public ResponseEntity<HashMap<String, Object>> editFAQ(
+	public ResponseEntity<HashMap<String, Object>> editUserSupport(
 				@PathVariable(name="no") Long no,
-				@RequestBody Support newSupport
+				@RequestBody UserSupport newSupport
 			) {
-		Support s = ss.getSupport(no);
+		UserSupport s = ss.getSupport(no);
 		if(s != null) {
 			return ResponseEntity.noContent().build();
 		}
@@ -104,7 +105,7 @@ public class SupportController {
 	public ResponseEntity<Void> deleteFAQ(
 				@PathVariable(name="no") Long no
 			) {
-		Support s = ss.getSupport(no);
+		UserSupport s = ss.getSupport(no);
 		if(s != null) {
 			s.setDeleted(true);
 			s.setDeletedDate(LocalDateTime.now());

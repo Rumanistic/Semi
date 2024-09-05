@@ -1,21 +1,30 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import * as ListStyle from './styles/ListStyle';
+import { useParams } from 'react-router-dom';
+import Popup from './list/PopupList';
+import Share from './list/ShareList';
+import Detail from './detail/Detail';
 
-function Faq() {
-	const [faqList, setFaqList] = useState([]);
-	useEffect(() => {
-		const result = axios.get(`/faqs/test`);
-		setFaqList(result.data);
-		console.log(result.data);
-	}, [])
-
+function List() {
+	
+	const {page} = useParams();
+	
+	const getPage = () => {
+		switch(page) {
+			case 'popup':
+				return <Popup />;
+			case 'share':
+				return <Share />;
+			default:
+				return <Detail />
+		}
+	}
+	
   return (
-    <div>
-    	<h1 align='center'>F A Q</h1>
-    	<p>{faqList}</p>
-    </div>
+    <ListStyle.ListContainer>
+    	{getPage()}
+  	</ListStyle.ListContainer>
   );
 }
 
 
-export default Faq;
+export default List;

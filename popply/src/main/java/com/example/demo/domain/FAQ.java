@@ -56,7 +56,7 @@ public class FAQ {
 	
 	// 오라클에선 Boolean 타입 JPA 매핑 시, 자동으로 NUMBER(1)로 지정한다고 함
 	@Column(name="IS_DELETED", insertable=false, columnDefinition="NUMBER DEFAULT 0")
-	private boolean isDeleted;
+	private boolean deleted;
 	
 	@Column(name="DELETED_DATE")
 	private LocalDateTime deletedDate;

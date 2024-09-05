@@ -60,7 +60,7 @@ function Faq() {
     		</article>
     		<article>
     			<FaqStyle.FaqH3>
-    				 찾으시는 내용이 없나요? 
+    				 ❓❓❓ 찾으시는 내용이 없나요? 
 						<FaqStyle.RightFloatSpan>
 							<button onClick={() => {navigate('/supports/usersupport')}}>고객지원 문의하기</button>
 						</FaqStyle.RightFloatSpan>
@@ -88,13 +88,13 @@ function Faq() {
 							{faq.answer} &emsp; 
 							{
 								isAdmin && 
-								(<span><button onClick={() => {
+								(<FaqStyle.RightFloatSpan><button onClick={() => {
 									openModalHandler(); 
 									modalTypeHandler('edit'); 
 									faqHandler(faq)
 									headTypeHandler('수정')}
 									}>수정</button>&emsp;
-								<button onClick={() => (DeleteFaq(faq.faqNo))}>삭제</button></span>)
+								<button onClick={() => (DeleteFaq(faq.faqNo))}>삭제</button></FaqStyle.RightFloatSpan>)
 							}
 						</p>
 					</details>
