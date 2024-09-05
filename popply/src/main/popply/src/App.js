@@ -4,6 +4,8 @@ import List from './pages/List';
 import Support from './pages/Support'
 import { Route, Routes } from 'react-router-dom';
 import EventDetail from './pages/EventDetail';
+import PopupList from './pages/list/PopupList';
+import ShareList from './pages/list/ShareList';
 
 function App() {
 

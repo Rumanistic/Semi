@@ -36,7 +36,7 @@ public class Review {
    private String userId;                //유저아이디
    
    @Column(name = "RATING")
-   private int rating;            //평점
+   private double rating;            //평점
    
    @CreatedDate
 	@Column(name="CREATE_DATE")

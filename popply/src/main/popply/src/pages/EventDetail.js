@@ -13,7 +13,7 @@ function EventDetail() {
 
     useEffect(() => {
         pageHandler();
-        axios.get(`/event/${eventNo}`)
+        axios.get(`/event/detail/${eventNo}`)
             .then(result => {
                 console.log(result.data);
                 setEvents(result.data);
@@ -27,6 +27,9 @@ function EventDetail() {
         navigate(`/reservation/${eventNo}`);
     };
 
+	const ReviewonClick = () => {
+		navigate(`/review/${eventNo}`);
+	}
     return (
         <>
             <h1>상세 페이지</h1>
@@ -77,7 +80,8 @@ function EventDetail() {
                             window.open(events.sns, '_blank');
                         } else {
                             console.log("SNS 링크가 없습니다.");
-                        }
+							alert("SNS가 존재하지 않습니다");
+						}
                     }}
                 >
                     SNS로 이동하기
