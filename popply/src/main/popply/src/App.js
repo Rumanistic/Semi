@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import EventDetail from './pages/EventDetail';
 import PopupList from './pages/list/PopupList';
 import ShareList from './pages/list/ShareList';
+import Review from './pages/Review';
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
 				<Route path='/lists/share' element={<ShareList />}/>
 				<Route path='/event/:page' element={<EventDetail />}/>
    	  	{/*<Route path='/faqs' element={<Faq />} />*/}
-				<Route path='/lists/:page/*' element={<List />}/>
+				<Route path='/review' element={<Review />}/>
    	  	<Route path='/supports/*' element={<Support />} />
 	  	</Routes>
     </div>

@@ -27,9 +27,10 @@ function EventDetail() {
         navigate(`/reservation/${eventNo}`);
     };
 
-	const ReviewonClick = () => {
-		navigate(`/review/${eventNo}`);
-	}
+    const ReviewClick = () => {
+        navigate(`/review`);
+    }
+
     return (
         <>
             <h1>상세 페이지</h1>
@@ -54,7 +55,7 @@ function EventDetail() {
 
             <div className='reservation'>
                 <button onClick={ReservationClick}>예약하기</button> &emsp;&emsp;
-                <button>리뷰</button>
+                <button onClick={ReviewClick}>리뷰</button> {/* 수정된 부분 */}
             </div>
 
             <hr />
@@ -80,8 +81,8 @@ function EventDetail() {
                             window.open(events.sns, '_blank');
                         } else {
                             console.log("SNS 링크가 없습니다.");
-							alert("SNS가 존재하지 않습니다");
-						}
+                            alert("SNS가 존재하지 않습니다");
+                        }
                     }}
                 >
                     SNS로 이동하기

@@ -17,7 +17,7 @@ public class EventController {
 	@Autowired
 	EventService eventService;
 	
-	@GetMapping("/{eventNo}")
+	@GetMapping("/detail/{eventNo}")
 	public Event eventinfo(@PathVariable(name="eventNo") Long eventNo) {
 		System.out.println("이벤트 번호 : " +  eventNo);
 		return eventService.eventinfo(eventNo).get();
