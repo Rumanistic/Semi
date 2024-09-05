@@ -17,7 +17,7 @@ function App() {
   			<Route path='/' />
 				<Route path='/lists/popup' element={<PopupList />}/>
 				<Route path='/lists/share' element={<ShareList />}/>
-				<Route path='/event' element={<EventDetail />}/>
+				<Route path='/event/:page' element={<EventDetail />}/>
    	  	{/*<Route path='/faqs' element={<Faq />} />*/}
    	  	<Route path='/supports/*' element={<Support />} />
 	  	</Routes>

@@ -21,7 +21,7 @@ public class Event {
 	
 	@Id
 	@Column(name="EVENT_NO")
-	private Long enventNo;
+	private Long eventNo;
 
 	@NonNull
 	@Column(name="USER_ID")
@@ -62,7 +62,10 @@ public class Event {
 	private String sns;
 	
 	@NonNull
-	private String date;
+	private String startDate;
+	
+	@NonNull
+	private String endDate;
 	
 	
 	

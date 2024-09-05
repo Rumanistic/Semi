@@ -17,7 +17,7 @@ function Header() {
     			<HeaderStyle.NavMenuContent></HeaderStyle.NavMenuContent>
     			{/*<NavMenuContent onClick={() => { navigate('/faqs')}}>FAQ</NavMenuContent>*/}
     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/supports')}}>Support</HeaderStyle.NavMenuContent>
-				<HeaderStyle.NavMenuContent onClick={() => { navigate('/event')}}>EventDetail</HeaderStyle.NavMenuContent>
+				<HeaderStyle.NavMenuContent onClick={() => { navigate('/event/1')}}>EventDetail</HeaderStyle.NavMenuContent>
     		
     		</ul>
     	</HeaderStyle.HeaderNavMenuContainer>
