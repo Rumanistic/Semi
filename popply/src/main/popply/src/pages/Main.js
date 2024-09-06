@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import './Body.css';
+import './Main.css';
 
 
-const Body = () => {
+const Main = () => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const images = [
@@ -93,4 +93,4 @@ const Body = () => {
   );
 }
 
-export default Body;
+export default Main;
