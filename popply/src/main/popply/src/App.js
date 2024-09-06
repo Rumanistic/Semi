@@ -2,7 +2,8 @@ import './App.css';
 import List from './pages/List';
 import Support from './pages/Support'
 import { Route, Routes } from 'react-router-dom';
-import Detail from './pages/detail/Detail';
+import EventDetail from './pages/EventDetail';
+import Review from './pages/Review';
 
 function App() {
 
@@ -10,9 +11,10 @@ function App() {
     <div className="App">
   		<Routes>
   			<Route path='/' />
-				<Route path='/:page' element={<List />}/>
-				<Route path='/detail/:no' element={<Detail />} />
-   	  	<Route path='/supports/*' element={<Support />} />
+			<Route path='/:page' element={<List />}/>
+			<Route path='/event/:no' element={<EventDetail />} />
+			<Route path='/review' element={<Review />}/>
+  			<Route path='/supports/*' element={<Support />} />
 	  	</Routes>
     </div>
   );

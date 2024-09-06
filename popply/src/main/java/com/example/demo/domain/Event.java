@@ -62,7 +62,10 @@ public class Event {
 	private String sns;
 	
 	@NonNull
-	private String date;
+	private String startDate;
+	
+	@NonNull
+	private String endDate;
 	
 	
 	

@@ -1,83 +1,95 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-function EventDetail(){
+function EventDetail() {
+    const { page } = useParams();
+    const navigate = useNavigate(); 
 
-	let [events, setEvents] = useState([]);
-	let [eventNo, serEventNo] = useState(1);
-		useEffect(()=>{
-			axios.get(`/api/events/${eventNo}`) 
-			.then(result => {
-				console.log(result.data);
-				setEvents(result.data);
-			})
-			.catch(() =>{
-				console.log('실패');
-			})
-		},[])
-		
-		
+    const [events, setEvents] = useState([]);
+    const [eventNo, setEventNo] = useState(1);
+
+    const pageHandler = () => setEventNo(page);
+
+    useEffect(() => {
+        pageHandler();
+        axios.get(`/event/detail/${eventNo}`)
+            .then(result => {
+                console.log(result.data);
+                setEvents(result.data);
+            })
+            .catch(() => {
+                console.log('실패');
+            });
+    }, [eventNo]); 
+
+    const ReservationClick = () => {
+        navigate(`/reservation/${eventNo}`);
+    };
+
+    const ReviewClick = () => {
+        navigate(`/review`);
+    }
 
     return (
+        <>
+            <h1>상세 페이지</h1>
+            <img src={`${process.env.PUBLIC_URL}/img/img1.jpg`} className="img-style" alt="Event 1" />
+            <img src={`${process.env.PUBLIC_URL}/img/img2.jpg`} className="img-style" alt="Event 2" />
 
-					<>
-					 <h1>상세 페이지</h1>
-			<img src={`${process.env.PUBLIC_URL}/img/img1.jpg`} className="img-style" />
-			<img src={`${process.env.PUBLIC_URL}/img/img2.jpg`} className="img-style" />
+            <div className='summary'>
+                <h1 className="tit">{events.title}</h1>
+                <h3>📅운영 날짜📅</h3>
+                <h4 className='date'>{events.startDate} - {events.endDate}</h4>
+                <p className='location'>{events.location}</p>
+            </div>
 
-			<div className='summary'>
+            <hr />
 
-				<h1 className="tit">{events.title}</h1>
-				<p className='date'>24.08.16 - 24.09.29</p>
-				<p className='laoction'>서울특별시 강남구 더조은 학원</p>
-			</div>
+            <div className='time'>
+                <h3>운영시간</h3>
+                <h4>{events.openTime} ~ {events.closeTime}</h4>
+            </div>
 
-			<hr />
+            <hr />
 
-			<div className='time'>
-				<header>
-					<h3>운영시간</h3>
-				</header>
-				<ul>
-					<li>월 : 11:00 - 22:00</li>
-					<li>화 : 11:00 - 22:00</li>
-					<li>수 : 11:00 - 22:00</li>
-					<li>목 : 11:00 - 22:00</li>
-					<li>금 : 11:00 - 22:00</li>
-				</ul>
-			</div>
+            <div className='reservation'>
+                <button onClick={ReservationClick}>예약하기</button> &emsp;&emsp;
+                <button onClick={ReviewClick}>리뷰</button> {/* 수정된 부분 */}
+            </div>
 
-			<hr />
+            <hr />
 
-			<div className='reservation'>
-				<button>예약하기</button> &emsp;&emsp; <button>리뷰</button>
-			</div>
-			
-			<hr/>
-			
-			<div className='introduction'>
-				<h3>상세정보</h3>
-				<p>최고심이 짱이양 ~~</p>
-				<p>최고심 귀여워 ~~</p>
-			</div>
+            <div className='introduction'>
+                <h3>상세정보</h3>
+                <p>{events.content}</p>
+            </div>
 
-			<hr />
+            <hr />
 
-			<div className='announce'>
-				<h3>안내 및 주의사항</h3>
-				<p>*모든 증정품은 한정수량으로 조기 소진될 수 있습니다.</p>
-			</div>
-			<hr />
+            <div className='announce'>
+                <h3>안내 및 주의사항</h3>
+                <p>{events.caution}</p>
+            </div>
+            <hr />
 
-			<div className='sns'>
-				<a
-					href="https://www.instagram.com/gosimperson/?hl=ko"
-					target="_blank"
-					rel="noopener noreferrer"> sns로 이동하기 </a>
-			</div>
-			
-            </>
-
-    )
+            <div className='sns'>
+                <button
+                    className="button-link"
+                    onClick={() => {
+                        if (events.sns) {
+                            window.open(events.sns, '_blank');
+                        } else {
+                            console.log("SNS 링크가 없습니다.");
+                            alert("SNS가 존재하지 않습니다");
+                        }
+                    }}
+                >
+                    SNS로 이동하기
+                </button>
+            </div>
+        </>
+    );
 }
+
 export default EventDetail;

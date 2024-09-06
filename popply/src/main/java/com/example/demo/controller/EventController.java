@@ -20,7 +20,7 @@ public class EventController {
 	
 	@Autowired
 	EventService eventService;
-	
+
 	@GetMapping("/{page}")
 	public ResponseEntity<HashMap<String, Object>> getAllList(@PathVariable(name="page") String type) {
 		HashMap<String, Object> result = new HashMap<>();
@@ -31,7 +31,8 @@ public class EventController {
 		Event e1 = new Event();
 		e1.setEventNo(1l);
 		e1.setTitle("이벤트1");
-		e1.setDate("2024.09.01~2024.09.14");
+		e1.setStartDate("2024.09.01");
+		e1.setEndDate("2024.09.14");
 		eList.add(e1);
 		
 		// review group by event_no 쿼리
@@ -55,8 +56,9 @@ public class EventController {
 		return ResponseEntity.ok().body(result);
 	}
 	
-	@GetMapping("enventNo")
+	@GetMapping("/{eventNo}")
 	public Event eventinfo(@PathVariable(name="eventNo") Long eventNo) {
+		System.out.println("이벤트 번호 : " +  eventNo);
 		return eventService.eventinfo(eventNo).get();
 	}
 	
