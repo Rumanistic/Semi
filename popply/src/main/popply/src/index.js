@@ -14,7 +14,7 @@ root.render(
   <Provider store={store}>
 		<BrowserRouter>
 			<Header />
-			  <App />
+		  <App />
 			<Footer />
 		</BrowserRouter>
   </Provider>
