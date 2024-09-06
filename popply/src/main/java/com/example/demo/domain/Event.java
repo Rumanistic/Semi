@@ -21,7 +21,7 @@ public class Event {
 	
 	@Id
 	@Column(name="EVENT_NO")
-	private Long enventNo;
+	private Long eventNo;
 
 	@NonNull
 	@Column(name="USER_ID")
