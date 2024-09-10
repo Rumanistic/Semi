@@ -60,16 +60,22 @@ const Main = () => {
 
       {/* 첫번째 큰 리스트 */}
       <div className="container">
-        <div className="list_item">  {/* 리스트총 제목 */}
+        <div className="list_item">  {/* 리스트1 */}
           <img src="/images/list1-img.jpg" alt="list_img" className = "list_img" /> 
 
           <div className="text_content">
             <h5 className="list_subtitle"> <b>이토록 다채로운 블랙, 누아르 마르디 메크르디</b> </h5>
             <p className="list_detail"> : file no.1 : 카페, 레코드숍, 리빙 편집숍이 한 건물에 </p>
+            {/* 버튼 추가 */}
+            <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
+              자세히 보기
+            </button>
+
+
           </div>
         </div>
 
-        <div className="list_item">  {/* 리스트총 제목 */}
+        <div className="list_item">  {/* 리스트2 */}
           <img src="/images/list2-img.jpg" alt="list_img" className = "list_img" /> 
 
           <div className="text_content">
@@ -78,7 +84,7 @@ const Main = () => {
           </div>
         </div>
 
-        <div className="list_item">  {/* 리스트총 제목 */}
+        <div className="list_item">  {/* 리스트3 */}
           <img src="/images/list3-img.jpg" alt="list_img" className = "list_img" /> 
 
           <div className="text_content">
