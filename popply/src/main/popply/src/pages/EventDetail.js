@@ -21,7 +21,7 @@ function EventDetail() {
             .catch(() => {
                 console.log('실패');
             });
-    }, [eventNo]); 
+    }, []); 
 
     const ReservationClick = () => {
         navigate(`/reservation/${eventNo}`);

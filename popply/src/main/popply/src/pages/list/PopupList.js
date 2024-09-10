@@ -37,7 +37,7 @@ function ShowList(list){
 		<span>
 			{eList.map((e, i) => {
 				return(
-					<div onClick={() => {navigate(`/detail/${e.eventNo}`)}} key={e.eventNo}>
+					<div onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
 						<span>{e.eventNo}</span>&emsp;
 						<span>{e.title}</span>&emsp;
 						<span>{rPoint[e.eventNo] ? 
