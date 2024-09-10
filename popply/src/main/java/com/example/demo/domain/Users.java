@@ -4,17 +4,10 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,49 +16,55 @@ import lombok.NonNull;
 
 @Data
 @Entity
-@Table(name="REVIEW")
+@Table(name="USERS")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class Users {
 	@Id
-	@SequenceGenerator(
-			name="SEQ_REVIEW_NO",
-			sequenceName="SEQ_REVIEW_NO",
-			allocationSize=1
-		)
-	@GeneratedValue(generator="SEQ_REVIEW_NO")
-	@Column(name = "REVIEW_NO")
-	private Long reviewNo;
-	
-	@NonNull
-	@Column(name="EVENT_ID")
-	private Long eventId;
-	
-	@NonNull
-	@Column(name="USER_ID")
 	private String userId;
+
+	@NonNull
+	@Column(name="USER_PWD")
+	private String userPwd;
 	
 	@NonNull
-	@Column(name = "CONTENT")
-	private String content;
+	@Column(name="NAME")
+	private String name;
 	
-	@Column(name = "RATING")
-	private double rating;
+	@NonNull
+	@Column(name="EMAIL")
+	private String email;
+	
+	@NonNull
+	@Column(name="PHONE")
+	private String phone;
+	
+	@NonNull
+	@Column(name="IS_RECEPTIONED")
+	private Boolean receptioned;
+	
+//	현재 사용하지 않음
+//	@NonNull
+//	@Column(name="IS_SNS_LOGIN")
+//	private Boolean snsLogin;
+	
+	@Column(name="TYPE")
+	private int type;
 	
 	@NonNull
 	@CreatedDate
 	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime createdDate;
-
+	
 	@NonNull
 	@LastModifiedDate
 	@Column(name="MODIFIED_DATE", columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime modifiedDate;
 	
-	// 오라클에선 Boolean 타입 JPA 매핑 시, 자동으로 NUMBER(1)로 지정한다고 함
 	@Column(name="IS_DELETED", insertable=false, columnDefinition="NUMBER DEFAULT 0")
 	private boolean deleted;
 	
 	@Column(name="DELETED_DATE")
 	private LocalDateTime deletedDate;
+	
 }

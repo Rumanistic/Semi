@@ -2,7 +2,15 @@ import * as ListStyle from "../styles/ListStyle";
 
 function StarPoint(point) {
 	let full = Math.trunc(point/1);
-	let half = point%1;
+	let half = 0;
+	switch(Math.trunc(point%1/0.25)){
+		case 0:
+		case 1:
+			half = 0;
+			break;
+		default: 
+			half = 0.5;
+	}
 	let empty = (half === 0.5 ? 5-full-1 : 5-full);
 	
 	const stars = [];

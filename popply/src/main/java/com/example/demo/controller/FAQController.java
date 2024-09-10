@@ -26,16 +26,16 @@ public class FAQController {
 	@Autowired
 	FAQService fs;
 	
-	/**
-	 * FAQ 전체 리스트 호출
-	 * @return FAQ List
-	 */
 	@GetMapping("/test")
 	public @ResponseBody String test() {
 		return "success";
 	}
 	
 	
+	/**
+	 * FAQ 전체 리스트 호출
+	 * @return FAQ List
+	 */
 	@GetMapping
 	public ResponseEntity<List<FAQ>> getAllFAQs() {
 		Boolean isDeleted = false;
