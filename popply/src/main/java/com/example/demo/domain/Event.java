@@ -1,25 +1,33 @@
 package com.example.demo.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @Data
-@NoArgsConstructor
 @Entity(name="EVENT")
-@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class Event {
-	
 	@Id
+	@SequenceGenerator(
+				name="SEQ_EVENT_NO",
+				sequenceName="SEQ_EVENT_NO",
+				allocationSize=1
+			)
+	@GeneratedValue(generator="SEQ_EVENT_NO")
 	@Column(name="EVENT_NO")
 	private Long eventNo;
 
@@ -28,45 +36,63 @@ public class Event {
 	private String userId;
 	
 	@NonNull
+	@Column(name="NAME")
 	private String name;
-	
+
 	@NonNull
+	@Column(name="TITLE")
 	private String title;
-	
+
 	@NonNull
+	@Column(name="COMPANY")
 	private String company;
-	
-	@CreatedDate
-	@Column(name="CREATE_DATE")
-	private LocalDateTime createDate;
-	
+
+	@NonNull
+	@Column(name="CONTENT")
+	private String content;
+
+	@NonNull
+	@Column(name="START_DATE")
+	private LocalDate startDate;
+
+	@NonNull
+	@Column(name="END_DATE")
+	private LocalDate endDate;
+
 	@NonNull
 	@Column(name="OPEN_TIME")
-	private String openTime;
-	
+	private LocalTime openTime;
+
 	@NonNull
 	@Column(name="CLOSE_TIME")
-	private String closeTime;
-	
+	private LocalTime closeTime;
+
+	@Column(name="TYPE")
+	private char type;
+
 	@NonNull
-	private String type;
+	@Column(name="TAGS")
+	private String tags;
 	
+	// 240909 추가 - 이미지 이름 저장
 	@NonNull
-	private String content;
-	
-	private String caution;
-	
+	@Column(name="IMAGES")
+	private String images;
+
 	@NonNull
-	private String location;
-	
-	private String sns;
-	
+	@CreatedDate
+	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
+	private LocalDateTime createdDate;
+
 	@NonNull
-	private String startDate;
+	@LastModifiedDate
+	@Column(name="MODIFIED_DATE", columnDefinition="DATE DEFAULT SYSDATE")
+	private LocalDateTime modifiedDate;
 	
-	@NonNull
-	private String endDate;
+	// 오라클에선 Boolean 타입 JPA 매핑 시, 자동으로 NUMBER(1)로 지정한다고 함
+	@Column(name="IS_DELETED", insertable=false, columnDefinition="NUMBER DEFAULT 0")
+	private boolean deleted;
 	
-	
-	
+	@Column(name="DELETED_DATE")
+	private LocalDateTime deletedDate;
 }

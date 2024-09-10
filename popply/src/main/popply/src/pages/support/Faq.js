@@ -153,6 +153,7 @@ function Faq() {
 						 	window.location.reload();
 						 });
 		}
+		//todo 지웠을 때 생성 시 렌더링 안되는 상황 발생
 	}
 	
 	function Modal({modalType, faq, onClose, headType}) {

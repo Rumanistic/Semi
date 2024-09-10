@@ -16,6 +16,7 @@ export const AsideNavMenuContainer = styled.nav`
 `;
 
 export const NavMenuContent = styled.li`
+	min-width: 168px;
 	margin: 0 20px;
 	font-size: 32px;
 	font-weight: bold;
