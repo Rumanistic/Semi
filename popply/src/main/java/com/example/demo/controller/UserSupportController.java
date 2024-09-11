@@ -75,7 +75,7 @@ public class UserSupportController {
 		}
 	}
 	
-	@PostMapping("/new")
+	@PostMapping("/register")
 	public ResponseEntity<Void> setUserSupport(@RequestBody UserSupport s) {
 		ss.setSupport(s);
 		return ResponseEntity.status(HttpStatus.CREATED).build();
