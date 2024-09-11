@@ -1,40 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import * as ListStyle from './styles/ListStyle';
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import Popup from './list/PopupList';
+import Share from './list/ShareList';
 
 function List() {
-  const [events, setEvents] = useState([]); // 이벤트 목록 상태
-  const [loading, setLoading] = useState(true); // 로딩 상태
-  const [error, setError] = useState(null); // 오류 상태
-
-  useEffect(() => {
-    // API 호출 (localhost:8080 명시하지 않음, 프록시 설정에 의존)
-    axios.get('/event/list') 
-      .then(response => {
-        setEvents(response.data); // 이벤트 목록 상태에 저장
-        setLoading(false);
-      })
-      .catch(error => {
-        setError('이벤트 데이터를 가져오는 중 오류가 발생했습니다.');
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div>로딩 중...</div>;
-  if (error) return <div>{error}</div>;
-
+	const {page} = useParams();
+	const navigate = useNavigate();
+	
+	const gettype = () => {
+		switch(page) {
+			case 'popup':
+				return <Popup />;
+			case 'share':
+				return <Share />;
+			case 'event':
+				return (() => { navigate('/event/:no')})
+			default:
+				return <span>잘못된 요청입니다.</span>
+		}
+	}
+	
   return (
-    <div>
-      <h1>이벤트 목록</h1>
-      <ul>
-        {events.map(event => (
-          <li key={event.eventNo}>
-            <Link to={`/event/${event.eventNo}`}
-			onClick={console.log('list.js: ',event.eventNo)}>{event.title}</Link> {/* 제목 클릭 시 상세 페이지로 이동 */}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ListStyle.ListContainer>
+    	{gettype()}
+  	</ListStyle.ListContainer>
   );
 }
 

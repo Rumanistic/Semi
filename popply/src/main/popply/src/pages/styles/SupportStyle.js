@@ -8,6 +8,7 @@ export const SupportContainer = styled.div`
 export const AsideNavContainer = styled.aside`
 	height: auto;
 	width: 15%
+	min-width: 168px;
 `;
 
 export const AsideNavMenuContainer = styled.nav`
@@ -16,6 +17,7 @@ export const AsideNavMenuContainer = styled.nav`
 `;
 
 export const NavMenuContent = styled.li`
+	min-width: 168px;
 	margin: 0 20px;
 	font-size: 32px;
 	font-weight: bold;
