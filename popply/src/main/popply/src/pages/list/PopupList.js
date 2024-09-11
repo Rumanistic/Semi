@@ -141,9 +141,13 @@ function ShowList({list, view}){
 				<EventListSpan>
 					{eList.map((e, i) => {
 						return(
-							<Col1 onClick={() => {navigate(`/event/popup/details/${e.eventNo}`)}} key={e.eventNo}>
+							<Col1 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
 								<span>{e.company}</span>&emsp;
-								<span><EventListSpanImage src={`/img/${(e.images.split(','))[0]}.jpg`} alt="" style={{width: '10%'}}/></span>
+								<span><EventListSpanImage src={`/img/${
+										e.images !== null && e.images !== '' ? 
+											(e.images.split(','))[0] :
+											'FullStar'
+									}.jpg`} alt="" style={{width: '10%'}}/></span>
 								<span>{e.content}</span>&emsp;
 								<span>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
@@ -157,10 +161,15 @@ function ShowList({list, view}){
 			return (
 				<EventCardSpan>
 					{eList.map((e, i) => {
+						let no = e.eventNo;
 						return(
-							<Col4 onClick={() => {navigate(`/event/popup/details/${e.eventNo}`)}} key={e.eventNo}>
+							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
 								<span>{e.company}</span>&emsp;
-								<span><EventCardSpanImage src={`/img/${(e.images.split(','))[0]}.jpg`} alt="" style={{width: '10%'}}/></span>
+								<span><EventCardSpanImage src={`/img/${
+										e.images !== null && e.images !== '' ? 
+											(e.images.split(','))[0] :
+											'FullStar'
+									}.jpg`} alt="" style={{width: '10%'}}/></span>
 								<span>{e.content}</span>&emsp;
 								<span>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 

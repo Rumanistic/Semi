@@ -2,36 +2,47 @@
 @import url('https://fonts.googleapis.com/earlyaccess/jejugothic.css');
 
 body {
-  font-family: 'Jeju Gothic', sans-serif; /* 제주 고딕체 사용 */
+  font-family: 'Jeju Gothic', sans-serif;
   background-color: #fdfdfd;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .event-container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 50px auto;
-  padding: 30px;
+  padding: 40px;
   background-color: #fffaf0;
-  border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  font-family: 'Jeju Gothic', sans-serif; /* 글씨체 적용 */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family: 'Jeju Gothic', sans-serif;
 }
 
 .event-container:hover {
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 .event-container h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   color: #e74c3c;
   text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.event-container h3 {
+  color: #e67e22;
+  font-size: 1.5rem;
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .event-container p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
   color: #2d3436;
   line-height: 1.8;
 }
@@ -51,27 +62,50 @@ body {
 }
 
 .event-container .event-location {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: #e74c3c;
   font-weight: bold;
 }
 
-/* EventDetail.css */
 .btn {
-    display: inline-block;
-    background-color: #f39c12;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 1.1rem;
-    border-radius: 50px;
-    margin-top: 20px;
-    transition: background-color 0.3s ease;
-    text-decoration: none; /* 밑줄 제거 */
+  display: inline-block;
+  background-color: #e67e22;
+  color: white;
+  width: 200px; /* 고정된 너비 */
+  height: 50px; /* 고정된 높이 */
+  font-size: 1.1rem;
+  font-family: 'Jeju Gothic', sans-serif; /* 글씨체를 명시적으로 설정 */
+  border-radius: 50px;
+  margin-top: 20px;
+  text-align: center; /* 텍스트를 중앙 정렬 */
+  line-height: 50px; /* 높이와 같은 값으로 설정해 텍스트를 중앙에 위치 */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.btn:hover {
+  background-color: #d35400;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  background-color: #c0392b;
+  transform: scale(0.98);
+}
+
+
+@media (max-width: 768px) {
+  .event-container {
+    padding: 20px;
   }
-  
-  .btn:hover {
-    background-color: #e67e22;
-    text-decoration: none; /* 호버 상태에서도 밑줄 제거 */
+
+  .event-container h1 {
+    font-size: 2rem;
   }
-  
+
+  .event-container p {
+    font-size: 1rem;
+  }
+}

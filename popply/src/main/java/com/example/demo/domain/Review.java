@@ -38,8 +38,8 @@ public class Review {
 	private Long reviewNo;
 	
 	@NonNull
-	@Column(name="EVENT_ID")
-	private Long eventId;
+	@Column(name="EVENT_NO")
+	private Long eventNo;
 	
 	@NonNull
 	@Column(name="USER_ID")

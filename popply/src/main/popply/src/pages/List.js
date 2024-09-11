@@ -13,8 +13,6 @@ function List() {
 				return <Popup />;
 			case 'share':
 				return <Share />;
-			case 'event':
-				return (() => { navigate('/event/:no')})
 			default:
 				return <span>잘못된 요청입니다.</span>
 		}

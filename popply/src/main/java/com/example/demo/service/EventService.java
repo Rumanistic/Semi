@@ -40,8 +40,8 @@ public class EventService {
     }
 
     // 특정 이벤트 가져오기
-    public Optional<Event> findEventById(Long eventNo) {
-        return eventRepository.findById(eventNo);
+    public Optional<Event> findEventByNo(Long eventNo) {
+        return eventRepository.findByEventNo(eventNo);
     }
     
 	public void registerEvent(Event e) {
