@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +20,6 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
 	@Query(value = "select * from event event where event.tags like (%:tag%)", nativeQuery = true)
 	Set<Event> findAllBy(@Param("tag") String tag);
 
-	
+	Optional<Event> findByEventNo(Long eventNo);
 
 }

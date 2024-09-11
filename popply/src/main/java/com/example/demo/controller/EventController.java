@@ -1,41 +1,34 @@
 package com.example.demo.controller;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Event;
-import com.example.demo.domain.Users;
 import com.example.demo.service.EventService;
 
-@RestController
+@Controller
 @RequestMapping("/event")
 public class EventController {
-	
+
 	@Autowired
-	EventService eventService;
+	private EventService eventService;
 
 	@GetMapping("/{page}/lists")
 	public ResponseEntity<HashMap<String, Object>> getAllList(@PathVariable(name="page") String type) {
 		HashMap<String, Object> result = new HashMap<>();
 		
 		List<Event> eList = eventService.getAllList();
-		
-		
+
 		// review group by event_no 쿼리
 		double point = 0.0d;
 		HashMap<Long, Double> rPoint = new HashMap<>();
@@ -93,12 +86,5 @@ public class EventController {
 		
 		System.out.println(result);
 		return ResponseEntity.ok().body(result);
-	}
-	
-	@GetMapping("/{page}/details/{eventNo}")
-	public Event eventinfo(@PathVariable(name="page") String type,
-			@PathVariable(name="eventNo") Long eventNo) {
-		System.out.println("이벤트 번호 : " +  eventNo);
-		return eventService.eventinfo(eventNo).get();
 	}
 }

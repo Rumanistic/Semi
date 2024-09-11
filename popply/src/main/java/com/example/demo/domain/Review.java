@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -38,8 +38,8 @@ public class Review {
 	private Long reviewNo;
 	
 	@NonNull
-	@Column(name="EVENT_ID")
-	private Long eventId;
+	@Column(name="EVENT_NO")
+	private Long eventNo;
 	
 	@NonNull
 	@Column(name="USER_ID")

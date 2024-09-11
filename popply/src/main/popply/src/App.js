@@ -11,7 +11,6 @@ import EventDetail from './pages/EventDetail';
 import Review from './pages/Review';
 
 function App() {
-
   return (
     <div className="App">
   		<Routes>

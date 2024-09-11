@@ -15,6 +15,7 @@ import com.example.demo.repository.EventRepository;
 
 @Service
 public class EventService {
+	
 	@Autowired
 	EventRepository eventRepository;
 	
@@ -32,11 +33,17 @@ public class EventService {
 		
 		return String.join(",", tags);
 	}
+	
+    // 모든 이벤트 가져오기
+    public List<Event> findAllEvents() {
+        return eventRepository.findAll();
+    }
 
-	public Optional<Event> eventinfo(Long eventNo) {
-		return eventRepository.findById(eventNo);
-	}
-
+    // 특정 이벤트 가져오기
+    public Optional<Event> findEventByNo(Long eventNo) {
+        return eventRepository.findByEventNo(eventNo);
+    }
+    
 	public void registerEvent(Event e) {
 		eventRepository.save(e);		
 	}
@@ -48,6 +55,4 @@ public class EventService {
 		
 		return new ArrayList<>(tagSet);
 	}
-
-	
 }
