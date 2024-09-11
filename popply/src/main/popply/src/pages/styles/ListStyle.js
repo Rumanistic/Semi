@@ -74,6 +74,15 @@ export const EventListSpan = styled.span`
 
 export const Col1 = styled.div`
 	min-width: 99%;
+	max-height: 400px;
+	min-height: 400px;
+`;
+
+export const EventListSpanImage = styled.img`
+	min-height: 80%;
+	width: auto;
+	background-size: cover;
+  background-position: center;
 `;
 
 export const EventCardSpan = styled.span`
@@ -83,7 +92,13 @@ export const EventCardSpan = styled.span`
 `;
 
 export const Col4 = styled.div`
-	min-width: 33%;
+	display: flex;
+  flex-direction: column;
+	max-width: 33%;
+`;
+
+export const EventCardSpanImage = styled.img`
+	min-width: 80%;
 `;
 
 export const ListContentContainer = styled.section`
@@ -94,7 +109,7 @@ export const ListContentTagsContainer = styled.aside`
 	display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-	max-width: 180px;
+	min-width: 180px;
 `;
 
 export const ListContentTag = styled.span`

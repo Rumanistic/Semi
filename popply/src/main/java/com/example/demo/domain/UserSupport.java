@@ -47,6 +47,9 @@ public class UserSupport {
 	@Column(name="TYPE")
 	private int type;
 	
+	@Column(name="IS_SECRET")
+	private int secret;
+	
 	@CreatedDate
 	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime createdDate;
