@@ -66,5 +66,15 @@ public class Users {
 	
 	@Column(name="DELETED_DATE")
 	private LocalDateTime deletedDate;
+
+	public Object getPassword() {
+		return null;
+		
+	}
+
+	public void setPassword(String encode) {
+
+		
+	}
 	
 }
