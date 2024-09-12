@@ -17,7 +17,7 @@ function UserSupportRegister() {
 	const titleRef =useRef(null);
 	
 	const [inquiryData, setInquiryData] = useState({
-		userId: 'user01',
+		userId: 'user02',
 		title: '',
 		type: 1,
 		inquiry: '',
@@ -37,10 +37,28 @@ function UserSupportRegister() {
 	})
 	
 	const dataChange = (e) => {
-		setInquiryData({
-			...inquiryData,
-			[e.target.name]: e.target.value
-		})
+		console.log(inquiryData);
+		if(e.target.value === 'on'){
+			if(inquiryData.secret === 1){
+				setInquiryData({
+					...inquiryData,
+					secret: 0
+				})
+				return;
+			}
+			
+			setInquiryData({
+					...inquiryData,
+					secret: 1
+			})
+		}
+			
+		if(e.target.name !== 'secret'){
+			setInquiryData({
+				...inquiryData,
+				[e.target.name]: e.target.value
+			})
+		}
 	}
 
 	const submitData = () => {
@@ -57,13 +75,13 @@ function UserSupportRegister() {
 			};
 		
 			// axios를 실행할 doSubmit(전송할 데이터)
+			console.log(submitData);
 			doSubmit(submitData);
 		})
 	}
 	
 	function doSubmit(submitData) {
 		
-		console.log(submitData);
 		axios
 			.post('/supports/usersupport/register', submitData, {
 				headers: {
@@ -102,7 +120,7 @@ function UserSupportRegister() {
 					<ContentHorizontalSpan style={{justifyContent: "flex-end"}}>
 						<RightFloatSpan>
 							<label style={{fontSize: '16px', width: '30%', alignContent: 'center'}}>비밀글 등록</label>
-							<input name="" type="checkbox" onChange={dataChange}/>
+							<input name="secret" type="checkbox" onChange={dataChange}/>
 						</RightFloatSpan>
 					</ContentHorizontalSpan>
 				</ContentVerticalSpan>
