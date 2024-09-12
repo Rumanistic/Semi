@@ -1,116 +1,86 @@
 package com.example.demo.controller;
 
+import java.net.URI;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
+
 
 import com.example.demo.domain.Users;
 import com.example.demo.service.UserService;
 
-import jakarta.servlet.http.HttpSession;
-
 @Controller
-@SessionAttributes({"UserLogin"})
+@RequestMapping("/user")
 public class UserController {
 
 	@Autowired
-	PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	HttpSession session;
-	
-	@Autowired 
 	UserService userService;
 	
-	@RequestMapping("/")
-	public String root() {
-		return "index";
-	}
-		
-	@GetMapping("/register")
-	public String register() {
-		return "users/register";
+	// 회원가입
+	@PostMapping("/signup")
+	public ResponseEntity<User> signup (@RequestBody Users user) {
+		Users newUser = userService.register(user);
+		return ResponseEntity.created(URI.create("/user/" + newUser.getUserId())).build();
 	}
 	
-		
-	@GetMapping("/userPage")
-	public String userPage() {
-		return "users/userPage";
-	}
-	
-	@GetMapping("/idConfirm")
-	@ResponseBody
-	public boolean idConfirm(@RequestParam("id") String id) {
-		return userService.idConfirm(id);
-	}
-
+	// 로그인
 	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
-	    Optional<Users> loginUser = userService.login(email, password);
-	    if (loginUser.isPresent()) {
-	        Users u = loginUser.get();
-	        if (passwordEncoder.matches(password, (String) u.getPassword())) {
-	            model.addAttribute("UserLogin", u);
-	        }
-	    }
-	   
-	    String url = (String) session.getAttribute("boardDetailUrl");
-	    if (url == null) {
-	        url = "/";
-	    }
-	    
-	    return "redirect:" + url;
+    public ResponseEntity<Log> login(@RequestBody Users user) {
+        Optional<Users> loggedInUser = userService.login(user.getId(), user.getEmail(), user.getPassword());
 
-	}
-	
-	@PostMapping("/userInsert")
-	public String UserInsert(Users user) {
-		String enteredPass = passwordEncoder.encode((CharSequence) user.getPassword());
-		user.setPassword(enteredPass);
-//		userService.userInsert(user);
-		return "redirect:/";
-	}
-	
-	@GetMapping("/logout")
-	public String logout(SessionStatus status) {
-		if(!status.isComplete())
-			status.setComplete();
-		return "redirect:/";
-	}
+        if (loggedInUser.isPresent()) {
+            return ResponseEntity.ok(loggedInUser.get()); 
+        } else {
+            return ResponseEntity.status(401).body("아이디/이메일 또는 비밀번호가 일치하지 않습니다"); 
+        }
+    }
 
-	 @GetMapping("/profile")
-	 public String showProfile(Model model, @RequestParam String email) {
-	     Optional<Users> user = userService.findByEmail(email);
-	     model.addAttribute("user", user.get());
-	     return "profile";
-	 }
-	
-	 @PostMapping("/profile")
-	 public String updateProfile(@ModelAttribute Users user, Model model) {
-//	     userService.updateUser(user);
-	     return "main";
-	 }
-	
-	 @GetMapping("/delete")
-	 public String deleteAccount() {
-	     return "delete_account";
-	 }
-	
-	 @PostMapping("/delete")
-	 public String deleteAccount(@RequestParam String userId) {
-	     userService.deleteById(userId);
-	     return "redirect:/user/logout";
-	 }
-	 
+	// 회원정보수정
+    @PutMapping("/resetPassword")
+    public ResponseEntity<User> resetPasswrod(@RequestParam String email, @RequestParam String newPassword) {
+    	Optional<User> updatedUser = userService.resetPassword(email, newPassword);
+    	
+    	if(updatedUser.isPresent()) {
+    		return ResponseEntity.ok(updatedUser.get());
+    	} else {
+    		return ResponseEntity.notFound().build();
+    	}
+    } 
+    
+	// 회원탈퇴
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable(name = "id") Long id) {
+    	userService.deleterUser(id);
+    	return ResponseEntity.noContent().build();
+    }
 }
+	
+	
+	
+/*
+ * @GetMapping("/{id}") public ResponseEntity<Users>
+ * getUserById(@PathVariable(name = "id") Long id) { Optional<Users> user =
+ * userService.findById(id); if(user.isPresent()) { return
+ * ResponseEntity.ok(user.get()); } else { return
+ * ResponseEntity.notFound().build(); }
+ * 
+ * }
+ * 
+ * @GetMapping public ResponseEntity<Users> getUserByEmail(@PathVariable(name =
+ * "email") String email) { Optional<Users> user =
+ * userService.findByEmail(email); if(user.isPresent()) { return
+ * ResponseEntity.ok(user.get()); } else { return
+ * ResponseEntity.notFound().build(); } }
+ */
+	

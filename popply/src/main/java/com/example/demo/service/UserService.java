@@ -4,6 +4,7 @@ package com.example.demo.service;
 import com.example.demo.domain.Users;
 import com.example.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,43 +24,38 @@ import java.util.Optional;
 	     return userRepository.save(user);
 	 }
 	
-	 public Optional<Users> login(String email, String password) {
-	     Optional<Users> userOpt = userRepository.findByEmail(email);
-	     if (userOpt.isPresent()) {
-	    	 Users user = userOpt.get();
-	    	 if (passwordEncoder.matches(password, (String) user.getPassword())) {
-	    		 return Optional.of(user);
-	    	 }
-	     }
-	     return Optional.empty();
+	 public Optional<Users> login(Long id, String email, String password) {
+	     Optional<Users> userLog = userRepository.findByIdOrEmailAndPassword(id, email, email);
+	     
+	 public User registerUser(User user) {
+		 return userRepository.save(user);
 	 }
-	 
-	 public boolean idConfirm(String id) {
-		 return userRepository.findById(id).isPresent();
-	 }
-	
-	 public Optional<Users> findByEmail(String email) {
-		 return userRepository.findByEmail(email);
-	 }
-	 
-	 public Users editUser(Users user) {
-	     return userRepository.save(user);
-	 }
-	
-	 public void deleteById(String userPWD) {
-	     userRepository.deleteById(userPWD);;
- 	}
 
-//	public void userInsert(Users user) {
-//		
-//	}
-//
-//	public void deleteUser(String userId) {
-//		
-//	}
-//	public void updateUser(Users user) {
-//	
-//	}
+	public Optional<User> resetPassword(String email, String newPassword) {
+		Optional<User> user = userRepository.findByEmail(email);
+		if(user.isPresent()) {
+			User foundUser = user.get();
+			foundUser.setPassword(newPassword);
+			return Optional.of(userRepository.save(foundUser));
+		} else {
+			return Optional.empty();
+		}
+	}
+	
+	public void deleteUser(Long id) {
+		userRepository.deleteByPassword()
+	}
+
+	
+	/* public Optional<Users> findById(Long id) { return
+	 * userRepository.findById(id); }
+	 * 
+	 * public Optional<Users> findByPassword(String password) { return
+	 * userRepository.findByPassword(password); }
+	 */	
+	
+	
+	
 
 }
 
