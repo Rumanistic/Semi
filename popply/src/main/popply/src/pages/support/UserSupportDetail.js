@@ -5,6 +5,8 @@ import { ContentContainer, ContentHorizontalBar } from "../styles/UserSupportSty
 function UserSupportDetail() {
 	const [width, setWidth] = useState(window.innerWidth);
 	
+	console.log('reached here successfully!')
+	
 	useEffect(() => {
 		const getNowWidth = () => {
 			setWidth(window.innerWidth)

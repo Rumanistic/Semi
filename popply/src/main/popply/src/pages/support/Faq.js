@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import * as FaqStyle from '../styles/FaqStyle';
 import { useNavigate } from 'react-router-dom';
 
-const userPermissions = ["admin", "user"];
+const userPermissions = ["user"];
 const userData = {userId: 'admin2', permissions: userPermissions}
 const isAdmin = userData.permissions.includes("admin");
 const userId = userData.userId;
@@ -41,7 +41,7 @@ function Faq() {
 
   return (
     <div>
-    	<h1 align='center'>❓ F A Q ❗
+    	<h1 align='center' style={{fontSize: "32px"}}>❓ F A Q ❗
 			{
 				isAdmin &&
 				(<FaqStyle.RightFloatSpan>
@@ -82,8 +82,11 @@ function Faq() {
 		return ( 
 			<span>
 			{faqList.map((faq, i) => (
-					<details className="details-accordion" key={i}>
-						<summary>{faq.question}</summary>
+					<FaqStyle.FaqDetails key={i}>
+						<summary style={{
+							fontSize: "24px",
+							
+						}}>{faq.question}</summary>
 						<p>
 							{faq.answer} &emsp; 
 							{
@@ -97,7 +100,7 @@ function Faq() {
 								<button onClick={() => (DeleteFaq(faq.faqNo))}>삭제</button></FaqStyle.RightFloatSpan>)
 							}
 						</p>
-					</details>
+					</FaqStyle.FaqDetails>
 			))}
 			</span>
 		)
