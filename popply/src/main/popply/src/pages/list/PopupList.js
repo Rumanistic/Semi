@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import StarPoint from "../component/StarPoint";
-import { Col1, Col4, EventCardSpan, EventListSpan, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
+import { Col1, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 
 function PopupList() {
@@ -51,6 +51,11 @@ function PopupList() {
 		<span>
 			<ListHeaderContainer>
 				<ListHeaderContainerHead1>Pop-up List</ListHeaderContainerHead1>
+				<div style={{marginRight: '5px'}}>
+					<RightFloatSpan>
+						<button>등록</button>
+					</RightFloatSpan>
+				</div>
 				<ViewChangeSpanContainer onClick={viewToggleHandler} islistview={view}>
 					<ViewChangeSpan islistview={view}/>
 					<ViewChangeSpanHamburger islistview={view}/>
@@ -61,13 +66,6 @@ function PopupList() {
 				<ShowTag tags={tags} setList={setList} />
 				<ShowList list={list} view={view} />
 			</ListContentContainer>
-			<div style={{marginTop: '5px'}}>
-				<RightFloatSpan>
-					<button>수정</button>
-					<button>삭제</button>
-					<button>등록</button>
-				</RightFloatSpan>
-			</div>
 		</span>
   );
 }
@@ -143,10 +141,14 @@ function ShowList({list, view}){
 				<EventListSpan>
 					{eList.map((e, i) => {
 						return(
-							<Col1 onClick={() => {navigate(`/event/popup/details/${e.eventNo}`)}} key={e.eventNo}>
-								<span>{e.eventNo}</span>&emsp;
-								<span><img src={`/img/${(e.images.split(','))[0]}.jpg`} alt="" style={{width: '10%'}}/></span>
-								<span>{e.title}</span>&emsp;
+							<Col1 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
+								<span>{e.company}</span>&emsp;
+								<span><EventListSpanImage src={`/img/${
+										e.images !== null && e.images !== '' ? 
+											(e.images.split(','))[0] :
+											'FullStar'
+									}.jpg`} alt="" style={{width: '10%'}}/></span>
+								<span>{e.content}</span>&emsp;
 								<span>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
 								  : StarPoint(0.0)}</span>
@@ -159,11 +161,16 @@ function ShowList({list, view}){
 			return (
 				<EventCardSpan>
 					{eList.map((e, i) => {
+						let no = e.eventNo;
 						return(
-							<Col4 onClick={() => {navigate(`/event/popup/details/${e.eventNo}`)}} key={e.eventNo}>
-								<span>{e.eventNo}</span>&emsp;
-								<span><img src={`/img/${(e.images.split(','))[0]}.jpg`} alt="" style={{width: 'auto', maxWidth: '33%'}}/></span>
-								<span>{e.title}</span>&emsp;
+							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
+								<span>{e.company}</span>&emsp;
+								<span><EventCardSpanImage src={`/img/${
+										e.images !== null && e.images !== '' ? 
+											(e.images.split(','))[0] :
+											'FullStar'
+									}.jpg`} alt="" style={{width: '10%'}}/></span>
+								<span>{e.content}</span>&emsp;
 								<span>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
 								  : StarPoint(0.0)}</span>

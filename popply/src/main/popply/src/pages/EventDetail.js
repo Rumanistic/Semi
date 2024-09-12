@@ -1,95 +1,65 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import './EventDetail.css';
+import Review from './Review';
 
 function EventDetail() {
-    const { page } = useParams();
-    const navigate = useNavigate(); 
+  const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
 
-    const [events, setEvents] = useState([]);
-    const [eventNo, setEventNo] = useState(1);
 
-    const pageHandler = () => setEventNo(page);
+  const [event, setEvent] = useState(null);
 
-    useEffect(() => {
-        pageHandler();
-        axios.get(`/event/detail/${eventNo}`)
-            .then(result => {
-                console.log(result.data);
-                setEvents(result.data);
-            })
-            .catch(() => {
-                console.log('실패');
-            });
-    }, []); 
 
-    const ReservationClick = () => {
-        navigate(`/reservation/${eventNo}`);
-    };
+  
+  	// 페이지 리스트 렌더링
+	useEffect(() => {
+		console.log(no)
+		axios.get(`/detail/${no}`)
+				 .then(result => setEvent(result.data));
+	}, [no])
 
-    const ReviewClick = () => {
-        navigate(`/review`);
-    }
 
-    return (
-        <>
-            <h1>상세 페이지</h1>
-            <img src={`${process.env.PUBLIC_URL}/img/img1.jpg`} className="img-style" alt="Event 1" />
-            <img src={`${process.env.PUBLIC_URL}/img/img2.jpg`} className="img-style" alt="Event 2" />
+  return (
+    <div>
+      {event ? (
+        <div className="event-container">
+          <h1>{event.title}</h1>
+          <div className="event-detail-item">
+            <h3>운영 날짜</h3>
+            <p>{event.startDate} - {event.endDate}</p>
+          </div>
 
-            <div className='summary'>
-                <h1 className="tit">{events.title}</h1>
-                <h3>📅운영 날짜📅</h3>
-                <h4 className='date'>{events.startDate} - {events.endDate}</h4>
-                <p className='location'>{events.location}</p>
-            </div>
+          <div className="event-detail-item">
+            <h3>운영 시간</h3>
+            <p>{event.openTime} ~ {event.closeTime}</p>
+          </div>
 
-            <hr />
+          <div className="event-detail-item">
+            <h3>상세 정보</h3>
+            <p>{event.content}</p>
+          </div>
 
-            <div className='time'>
-                <h3>운영시간</h3>
-                <h4>{events.openTime} ~ {events.closeTime}</h4>
-            </div>
+          <div className="event-detail-item">
+            <h3>위치</h3>
+            <p>{event.location}</p>
+          </div>
 
-            <hr />
+          <div className="event-detail-item">
+            <h3>안내 및 주의사항</h3>
+            <p>{event.caution}</p>
+          </div>
 
-            <div className='reservation'>
-                <button onClick={ReservationClick}>예약하기</button> &emsp;&emsp;
-                <button onClick={ReviewClick}>리뷰</button> {/* 수정된 부분 */}
-            </div>
 
-            <hr />
 
-            <div className='introduction'>
-                <h3>상세정보</h3>
-                <p>{events.content}</p>
-            </div>
+          <Review eventNo={event.eventNo} eventTitle={event.title}/>
+        </div>
+      ) : (
+        <p>이벤트 정보를 찾을 수 없습니다.</p>
+      )}
 
-            <hr />
-
-            <div className='announce'>
-                <h3>안내 및 주의사항</h3>
-                <p>{events.caution}</p>
-            </div>
-            <hr />
-
-            <div className='sns'>
-                <button
-                    className="button-link"
-                    onClick={() => {
-                        if (events.sns) {
-                            window.open(events.sns, '_blank');
-                        } else {
-                            console.log("SNS 링크가 없습니다.");
-                            alert("SNS가 존재하지 않습니다");
-                        }
-                    }}
-                >
-                    SNS로 이동하기
-                </button>
-            </div>
-        </>
-    );
+    </div>
+  );
 }
 
 export default EventDetail;

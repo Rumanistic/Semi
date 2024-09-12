@@ -14,19 +14,31 @@ public class ReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
 
-    // 리뷰 저장
+    // 특정 이벤트의 리뷰 목록 조회
+	public List<Review> getReviewsByEventNo(Long eventNo) {
+		return reviewRepository.findByEventNo(eventNo);
+	}
+
+    // 리뷰 저장 (생성)
     public Review saveReview(Review review) {
         return reviewRepository.save(review);
     }
 
-    // 모든 리뷰 조회
-    public List<Review> getAllReviews() {
-        return reviewRepository.findAll();
-    }
-
     // 리뷰 삭제
     public void deleteReview(Long id) {
-        // 존재하지 않는 리뷰를 삭제하려고 할 경우 예외를 처리할 수도 있습니다.
+        if (!reviewRepository.existsById(id)) {
+            throw new IllegalArgumentException("해당 ID의 리뷰를 찾을 수 없습니다.");
+        }
         reviewRepository.deleteById(id);
+    }
+
+    // 리뷰 수정
+    public Review updateReview(Long id, Review updatedReview) {
+        Review existingReview = reviewRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("해당 ID의 리뷰를 찾을 수 없습니다."));
+        
+        existingReview.setContent(updatedReview.getContent());
+        existingReview.setRating(updatedReview.getRating());
+        return reviewRepository.save(existingReview);
     }
 }
