@@ -5,6 +5,35 @@ export const RightFloatSpan = styled.span`
 	float: right;
 `;
 
+export const FaqDetails = styled.details`
+	text-align: left;
+  padding-left: 300px;
+  
+  summary::-webkit-details-marker { /* Safari 브라우저용 사용자 정의 스타일 */
+    display: none;
+	}
+	
+	summary {
+	    list-style-type: none; /* 그 외의 브라우저용 사용자 정의 스타일 */
+	}
+	
+	summary {
+		cursor: pointer;
+	}
+	
+	summary::before {
+		content: "❓";
+	}
+	
+	p::before {
+		content: "❗";
+	}
+	
+	details[open] {
+		transition: 0.5s;
+	}
+`;
+
 /* 모달 배경 */
 export const ModalBackgroundArea = styled.div`
 	position: fixed;

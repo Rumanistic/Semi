@@ -67,6 +67,14 @@ const Signup = () => {
           value={userData.email}
           onChange={handleChange}
         />
+        <Label> 아이디 </Label>
+        <Input
+          type="userId"
+          name="userId"
+          placeholder="userId"
+          value={userData.userId}
+          onChange={handleChange}
+        />
         <Label> 비밀번호 </Label>
         <Input
           type="password"

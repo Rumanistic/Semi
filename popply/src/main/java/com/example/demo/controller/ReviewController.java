@@ -27,9 +27,9 @@ public class ReviewController {
     }
 
     // 리뷰 삭제
-    @DeleteMapping("/delete/{id}")
-    public String deleteReview(@PathVariable(name="id") Long id) {
-        reviewService.deleteReview(id);
+    @DeleteMapping("/delete/{reviewNo}")
+    public String deleteReview(@PathVariable(name="reviewNo") Long reviewNo) {
+        reviewService.deleteReview(reviewNo);
         return "리뷰가 성공적으로 삭제되었습니다.";
     }
 

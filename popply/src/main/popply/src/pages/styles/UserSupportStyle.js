@@ -23,7 +23,46 @@ export const ContentHorizontalSpan = styled.span`
 	flex-direction: row;
 	justify-content: flex-start;
 	width: 90%;
-	padding: 10px;
+	padding: 4px;
+	align-items: center;
+	cursor: ${({redirect})=> redirect === 'y' ? 'pointer' : 'default'};
+	
+	
+	.no {
+		width: 3%;
+		min-height: 35px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.type {
+		width: 11%;
+		text-align: left;
+		padding-left: 20px;
+		min-height: 35px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.secret {
+		width: 3%;
+		min-height: 35px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.userId {
+		width: 12%;
+		min-height: 35px;
+		display: flex;
+		align-items: center;
+	}
+	
+	.title {
+		flex-grow: 1;
+		display: flex;
+		align-items: center;
+	}
 `;
 
 export const ContentVerticalSpan = styled.span`

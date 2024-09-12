@@ -9,21 +9,25 @@ import DeleteAccount from './pages/DeleteAccount'
 import { Route, Routes } from 'react-router-dom';
 import EventDetail from './pages/EventDetail';
 import Review from './pages/Review';
+import Test from './pages/Test';
+import UserSupportDetail from './pages/support/UserSupportDetail';
 
 function App() {
   return (
     <div className="App">
   		<Routes>
-  		    <Route path='/' element={<Main />}/>
-			<Route path='/:page' element={<List />}/>
-			<Route path="/login" element={<Login />} />
-			<Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/delete-account" element={<DeleteAccount />} />
-			<Route path='/event/:no' element={<EventDetail />} />
-			<Route path="/register" element={<PostRegister />} /> {/* 게시물 등록 페이지 */}
-			<Route path='/review' element={<Review />}/>
+  			<Route path='/' element={<Main />}/>
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/delete-account" element={<DeleteAccount />} />
+				<Route path='/:page' element={<List />}/>
+			  <Route path="/register" element={<PostRegister />} />
+				<Route path='/event/:no' element={<EventDetail />} />
+				<Route path='/review' element={<Review />}/>
   			<Route path='/supports/*' element={<Support />} />
+  			<Route path='/supports/*/:no' element={<UserSupportDetail />} />
+  			<Route path='/test' element={<Test />}/>
 	  	</Routes>
     </div>
   );
