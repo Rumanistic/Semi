@@ -50,6 +50,15 @@ public class Event {
 	@NonNull
 	@Column(name="CONTENT")
 	private String content;
+	
+	@Column(name="ADDRESS")
+	private String address;
+	
+	@Column(name="LAT")
+	private double lat;
+	
+	@Column(name="LON")
+	private double lon;
 
 	@NonNull
 	@Column(name="START_DATE")
@@ -95,4 +104,5 @@ public class Event {
 	
 	@Column(name="DELETED_DATE")
 	private LocalDateTime deletedDate;
+	
 }

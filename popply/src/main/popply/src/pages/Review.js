@@ -61,19 +61,27 @@ console.log(reviews);
       });
   };
 
-  // 리뷰 삭제 처리
-  const handleReviewDelete = (reviewId) => {
-    if (window.confirm('이 리뷰를 삭제하시겠습니까?')) {
-      axios.delete(`/review/delete/${reviewId}`)
-        .then(() => {
-          setReviews(reviews.filter(review => review.id !== reviewId));  // 리뷰 삭제 후 목록 갱신
-        })
-        .catch(error => {
-          console.error('리뷰 삭제 중 오류가 발생했습니다.', error);
-          alert('리뷰 삭제 중 오류가 발생했습니다.');
-        });
-    }
-  };
+ // 리뷰 목록에서 특정 리뷰를 삭제하는 함수
+ const handleReviewDelete = (reviewNo) => {
+  if (window.confirm('이 리뷰를 삭제하시겠습니까?')) {
+    axios.delete(`/review/delete/${reviewNo}`)
+      .then(() => {
+        // 리뷰 삭제 후 서버에서 최신 리뷰 데이터를 다시 불러옴
+        axios.get(`/review/${eventNo}`)
+          .then(response => {
+            setReviews(response.data);  // 서버에서 최신 리뷰 데이터로 상태 갱신
+          })
+          .catch(error => {
+            console.error('리뷰 목록을 가져오는 중 오류가 발생했습니다.', error);
+          });
+      })
+      .catch((error) => {
+        console.error('리뷰 삭제 중 오류가 발생했습니다.', error);
+        alert('리뷰 삭제 중 오류가 발생했습니다.');
+      });
+  }
+};
+
 
   // 리뷰 수정 버튼 클릭 처리
   const handleEditClick = (review) => {
@@ -182,7 +190,7 @@ console.log(reviews);
                   <p className="review-rating">{renderStars(review.rating)}</p>
                   <p className="review-content">{review.content}</p>
                   <button onClick={() => handleEditClick(review)}>수정</button>
-                  <button onClick={() => handleReviewDelete(review.id)}>삭제</button>
+                  <button onClick={() => handleReviewDelete(review.reviewNo)}>삭제</button>
                 </>
               )}
             </li>
