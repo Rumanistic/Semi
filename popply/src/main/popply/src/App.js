@@ -14,6 +14,7 @@ function App() {
   		<Route path='/' element={<Main />}/>
 			<Route path='/:page' element={<List />}/>
 			<Route path='/event/:no' element={<EventDetail />} />
+			<Route path="/register" element={<PostRegister />} /> {/* 게시물 등록 페이지 */}
 			<Route path='/review' element={<Review />}/>
   			<Route path='/supports/*' element={<Support />} />
 	  	</Routes>
