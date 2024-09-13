@@ -1,7 +1,6 @@
 import React, { useState }from 'react';
-import './Footer.css';
 
-const Footer = () => {
+const PostRegister = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [author, setAuthor] = useState('');
@@ -93,4 +92,4 @@ const Footer = () => {
     );
 };
 
-export default Footer;
+export default PostRegister;

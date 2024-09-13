@@ -8,9 +8,9 @@ const Main = () => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const images = [
-    `${process.env.PUBLIC_URL}/img/main_img1.jpg`,
-    `${process.env.PUBLIC_URL}/img/main_img2.jpg`,
-    `${process.env.PUBLIC_URL}/img/main_img3.jpg`, // 추가할 이미지 경로
+    `/img/main-img.jpg`,
+    `/img/main-img2.jpg`,
+    `/img/main-img3.jpg`, // 추가할 이미지 경로
   ];
 
   const nextImage = () => {
@@ -63,7 +63,7 @@ const Main = () => {
       {/* 첫번째 큰 리스트 */}
       <div className="container">
         <div className="list_item">  {/* 리스트1 제목 */}
-          <img src="/img/main_list1_img.jpg" alt="list_img" className = "list_img" /> 
+          <img src="/img/list1-img.jpg" alt="list_img" className = "list_img" /> 
 
           <div className="text_content">
             <h5 className="list_subtitle"> <b>이토록 다채로운 블랙, 누아르 마르디 메크르디</b> </h5>
@@ -78,7 +78,7 @@ const Main = () => {
         </div>
 
         <div className="list_item">  {/* 리스트2 제목 */}
-          <img src="/img/main_list2_img.jpg" alt="list_img" className = "list_img" /> 
+          <img src="/img/list2-img.jpg" alt="list_img" className = "list_img" /> 
 
           <div className="text_content">
             <h5 className="list_subtitle"> <b>파친코2, 두 배로 몰입하는 방법</b> </h5>
@@ -93,7 +93,7 @@ const Main = () => {
         </div>
 
         <div className="list_item">  {/* 리스트3 제목 */}
-          <img src="/img/main_list3_img.jpg" alt="list_img" className = "list_img" /> 
+          <img src="/img/list3-img.jpg" alt="list_img" className = "list_img" /> 
 
           <div className="text_content">
             <h5 className="list_subtitle"> <b>키아프 서울 2024에 주목할 시간</b> </h5>
