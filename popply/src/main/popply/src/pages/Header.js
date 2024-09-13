@@ -14,8 +14,6 @@ function Header() {
     		<ul>
     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/popup')}}>Pop-up</HeaderStyle.NavMenuContent>
     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/share')}}>Share</HeaderStyle.NavMenuContent>
-    			<HeaderStyle.NavMenuContent onClick={() => { navigate('/supports')}}>Support</HeaderStyle.NavMenuContent>
-				<HeaderStyle.NavMenuContent onClick={() => { navigate('/event/1')}}>EventDetail</HeaderStyle.NavMenuContent>
     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/supports/faq')}}>Support</HeaderStyle.NavMenuContent>
     		</ul>
     	</HeaderStyle.HeaderNavMenuContainer>
