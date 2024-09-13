@@ -11,12 +11,14 @@ import EventDetail from './pages/EventDetail';
 import Review from './pages/Review';
 import Test from './pages/Test';
 import UserSupportDetail from './pages/support/UserSupportDetail';
+import PostRegister from './pages/PostRegister';
 
 function App() {
   return (
     <div className="App">
   		<Routes>
   			<Route path='/' element={<Main />}/>
+  			<Route path="/PostRegister" element={<PostRegister />} /> {/* 게시물 등록 페이지 */}
 				<Route path="/login" element={<Login />} />
 				<Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />

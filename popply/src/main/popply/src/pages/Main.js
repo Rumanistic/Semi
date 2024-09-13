@@ -3,7 +3,6 @@ import './Main.css';
 import { Link } from 'react-router-dom';
 import PostRegister from './PostRegister'; // 경로를 확인하세요
 
-
 const Main = () => {
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -110,7 +109,7 @@ const Main = () => {
 
 {/* 게시물 등록 버튼  */}
         <div>
-          <Link to="/register">
+          <Link to="/PostRegister">
             <button>게시물 등록</button>
           </Link>
         </div>
