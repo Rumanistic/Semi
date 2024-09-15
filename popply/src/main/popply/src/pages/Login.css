@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/earlyaccess/jejugothic.css');
+
+body {
+  font-family: 'Jeju Gothic', sans-serif;
+  background-color: #fdfdfd;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-container {
+  width: 400px;
+  padding: 40px;
+  background-color: #fffaf0;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center; /* 중앙 정렬 */
+}
+
+.login-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+.login-container h2 {
+  font-size: 2.4rem;
+  color: #333; /* 더 깔끔한 색상 */
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.login-container input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 1.2rem;
+}
+
+.login-container .error-message {
+  color: red;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* 버튼 그룹을 위한 레이아웃 */
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 50px; /* 버튼 간 간격 */
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 0; /* 기존 padding 제거 */
+  margin-top: 20px;
+  background-color: #e67e22; /* 버튼 색상 */
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  width: 100%;
+  height: 50px; /* 고정된 높이 */
+  display: flex;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: center; /* 수평 중앙 정렬 */
+  font-size: 1.1rem; /* 글씨 크기 */
+  font-weight: bold; /* 글씨 굵기 */
+}
+
+.btn:hover {
+  background-color: #d35400;
+}
+
+.btn:active {
+  background-color: #c0392b;
+}
+
+.signup-btn {
+  background-color: #2ecc71;
+}
+
+.signup-btn:hover {
+  background-color: #27ae60;
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 20px;
+  }
+
+  .login-container h2 {
+    font-size: 2rem;
+  }
+
+  .login-container input {
+    font-size: 1rem;
+  }
+}

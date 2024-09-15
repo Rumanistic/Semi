@@ -43,20 +43,16 @@ public class Users {
 	@Column(name="IS_RECEPTIONED")
 	private Boolean receptioned;
 	
-//	현재 사용하지 않음
-//	@NonNull
-//	@Column(name="IS_SNS_LOGIN")
-//	private Boolean snsLogin;
 	
 	@Column(name="TYPE")
 	private int type;
 	
-	@NonNull
+	private String address;
+	
 	@CreatedDate
 	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime createdDate;
 	
-	@NonNull
 	@LastModifiedDate
 	@Column(name="MODIFIED_DATE", columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime modifiedDate;
@@ -68,14 +64,5 @@ public class Users {
 	private LocalDateTime deletedDate;
 
 	
-	public Object getPassword() {
-		return null;
-		
-	}
-
-	public void setPassword(String encode) {
-
-		
-	}
 	
 }

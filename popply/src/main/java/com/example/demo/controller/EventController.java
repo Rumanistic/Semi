@@ -52,6 +52,13 @@ public class EventController {
 	}
 	
 	@PostMapping("/register/test")
+	public ResponseEntity<Void> registerTestEvent(@RequestBody Event e){
+		eventService.registerEvent(e);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping("/register")
 	public ResponseEntity<Void> registerEvent(@RequestBody Event e){
 		eventService.registerEvent(e);
 		

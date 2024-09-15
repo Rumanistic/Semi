@@ -1,65 +1,25 @@
 package com.example.demo.service;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Users;
 import com.example.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+@Service
+public class UserService {
 
-	@Service
-	public class UserService {
-	
-	 @Autowired
-	 private UserRepository userRepository;
-	
-	 @Autowired
-	 private PasswordEncoder passwordEncoder;
-	
-	 public Users register(Users user) {
-	     user.setPassword(passwordEncoder.encode((CharSequence) user.getPassword()));
-	     return userRepository.save(user);
-	 }
-	
-	 public Optional<Users> login(Long id, String email, String password) {
-	     Optional<Users> userLog = userRepository.findByIdOrEmailAndPassword(id, email, email);
-	     
-	 public User registerUser(User user) {
-		 return userRepository.save(user);
-	 }
+    @Autowired
+    UserRepository userRepository;
 
-	public Optional<User> resetPassword(String email, String newPassword) {
-		Optional<User> user = userRepository.findByEmail(email);
-		if(user.isPresent()) {
-			User foundUser = user.get();
-			foundUser.setPassword(newPassword);
-			return Optional.of(userRepository.save(foundUser));
-		} else {
-			return Optional.empty();
-		}
-	}
-	
-	public void deleteUser(Long id) {
-		userRepository.deleteByPassword()
-	}
+    //아이디 중복체크
+    public Optional<Users> findByUserId(String userId) {
+        return userRepository.findById(userId);
+    }
 
-	
-	/* public Optional<Users> findById(Long id) { return
-	 * userRepository.findById(id); }
-	 * 
-	 * public Optional<Users> findByPassword(String password) { return
-	 * userRepository.findByPassword(password); }
-	 */	
-	
-	
-	
-
+    public Users saveUser(Users user) {
+        return userRepository.save(user); // 회원 정보 저장
+    }
 }
-
-
-
-
-

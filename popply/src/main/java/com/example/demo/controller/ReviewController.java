@@ -34,8 +34,8 @@ public class ReviewController {
     }
 
     // 리뷰 수정
-    @PutMapping("/update/{id}")
-    public Review updateReview(@PathVariable(name="id") Long id, @RequestBody Review review) {
-        return reviewService.updateReview(id, review);
+    @PutMapping("/update/{reviewNo}")
+    public Review updateReview(@PathVariable(name="reviewNo") Long reviewNo, @RequestBody Review review) {
+        return reviewService.updateReview(reviewNo, review);
     }
 }

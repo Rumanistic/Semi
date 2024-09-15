@@ -2,193 +2,128 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import './Signup.css'; // 별도의 CSS 파일 임포트
 
 const Signup = () => {
   const [userData, setUserData] = useState({
     email: '',
-    password: '',
+    userId: '',
+    userPwd: '',
     name: '',
     phone: '',
     address: '',
   });
+  const [isUserIdAvailable, setIsUserIdAvailable] = useState(true); // 아이디 중복 여부 상태 추가
+  const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [verificationCode, setVerificationCode] = useState('');
-  const [isCodeSent, setIsCodeSent] = useState(false);
-  const [isCodeVerified, setIsCodeVerified] = useState(false);
-  
 
   const handleChange = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
 
-  const sendVerificationCode = () => {
-	  axios.post('api/send-verification-code', { phone: userData.phone })
-	  .then(() => setIsCodeSent(true))
-	  .catch(err => console.error(err));
+  const checkUserId = () => {
+    if (!userData.userId) return;
+
+    // 아이디 중복 체크
+    axios.post(`/api/check-username/${userData.userId}`)
+      .then(response => {
+        console.log(response)
+        if (response.data) {
+          setIsUserIdAvailable(true); // 아이디 사용 가능
+          setErrorMessage('');
+        } else {
+          setIsUserIdAvailable(false); // 아이디 중복
+          setErrorMessage('이미 사용 중인 아이디입니다.');
+        }
+      })
+      .catch(err => {
+        console.error('아이디 중복 체크 중 오류 발생:', err);
+        setErrorMessage('아이디 중복 체크에 실패했습니다.');
+      });
   };
-  
-  const verifyCode = () => {
-	  axios.post('/api/verify-code', { phone: userData.phone, code: verificationCode })
-	  .then(() => setIsCodeVerified(true))
-	  .catch(err => console.error(err));
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!isCodeVerified) {
-		alert('휴대폰번호를 인증해주세요');
-		return;
-	}
-	
-	axios.post('/api/signup', userData)
-	.then(response => {
-		console.log(response.data);
-		navigate('/');
-	})
-	.catch(err => console.error(err));
+
+    if (!isUserIdAvailable) {
+      alert('아이디를 다시 확인해 주세요.');
+      return;
+    }
+
+    axios.post('/api/signup', userData)
+      .then(() => {
+        // 서버에서 받은 응답 처리
+        alert('회원가입이 완료되었습니다');
+       navigate('/login');
+      })
+      .catch(err => {
+        console.error('서버 요청 중 오류가 발생했습니다.', err);
+        alert('서버 오류가 발생했습니다. 다시 시도해 주세요.');
+      });
   };
 
-
-
-
   return (
-    <SignupContainer>
-      <TitleContainer>
-      <h2>회원가입</h2>
-      </TitleContainer>
-      <Form onSubmit={handleSubmit}>
-        <Label> 이메일 </Label>
-        <Input
+    <div className="signup-container">
+      <div className="title-container">
+        <h2>회원가입</h2>
+      </div>
+      <form className="form" onSubmit={handleSubmit}>
+        <label> 이메일 </label>
+        <input
           type="email"
           name="email"
           placeholder="Email"
           value={userData.email}
           onChange={handleChange}
         />
-        <Label> 아이디 </Label>
-        <Input
-          type="userId"
+        <label> 아이디 </label>
+        <input
+          type="text"
           name="userId"
           placeholder="userId"
           value={userData.userId}
           onChange={handleChange}
+          onBlur={checkUserId} // 아이디 입력 필드에서 포커스가 사라질 때 중복 체크
         />
-        <Label> 비밀번호 </Label>
-        <Input
+        {!isUserIdAvailable && <p style={{ color: 'red' }}>{errorMessage}</p>} {/* 아이디 중복 메시지 */}
+
+        <label> 비밀번호 </label>
+        <input
           type="password"
-          name="password"
+          name="userPwd"
           placeholder="Password"
           value={userData.password}
           onChange={handleChange}
         />
-        <Label> 이름 </Label>
-        <Input
+        <label> 이름 </label>
+        <input
           type="text"
           name="name"
           placeholder="Name"
           value={userData.name}
           onChange={handleChange}
         />
-        
-        //휴대폰번호 부분 다시 수정해야 함
-        
-        <Label> 휴대폰번호 </Label>   
-        <Input
+        <label> 휴대폰번호 </label>
+        <input
           type="text"
           name="phone"
           placeholder="Phone"
           value={userData.phone}
           onChange={handleChange}
         />
-        <Button type="button" onClick={sendVerificationCode}> 인증번호 전송 </Button>
-        {isCodeSent && (
-			<Form>
-			<Label> 인증번호 </Label>
-			<Input
-			type="text"
-			value={verificationCode}
-			onChange={(e) => setVerificationCode(e.target.value)}
-			/>
-			<Button type="button" onClick={verifyCode}> 인증번호 </Button>
-			</Form>
-		)}
-        <Label> 주소 </Label>
-        <Input
+        <label> 주소 </label>
+        <input
           type="text"
           name="address"
           placeholder="주소 (선택 사항)"
           value={userData.address}
           onChange={handleChange}
         />
-        <Button type="submit" disabled={!isCodeVerified}>회원가입</Button>
-      </Form>
-    </SignupContainer>
+        <button type="submit">회원가입</button>
+      </form>
+    </div>
   );
 };
 
-const SignupContainer = styled.div`
-  margin-top: 100px;
-  margin-left: 680px;
-  width: 370px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: left;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  margin-top: 10px;
-  font-size: 14px;
-  padding: 3px;
-  text-align: left;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 90%;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  margin-left: 55px;
-  background-color: #5cb85c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 70%;
-  
- 
-  
-`;
-
-
-
-
-
-
-
 export default Signup;
-
-
