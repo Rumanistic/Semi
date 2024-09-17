@@ -1,7 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import './Review.css'; // CSS 파일 불러오기
+// './Review.css'; // 기존 CSS 파일 임포트는 제거합니다.
+
+import {
+  ReviewContainer,
+  ReviewTitle,
+  ReviewForm,
+  ReviewInput,
+  ReviewRatingSelect,
+  Star,
+  SubmitButton,
+  ReviewList,
+  ReviewItem,
+  ReviewContent,
+  ReviewRating,
+  ReviewButton,
+  NoReviews,
+  ReviewTextArea,
+  EditButton
+} from './styles/ReviewStyle'; 
+
+
 
 function Review({ eventNo, eventTitle }) {
   const [reviews, setReviews] = useState([]);  // 리뷰 목록 상태
@@ -77,6 +97,7 @@ function Review({ eventNo, eventTitle }) {
           // 리뷰 삭제 후 서버에서 최신 리뷰 데이터를 다시 불러옴
           axios.get(`/review/${eventNo}`)
             .then(response => {
+              alert("삭제되었습니다.");
               setReviews(response.data);  // 서버에서 최신 리뷰 데이터로 상태 갱신
             })
             .catch(error => {
@@ -143,96 +164,92 @@ function Review({ eventNo, eventTitle }) {
   // 별점 표시를 위한 함수
   const renderStars = (rating) => {
     return [...Array(5)].map((star, index) => (
-      <span key={index} style={{ color: index < rating ? 'orange' : 'lightgray', fontSize: '24px' }}>★</span>
+      <Star key={index} selected={index < rating}>★</Star>
     ));
   };
 
   return (
-    <div className="review-container">
-      <h1 className="review-title">{eventTitle} 리뷰</h1>
+    <ReviewContainer>
+      <ReviewTitle>{eventTitle} 리뷰</ReviewTitle>
 
       {/* 리뷰 작성 폼 */}
       {savedUser ? (
-        <div className="review-form">
-          <textarea
-            className="review-input"
+        <ReviewForm>
+          <ReviewInput
             value={newReview}
             onChange={(e) => setNewReview(e.target.value)}
             placeholder="리뷰 내용을 작성하세요."
           />
-          <div className="review-rating-select">
+          <ReviewRatingSelect>
             <p>평점 선택:</p>
             {[1, 2, 3, 4, 5].map((rating) => (
-              <span
+              <Star
                 key={rating}
-                className={`star ${selectedRating >= rating ? 'selected' : ''}`}
+                selected={selectedRating >= rating}
                 onClick={() => handleRatingClick(rating)}
-                style={{ cursor: 'pointer', fontSize: '24px', color: selectedRating >= rating ? 'orange' : 'lightgray' }}
               >
                 ★
-              </span>
+              </Star>
             ))}
-          </div>
-          <button
-            className="submit-button"
+          </ReviewRatingSelect>
+          <SubmitButton
             onClick={handleReviewSubmit}
             disabled={submitting}
           >
             {submitting ? '제출 중...' : '리뷰 제출'}
-          </button>
-        </div>
+          </SubmitButton>
+        </ReviewForm>
       ) : (
         <h2>로그인 후 이용 가능합니다!</h2>
       )}
 
       {/* 기존 리뷰 목록 */}
       {reviews.length > 0 ? (
-        <ul className="review-list">
+        <ReviewList>
           {reviews.map(review => (
-            <li key={review.id} className="review-item">
+            <ReviewItem key={review.id}>
               {editingReviewNo === review.reviewNo ? (
                 // 수정 모드일 때
                 <>
-                  <textarea
+                  <ReviewTextArea
                     value={editingContent}
                     onChange={(e) => setEditingContent(e.target.value)}
                   />
-                  <div className="review-rating-select">
+                  <ReviewRatingSelect>
                     {[1, 2, 3, 4, 5].map((rating) => (
-                      <span
+                      <Star
                         key={rating}
                         onClick={() => setEditingRating(rating)}
-                        style={{ cursor: 'pointer', fontSize: '24px', color: editingRating >= rating ? 'orange' : 'lightgray' }}
+                        selected={editingRating >= rating}
                       >
                         ★
-                      </span>
+                      </Star>
                     ))}
-                  </div>
-                  <button onClick={handleReviewUpdate}>수정 완료</button>
-                  <button onClick={() => setEditingReviewNo(0)}>취소</button>
+                  </ReviewRatingSelect>
+                  <EditButton onClick={handleReviewUpdate}>수정 완료</EditButton>
+                  <EditButton onClick={() => setEditingReviewNo(0)}>취소</EditButton>
                 </>
               ) : (
                 // 일반 모드일 때
                 <>
-                  
-                  <p className="review-rating">{renderStars(review.rating)}</p>
-                  <p className="review-content">{review.content}</p>
+                  <ReviewRating>{renderStars(review.rating)}</ReviewRating>
+                  <ReviewContent>{review.content}</ReviewContent>
                   <p>{review.userId}</p>
-                  {savedUser && savedUser === review.userId.toString() && ( // 로그인한 사용자와 리뷰 작성자가 일치할 때만 수정 및 삭제 버튼 표시
+                  {savedUser && savedUser === review.userId.toString() && ( 
                     <div>
-                      <button onClick={() => handleEditClick(review)}>수정</button>
-                      <button onClick={() => handleReviewDelete(review.id, review.userId)}>삭제</button>
+                      <ReviewButton onClick={() => handleEditClick(review)}>수정</ReviewButton>
+                      <ReviewButton onClick={() => handleReviewDelete(review.reviewNo, review.userId)}>삭제</ReviewButton>
                     </div>
                   )}
                 </>
               )}
-            </li>
+            </ReviewItem>
           ))}
-        </ul>
+        </ReviewList>
       ) : (
-        <p className="no-reviews">리뷰가 없습니다.</p>
+        <NoReviews>리뷰가 없습니다.</NoReviews>
       )}
-    </div>
+    </ReviewContainer>
   );
 }
 

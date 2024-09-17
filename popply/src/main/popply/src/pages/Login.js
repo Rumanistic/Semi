@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Login.css';
+import {
+  Container,
+  LoginContainer,
+  Title,
+  Input,
+  ErrorMessage,
+  Button,
+  SignupButton
+} from './styles/LoginStyle'; 
 
 function Login({ setUser }) {
   const [userId, setUserId] = useState('');
@@ -16,9 +24,8 @@ function Login({ setUser }) {
     axios.post('/api/login', { userId, userPwd: password })
       .then(response => {
         if (response.data.success) {
-
           // localStorage에 사용자 정보 저장
-           localStorage.setItem('user', userId);
+          localStorage.setItem('user', userId);
 
           // 메인 페이지로 이동
           navigate('/main');
@@ -37,36 +44,30 @@ function Login({ setUser }) {
   };
 
   return (
-    <div className="container">
-      <div className="login-container">
+    <Container>
+      <LoginContainer>
         <form onSubmit={handleLogin}>
-          <h2>Login</h2>
-          <input
+          <Title>Login</Title>
+          <Input
             type="text"
             placeholder="아이디"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
           />
-          <input
+          <Input
             type="password"
             placeholder="비밀번호"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {error && <p className="error-message">{error}</p>}
-          <button type="submit" className="btn">
-            로그인
-          </button>
-          <button
-            type="button"
-            onClick={handleSignUp}
-            className="btn signup-btn"
-          >
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <Button type="submit">로그인</Button>
+          <SignupButton type="button" onClick={handleSignUp}>
             회원가입
-          </button>
+          </SignupButton>
         </form>
-      </div>
-    </div>
+      </LoginContainer>
+    </Container>
   );
 }
 
