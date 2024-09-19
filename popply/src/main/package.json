@@ -1,5 +1,6 @@
 {
   "dependencies": {
     "react-router-dom": "^6.26.1"
+    },
+     "proxy": "http://localhost:8080"
   }
-}

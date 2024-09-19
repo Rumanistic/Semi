@@ -1,13 +1,25 @@
-body {
-  margin: 0 4%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@font-face {
+  font-family: 'DepartureMono-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2409-1@1.0/DepartureMono-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-code {
+@font-face {
+  font-family: 'SUIT-Regular';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'SUIT-Regular' sans-serif; /* 원하는 폰트 설정 */
+  margin: 0; /* 기본 여백 제거 (필요 시) */
+  padding: 0; /* 기본 패딩 제거 (필요 시) */
+  line-height: 1.5; /* 줄 높이 조정 (필요 시) */
+}
+
+/* code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
