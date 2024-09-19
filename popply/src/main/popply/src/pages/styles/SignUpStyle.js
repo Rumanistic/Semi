@@ -10,7 +10,7 @@ export const SignupContainer = styled.div`
   text-align: center;
   margin: 0 auto; /* 가로 중앙 정렬 */
   margin-top: 100px; /* 위쪽에서 충분한 간격을 두기 위해 여백 추가 */
-  font-family: 'Jeju Gothic', sans-serif;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 
   &:hover {
     transform: translateY(-5px);
@@ -23,17 +23,20 @@ export const Title = styled.h2`
   color: #333;
   margin-bottom: 25px;
   font-weight: 700;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const Label = styled.label`
   text-align: left;
   margin: 10px 0 5px;
   font-size: 1.2rem;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const Input = styled.input`
@@ -44,12 +47,14 @@ export const Input = styled.input`
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 1.2rem;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const ErrorMessage = styled.p`
   color: red;
   font-size: 1rem;
   margin-bottom: 10px;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const Button = styled.button`
@@ -62,7 +67,7 @@ export const Button = styled.button`
   border-radius: 50px;
   cursor: pointer;
   width: 100%;
-  font-family: 'Jeju Gothic', sans-serif; /* 버튼 글씨체 적용 */
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
   font-size: 1.2rem; /* 버튼 글씨 크기 */
 
   &:hover {
@@ -72,4 +77,10 @@ export const Button = styled.button`
   &:active {
     background-color: #c0392b;
   }
+`;
+
+export const SuccessMessage = styled.p`
+  color: green;
+  font-size: 1rem;
+  margin-bottom: 10px;
 `;
