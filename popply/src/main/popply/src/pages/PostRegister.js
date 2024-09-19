@@ -21,6 +21,9 @@ const PostRegister = () => {
         deletionDate: ''
     });
 
+
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEvent((prevEvent) => ({

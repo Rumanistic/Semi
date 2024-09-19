@@ -7,9 +7,9 @@ const Main = () => {
   const [imageIndex, setImageIndex] = useState(0);
 
   const images = [
-    `${process.env.PUBLIC_URL}/img/main_img1.jpg`,
-    `${process.env.PUBLIC_URL}/img/main_img2.jpg`,
-    `${process.env.PUBLIC_URL}/img/main_img3.jpg`, // 추가할 이미지 경로
+    `/img/main-img1.jpg`,
+    `/img/main-img2.jpg`,
+    `/img/main-img3.jpg`, // 추가할 이미지 경로
   ];
 
   const nextImage = () => {
@@ -52,63 +52,57 @@ const Main = () => {
           </section>
       </div>
 
+      <section className="container">
+    <h2 className='list_main_name'>주목해야 할 팝업</h2>  {/* 리스트 목록들 총 제목 */}
+    <br/>
 
+    <div className="list_items"> {/* 리스트 항목들을 감싸는 div 추가 */}
+        {/* 첫번째 큰 리스트 */}
+        <article className="list_item">  {/* 리스트1 제목 */}
+            <img src="/img/list1-img.jpg" alt="list_img" className="list_img" /> 
 
-      <br/><br/><br/><br/>  {/* 한줄 띄우기 */}
+            <div className="text_content">
+                <h5 className="list_subtitle"><b>이토록 다채로운 블랙, 누아르 마르디 메크르디</b></h5>
+                <p className="list_detail">: 카페, 레코드숍, 리빙 편집숍이 한 건물에</p>
+                <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}> {/* 버튼 추가 */}
+                    키워드 1
+                </button> &nbsp;
+                <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
+                    키워드 2
+                </button>
+            </div>
+        </article>
 
-      {/* 리스트 목록들 총 제목 */}
-      <div className='list_all'>
-    <section className="container">
-        <div className="header_and_items"> {/* 추가된 div로 제목과 리스트 항목을 감쌈 */}
-            <h2 className='list_main_name'>주목해야 할 팝업</h2>  {/* 리스트 목록들 총 제목 */}
-            <br/>
-            <div className="list_items"> {/* 리스트 항목들을 감싸는 div */}
-                <article className="list_item"> {/* 리스트1 제목 */}
-                    <img src="/img/list1-img.jpg" alt="list_img" className="list_img" />
-                    <div className="text_content">
-                        <h5 className="list_subtitle"><b>이토록 다채로운 블랙, 누아르 마르디 메크르디</b></h5>
-                        <p className="list_detail">: 카페, 레코드숍, 리빙 편집숍이 한 건물에</p>
-                        <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}> {/* 버튼 추가 */}
-                            키워드 1
-                        </button>
-                        <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
-                            키워드 2
-                        </button>
-                    </div>
-                </article>
+        <article className="list_item">  {/* 리스트2 제목 */}
+            <img src="/img/list2-img.jpg" alt="list_img" className="list_img" /> 
+            <div className="text_content">
+                <h5 className="list_subtitle"><b>파친코2, 두 배로 몰입하는 방법</b></h5>
+                <p className="list_detail">프로젝트 렌트 3개 공간에 마련된 "Apple TV+ 파친코" 팝업스토어</p>
+                <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}> {/* 버튼 추가 */}
+                    키워드 1
+                </button> &nbsp;
+                <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
+                    키워드 2
+                </button>
+            </div>
+        </article>
 
-                <article className="list_item"> {/* 리스트2 제목 */}
-                    <img src="/img/list2-img.jpg" alt="list_img" className="list_img" />
-                    <div className="text_content">
-                        <h5 className="list_subtitle"><b>파친코2, 두 배로 몰입하는 방법</b></h5>
-                        <p className="list_detail">프로젝트 렌트 3개 공간에 마련된 "Apple TV+ 파친코" 팝업스토어</p>
-                        <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}> {/* 버튼 추가 */}
-                            키워드 1
-                        </button>
-                        <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
-                            키워드 2
-                        </button>
-                    </div>
-                </article>
-
-                <article className="list_item"> {/* 리스트3 제목 */}
-                    <img src="/img/list3-img.jpg" alt="list_img" className="list_img" />
-                    <div className="text_content">
-                        <h5 className="list_subtitle"><b>키아프 서울 2024에 주목할 시간</b></h5>
-                        <p className="list_detail">예술이 깃든 9월 첫 주, 키아프 서울 "Kiaf SEOUL"과 함께!</p>
-                        <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}> {/* 버튼 추가 */}
-                            키워드 1
-                        </button>
-                        <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
-                            키워드 2
-                        </button>
-                    </div>
-                </article>
-            </div> {/* 리스트 항목들을 감싸는 div 종료 */}
-        </div> {/* 제목과 리스트 항목을 감싸는 div 종료 */}
-    </section>
-</div>
-
+        <article className="list_item">  {/* 리스트3 제목 */}
+            <img src="/img/list3-img.jpg" alt="list_img" className="list_img" /> 
+            <div className="text_content">
+                <h5 className="list_subtitle"><b>키아프 서울 2024에 주목할 시간</b></h5>
+                <p className="list_detail">예술이 깃든 9월 첫 주, 키아프 서울 "Kiaf SEOUL"과 함께!</p>
+                <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}> {/* 버튼 추가 */}
+                    키워드 1
+                </button> &nbsp;
+                <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
+                    키워드 2
+                </button>
+            </div>
+        </article>
+    </div> {/* 리스트 항목들을 감싸는 div 종료 */}
+</section>
+          
 
       </>
   );

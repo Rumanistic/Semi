@@ -82,7 +82,8 @@
 @keyframes slideDown {
     from {
         transform: translateY(-100%); /* 화면 위에서 시작 */
-        opacity: 100; /* 투명도 */
+        opacity: 0; /* 투명도 */
+
     }
     to {
         transform: translateY(0); /* 원래 위치로 */

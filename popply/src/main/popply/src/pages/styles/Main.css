@@ -11,29 +11,34 @@
         object-fit: cover; /* 이미지 비율 유지하며 잘라냄 */
         margin: auto;
         display: block;
+
     }
 
 /* 메인위에 입혀질 텍스트 */
     .overlay_text {
         position: absolute; /* 절대 위치 설정 */
-        top: 50%; /* 수직 중앙 정렬 */
+        top: 80%; /* 수직 정렬 */
         left: 50%; /* 수평 중앙 정렬 */
         transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */
         color: white; /* 텍스트 색상 */
         text-align: center; /* 텍스트 중앙 정렬 */
         padding: 10px; /* 패딩 */
-        border-radius: 5px; /* 모서리 둥글게 */
+        font-weight: normal; /* 텍스트 굵기 설정 (bold로 설정) */
     }
 
     .overlay_title {
-        margin: 0; /* 기본 마진 제거 */
+        margin: 3px; /* 기본 마진 제거 */
         font-size: 2.5rem; /* 글씨 크기 설정 (원하는 크기로 조정 가능) */
-        font-weight: bold; /* 글씨 두께 설정 (bold로 설정) */
+        font-weight: normal; /* 글씨 두께 설정 (bold로 설정) */
         color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
     }
     
     .overlay_detail {
         margin: 0; /* 기본 마진 제거 */
+        font-size: 1.5rem; /* 글씨 크기 설정 (원하는 크기로 조정 가능) */
+        font-weight: normal; /* 글씨 두께 설정 (bold로 설정) */
+        color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
+
     }
 
 /* 버튼 컨테이너 */
@@ -47,8 +52,9 @@
     align-items: center; /*세로 중앙 정렬*/
     transform: translateY(-50%); /*중앙 정렬*/
     padding: 150px; /* 좌우 패딩 */
-
+    top: 80%; /* 수직 중앙 정렬 */
     }
+
 /* 버튼 스타일 */
     .image-toggle-button {
         padding: 10px 15px; /* 버튼 패딩 */
@@ -79,14 +85,18 @@
     flex-direction: row; /* 수평 방향으로 정렬 */
     align-items: flex-start; /* 수직 정렬 */
     width: 100%; /* 전체 너비 사용 */
+    align-items: center;
 }
+
+
+
 
 /* 리스트 메인 제목 */
 .list_main_name {
     font-weight: normal;
     font-size: 30px;
     text-align: left; /* 글씨를 왼쪽으로 정렬 */
-    margin-right: 20px; /* 리스트 항목과의 간격 */
+    margin-bottom: 20px; /* 제목과 리스트 항목 간의 간격 */
 }
 
 /* 리스트 항목들을 감싸는 div */

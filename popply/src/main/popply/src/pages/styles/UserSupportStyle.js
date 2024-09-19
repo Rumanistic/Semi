@@ -71,3 +71,8 @@ export const ContentVerticalSpan = styled.span`
 	width: 90%;
 	height: 100%;
 `; 
+
+export const ContentDetailBody = styled.section`
+	min-width: 90%;
+	text-align: left;
+`;

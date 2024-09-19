@@ -4,28 +4,11 @@ import * as HeaderStyle from './styles/HeaderStyle'
 import './styles/HeaderStyle.css'; // CSS 파일 import
 
 function Header() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-    const navigate = useNavigate();
 
-// <<<<<<< Updated upstream
-//   return (
-//     <HeaderStyle.HeaderArea>
-//     	<HeaderStyle.HeaderNavMenuContainer>
-// 	    	<HeaderStyle.HeaderLogoImgContainer onClick={() => {navigate('/')}}>
-// 	    		<HeaderStyle.LogoImg src={`${process.env.PUBLIC_URL}/img/logo.jpg`} alt="Logo"/>
-// 	  		</HeaderStyle.HeaderLogoImgContainer>
-//     		<ul>
-//     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/popup')}}>Pop-up</HeaderStyle.NavMenuContent>
-//     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/share')}}>Share</HeaderStyle.NavMenuContent>
-//     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/supports')}}>Support</HeaderStyle.NavMenuContent>
-// 				<HeaderStyle.NavMenuContent onClick={() => { navigate('/event/1')}}>EventDetail</HeaderStyle.NavMenuContent>
-//     			<HeaderStyle.NavMenuContent onClick={() => { navigate('/supports/faq')}}>Support</HeaderStyle.NavMenuContent>
-//     		</ul>
-//     	</HeaderStyle.HeaderNavMenuContainer>
-//     </HeaderStyle.HeaderArea>
-//   );
-// =======
+	const [isModalOpen, setIsModalOpen] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+	const navigate = useNavigate();
+
 	const handleSearch = () => {
         // 검색 처리 로직 추가
         console.log("검색어:", searchTerm);
@@ -69,7 +52,7 @@ function Header() {
                         <input 
                             type="text" 
                             className="search-input" 
-                            placeholder="Search..."
+                            placeholder="검색..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -84,8 +67,6 @@ function Header() {
             )}
         </header>
     );
-
 }
-
 
 export default Header;

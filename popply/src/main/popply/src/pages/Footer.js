@@ -6,6 +6,8 @@ const Footer = () => {
             {/* Footer 내용 */}
         </div>
     );
+
+
 };
 
 export default Footer;
