@@ -36,6 +36,9 @@ dependencies {
    testImplementation 'org.springframework.boot:spring-boot-starter-test'
    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
    
+   // Geocoder
+   implementation group: 'com.google.code.geocoder-java', name: 'geocoder-java', version: '0.16'
+   
    // log4jdbc
    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
    

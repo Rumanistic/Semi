@@ -17,6 +17,7 @@ import FindPassword from './pages/FindPassword';
 import MyPage from './pages/MyPage';
 import Withdraw from './pages/Withdraw';
 import PostRegister from './pages/PostRegister';
+import EventSubmit from './pages/event/EventSubmit';
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/delete-account" element={<DeleteAccount />} />
 				<Route path='/:page' element={<List />}/>
+				<Route path='/:page/submit' element={<EventSubmit />}/>
 			  <Route path="/register" element={<PostRegister />} />
 				<Route path='/event/:no' element={<EventDetail />} />
 				<Route path='/review' element={<Review />}/>

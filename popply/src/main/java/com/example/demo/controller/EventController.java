@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.config.ImageManager;
 import com.example.demo.domain.Event;
 import com.example.demo.service.EventService;
 
@@ -58,12 +59,25 @@ public class EventController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<Void> registerEvent(@RequestBody Event e){
+	@PostMapping("/submit")
+	public ResponseEntity<Void> submitEvent(@RequestBody Event e) throws Exception{
+//		eventService.registerEvent(e);
+		System.out.println(e);
+		String company = e.getCompany();
+		String content = e.getContent();
+		
+		ImageManager im = new ImageManager();
+		
+		HashMap<String, String> resultSet = im.saveImage(content, company);
+		e.setImages(resultSet.get("images"));
+		e.setContent(resultSet.get("content"));
+		
 		eventService.registerEvent(e);
 		
 		return ResponseEntity.noContent().build();
 	}
+	
+	
 	
 	@GetMapping("/{page}/tags")
 	public ResponseEntity<String> getAllTags(){
