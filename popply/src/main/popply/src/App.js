@@ -10,6 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import EventDetail from './pages/EventDetail';
 import Review from './pages/Review';
 import Test from './pages/Test';
+import PostRegister from './pages/PostRegister'
 import UserSupportDetail from './pages/support/UserSupportDetail';
 import PostRegister from './pages/PostRegister';
 import EventSubmit from './pages/event/EventSubmit';
@@ -20,6 +21,7 @@ function App() {
   		<Routes>
   			<Route path='/' element={<Main />}/>
 				<Route path="/login" element={<Login />} />
+				<Route path="/main" element={<Main />} />
 				<Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/delete-account" element={<DeleteAccount />} />
