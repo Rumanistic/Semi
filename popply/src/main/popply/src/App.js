@@ -12,6 +12,7 @@ import Review from './pages/Review';
 import Test from './pages/Test';
 import UserSupportDetail from './pages/support/UserSupportDetail';
 import PostRegister from './pages/PostRegister';
+import EventSubmit from './pages/event/EventSubmit';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/delete-account" element={<DeleteAccount />} />
 				<Route path='/:page' element={<List />}/>
+				<Route path='/:page/submit' element={<EventSubmit />}/>
 			  <Route path="/register" element={<PostRegister />} />
 				<Route path='/event/:no' element={<EventDetail />} />
 				<Route path='/review' element={<Review />}/>

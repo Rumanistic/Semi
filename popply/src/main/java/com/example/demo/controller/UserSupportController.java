@@ -87,10 +87,10 @@ public class UserSupportController {
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 	
-	@GetMapping("/answer/test")
-	public ResponseEntity<String> answerRegisterTest(@RequestBody HashMap<String, String> body) throws IOException{
+	@PostMapping("/answer/test")
+	public ResponseEntity<HashMap<String, String>> answerRegisterTest(@RequestParam(name="answer") String answer, @RequestParam(name="title") String title) throws Exception{
 		ImageManager im = new ImageManager();
-		String s = im.saveImage(body.get("answer"));
+		HashMap<String, String> s = im.saveImage(answer, title);
 		System.out.println(s);
 		return ResponseEntity.ok().body(s);
 	}

@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,17 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.config.ImageManager;
 import com.example.demo.domain.Event;
 import com.example.demo.service.EventService;
-import com.google.code.geocoder.Geocoder;
-import com.google.code.geocoder.GeocoderRequestBuilder;
-import com.google.code.geocoder.model.GeocodeResponse;
-import com.google.code.geocoder.model.GeocoderRequest;
-import com.google.code.geocoder.model.GeocoderResult;
-import com.google.code.geocoder.model.GeocoderStatus;
-import com.google.code.geocoder.model.LatLng;
 
 @Controller
 @RequestMapping("/event")
@@ -61,36 +53,31 @@ public class EventController {
 	}
 	
 	@PostMapping("/register/test")
-	public ResponseEntity<Void> registerEvent(@RequestBody Event e){
+	public ResponseEntity<Void> registerEventTest(@RequestBody Event e){
 		eventService.registerEvent(e);
 		
 		return ResponseEntity.noContent().build();
 	}
 	
-	@GetMapping("/geocode/test")
-	public @ResponseBody String geocodeTest(@RequestParam(name="location") String location) {
-		System.out.println(location);
-		 GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(location).setLanguage("ko").getGeocoderRequest();
-		 Double[] coords = new Double[2];
-		 
-		 try {
-		        Geocoder geocoder = new Geocoder();
-		        GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-
-		        System.out.println(geocoderResponse);
-		        if (geocoderResponse.getStatus() == GeocoderStatus.OK & !geocoderResponse.getResults().isEmpty()) {
-		            GeocoderResult geocoderResult=geocoderResponse.getResults().iterator().next();
-		            LatLng latitudeLongitude = geocoderResult.getGeometry().getLocation();
-		            
-		            coords[0] = latitudeLongitude.getLat().doubleValue();
-		            coords[1] = latitudeLongitude.getLng().doubleValue();
-		        }
-		    } catch (IOException ex) {
-		        ex.printStackTrace();
-		    }
-		 
-		return (coords[0].toString().concat(",").concat(coords[1].toString()));
+	@PostMapping("/submit")
+	public ResponseEntity<Void> submitEvent(@RequestBody Event e) throws Exception{
+//		eventService.registerEvent(e);
+		System.out.println(e);
+		String company = e.getCompany();
+		String content = e.getContent();
+		
+		ImageManager im = new ImageManager();
+		
+		HashMap<String, String> resultSet = im.saveImage(content, company);
+		e.setImages(resultSet.get("images"));
+		e.setContent(resultSet.get("content"));
+		
+		eventService.registerEvent(e);
+		
+		return ResponseEntity.noContent().build();
 	}
+	
+	
 	
 	@GetMapping("/{page}/tags")
 	public ResponseEntity<String> getAllTags(){

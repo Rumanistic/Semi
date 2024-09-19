@@ -83,13 +83,13 @@ function UserSupportDetail() {
 						{!state ? <button onClick={stateChange}>문의사항 답변 등록</button> : <span />}
 					</RightFloatSpan>)
 				}
-				<RegisterAnswer state={state} answer={supportData.answer} stateChange={stateChange} />
+				<RegisterAnswer state={state} title={supportData.title} answer={supportData.answer} stateChange={stateChange} />
 			<ContentHorizontalBar />
 		</ContentContainer>
 	)
 }
 
-function RegisterAnswer({state, answer, stateChange}) {
+function RegisterAnswer({state, title, answer, stateChange}) {
 	const [newAnswer, setNewAnswer] = useState(answer);
 	
 	const dataChange = (e) => {
@@ -101,7 +101,14 @@ function RegisterAnswer({state, answer, stateChange}) {
 	const answerSubmit = () => {
 		console.log("등록이벤트");
 		console.log("등록한 답변:", newAnswer);
-		axios.get('/supports/usersupport/answer/test', {answer : newAnswer})
+		axios.post('/supports/usersupport/answer/test', {
+	    answer: newAnswer,
+	    title: title
+		}, {
+	    headers: {
+	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
+	    }
+		})
 		stateChange();
 	}
 	
