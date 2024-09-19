@@ -16,7 +16,7 @@ public class ReviewService {
 
     // 특정 이벤트의 리뷰 목록 조회
 	public List<Review> getReviewsByEventNo(Long eventNo) {
-		return reviewRepository.findByEventNo(eventNo);
+		return reviewRepository.findByEventNoOrderByCreatedDateDesc(eventNo);
 	}
 
     // 리뷰 저장 (생성)
@@ -33,8 +33,8 @@ public class ReviewService {
     }
 
     // 리뷰 수정
-    public Review updateReview(Long id, Review updatedReview) {
-        Review existingReview = reviewRepository.findById(id)
+    public Review updateReview(Long reviewNo, Review updatedReview) {
+        Review existingReview = reviewRepository.findById(reviewNo)
             .orElseThrow(() -> new IllegalArgumentException("해당 ID의 리뷰를 찾을 수 없습니다."));
         
         existingReview.setContent(updatedReview.getContent());

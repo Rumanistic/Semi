@@ -1,134 +1,74 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../store/actions/authActions';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import axios from 'axios';
+import {
+  Container,
+  LoginContainer,
+  Title,
+  Input,
+  ErrorMessage,
+  Button,
+  SignupButton
+} from './styles/LoginStyle'; 
 
-const Login = () => {
-  const [identifier, setIdentifier] = useState('');
-  const [email, setEmail] = useState('');
+function Login({ setUser }) {
+  const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth);
 
-
-	//db와 연결 필요!!
-	
-  const handleSubmit = (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
-    if (email && password) {
-      dispatch(login({ identifier, password }))
-        .then(() => {
-          if (auth.isAuthenticated) {
-            navigate('/main'); 
-          } else {
-            setError('이메일 또는 비밀번호가 일치하지 않습니다.');
-          }
-        })
-        .catch(() => {
-          setError('이메일 또는 비밀번호가 일치하지 않습니다.');
-        });
-    } else {
-      setError('모든 필드를 입력해주세요.');
-    }
+
+    // 서버에 로그인 요청 보내기
+    axios.post('/api/login', { userId, userPwd: password })
+      .then(response => {
+        if (response.data.success) {
+          // localStorage에 사용자 정보 저장
+          localStorage.setItem('user', userId);
+
+          // 메인 페이지로 이동
+          navigate('/main');
+        } else {
+          setError(response.data.message);
+        }
+      })
+      .catch(error => {
+        console.error('로그인 중 오류가 발생했습니다.', error);
+        setError('서버에 문제가 발생했습니다. 다시 시도해 주세요.');
+      });
   };
 
-  const handleForgotPassword = () => {
-    navigate('/profile'); 
+  const handleSignUp = () => {
+    navigate('/signup');
   };
-  
-  
+
   return (
-    <LoginContainer>
-      <h2>로그인</h2>
-      {error && <ErrorMessage>{error}</ErrorMessage>}
-      <Form onSubmit={handleSubmit}>
-        <Label>이메일</Label>
-        <Input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="이메일을 입력하세요"
-        />
-        <Label>비밀번호</Label>
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="비밀번호를 입력하세요"
-          
-        />
-        <Button id='login_btn' type="submit">로그인</Button>
-
-        
-      
-      </Form>
-      <Form>
-      <Button type="button" onClick={handleForgotPassword}>비밀번호를 잊으셨나요?</Button>
-      <Button type="button" onClick={() => navigate('/signup')}>회원가입</Button>
-      </Form>
-    </LoginContainer>
+    <Container>
+      <LoginContainer>
+        <form onSubmit={handleLogin}>
+          <Title>Login</Title>
+          <Input
+            type="text"
+            placeholder="아이디"
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
+          />
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <Button type="submit">로그인</Button>
+          <SignupButton type="button" onClick={handleSignUp}>
+            회원가입
+          </SignupButton>
+        </form>
+      </LoginContainer>
+    </Container>
   );
-};
+}
 
 export default Login;
-
-const LoginContainer = styled.div`
-  margin-top: 100px;
-  margin-left: 680px;
-  width: 370px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  position: relative;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  margin-top: 10px;
-  margin-left: 10px;
-  font-size: 14px;
-  text-align: left;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  margin-top: 5px;
-  margin-left: 7px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 90%;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  margin-top: 25px;
-  margin-left: 60px;
-  background-color: #5cb85c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 70%
-`;
-
-const ErrorMessage = styled.p`
-  color: red;
-  font-size: 14px;
-`;
-
-const SignupLink = styled.p`
-  margin-top: 15px;
-  cursor: pointer;
-  color: blue;
-  text-decoration: underline;
-`;
