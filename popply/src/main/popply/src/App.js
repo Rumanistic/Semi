@@ -12,10 +12,16 @@ import Review from './pages/Review';
 import Test from './pages/Test';
 import PostRegister from './pages/PostRegister'
 import UserSupportDetail from './pages/support/UserSupportDetail';
+import FindId from './pages/FindId';
+import FindPassword from './pages/FindPassword';
+import MyPage from './pages/MyPage';
+import Withdraw from './pages/Withdraw';
 import PostRegister from './pages/PostRegister';
+
 
 function App() {
   return (
+	
     <div className="App">
   		<Routes>
   			<Route path='/' element={<Main />}/>
@@ -31,6 +37,10 @@ function App() {
   			<Route path='/supports/*' element={<Support />} />
   			<Route path='/supports/usersupport/detail/:no' element={<UserSupportDetail />} />
   			<Route path='/test' element={<Test />}/>
+			  <Route path="/find-id" element={<FindId />} />
+			  <Route path="/find-password" element={<FindPassword />} />
+			   <Route path="/mypage" element={<MyPage />} />
+				<Route path="/withdraw" element={<Withdraw />} />
 	  	</Routes>
     </div>
   );
