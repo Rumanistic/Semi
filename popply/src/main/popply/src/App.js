@@ -16,6 +16,8 @@ import FindId from './pages/FindId';
 import FindPassword from './pages/FindPassword';
 import MyPage from './pages/MyPage';
 import Withdraw from './pages/Withdraw';
+import PostRegister from './pages/PostRegister';
+
 
 function App() {
   return (
@@ -33,7 +35,7 @@ function App() {
 				<Route path='/event/:no' element={<EventDetail />} />
 				<Route path='/review' element={<Review />}/>
   			<Route path='/supports/*' element={<Support />} />
-  			<Route path='/supports/*/:no' element={<UserSupportDetail />} />
+  			<Route path='/supports/usersupport/detail/:no' element={<UserSupportDetail />} />
   			<Route path='/test' element={<Test />}/>
 			  <Route path="/find-id" element={<FindId />} />
 			  <Route path="/find-password" element={<FindPassword />} />

@@ -63,11 +63,5 @@ public class Users {
 	@Column(name="DELETED_DATE")
 	private LocalDateTime deletedDate;
 
-	public void setPassword(String newPassword) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
 	
 }

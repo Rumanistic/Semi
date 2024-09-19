@@ -9,9 +9,15 @@ const Main = ({ user, setUser }) => {
 
 
   const images = [
+<<<<<<< HEAD
     `${process.env.PUBLIC_URL}/img/main-img.jpg`,
     `${process.env.PUBLIC_URL}/img/main-img2.jpg`,
     `${process.env.PUBLIC_URL}/img/main-img3.jpg`,
+=======
+    `/img/main-img.jpg`,
+    `/img/main-img2.jpg`,
+    `/img/main-img3.jpg`, // 추가할 이미지 경로
+>>>>>>> 3bc2b937ad182e76a96892c364dec032db062adf
   ];
 
   const nextImage = () => {
@@ -55,8 +61,58 @@ const Main = ({ user, setUser }) => {
       <br/><br/><br/>
 
       <div className="container">
+<<<<<<< HEAD
         {/* 리스트 아이템들 */}
         {/* 게시물 등록 버튼 */}
+=======
+        <div className="list_item">  {/* 리스트1 제목 */}
+          <img src="/img/list1-img.jpg" alt="list_img" className = "list_img" /> 
+
+          <div className="text_content">
+            <h5 className="list_subtitle"> <b>이토록 다채로운 블랙, 누아르 마르디 메크르디</b> </h5>
+            <p className="list_detail"> : 카페, 레코드숍, 리빙 편집숍이 한 건물에 </p>
+            <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>  {/* 버튼 추가 */}
+              키워드 1
+            </button> &nbsp;
+            <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
+              키워드 2
+            </button>
+          </div>
+        </div>
+
+        <div className="list_item">  {/* 리스트2 제목 */}
+          <img src="/img/list2-img.jpg" alt="list_img" className = "list_img" /> 
+
+          <div className="text_content">
+            <h5 className="list_subtitle"> <b>파친코2, 두 배로 몰입하는 방법</b> </h5>
+            <p className="list_detail"> 프로젝트 렌트 3개 공간에 마련된 "Apple TV+ 파친코" 팝업스토어 </p>
+            <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>  {/* 버튼 추가 */}
+              키워드 1
+            </button> &nbsp;
+            <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
+              키워드 2
+            </button>
+          </div>
+        </div>
+
+        <div className="list_item">  {/* 리스트3 제목 */}
+          <img src="/img/list3-img.jpg" alt="list_img" className = "list_img" /> 
+
+          <div className="text_content">
+            <h5 className="list_subtitle"> <b>키아프 서울 2024에 주목할 시간</b> </h5>
+            <p className="list_detail"> 예술이 깃든 9월 첫 주, 키아프 서울 "Kiaf SEOUL"과 함께! </p>
+            <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>  {/* 버튼 추가 */}
+              키워드 1
+            </button> &nbsp;
+            <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>
+              키워드 2
+            </button>
+          </div>
+        </div>
+
+
+{/* 게시물 등록 버튼  */}
+>>>>>>> 3bc2b937ad182e76a96892c364dec032db062adf
         <div>
           <Link to="/register">
             <button>게시물 등록</button>

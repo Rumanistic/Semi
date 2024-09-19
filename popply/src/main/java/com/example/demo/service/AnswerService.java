@@ -13,7 +13,7 @@ public class AnswerService {
 	AnswerRepository ar;
 
 	public Answer getAnswer(Long no) {
-		return ar.findById(no).get();
+		return null;
 	}
 
 }
