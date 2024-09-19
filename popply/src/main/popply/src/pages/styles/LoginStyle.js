@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   height: 100vh;
   background-color: #fdfdfd;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const LoginContainer = styled.div`
@@ -16,7 +17,7 @@ export const LoginContainer = styled.div`
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  font-family: 'Jeju Gothic', sans-serif;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 
   &:hover {
     transform: translateY(-5px);
@@ -29,6 +30,7 @@ export const Title = styled.h2`
   color: #333;
   margin-bottom: 25px;
   font-weight: 700;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const Input = styled.input`
@@ -39,17 +41,19 @@ export const Input = styled.input`
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 1.2rem;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const ErrorMessage = styled.p`
   color: red;
   font-size: 1rem;
   margin-bottom: 10px;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 `;
 
 export const Button = styled.button`
   padding: 0;
-  margin-top: 20px;
+  margin-top: 15px; /* 간격 조정 */
   background-color: #e67e22;
   color: white;
   border: none;
@@ -63,6 +67,7 @@ export const Button = styled.button`
   font-size: 1.1rem;
   font-weight: bold;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  font-family: 'Jeju Gothic', sans-serif; /* Jeju Gothic 글씨체 */
 
   &:hover {
     background-color: #d35400;
@@ -78,5 +83,16 @@ export const SignupButton = styled(Button)`
 
   &:hover {
     background-color: #d35400;
+  }
+`;
+
+export const FindButton = styled(Button)`
+  background-color: #f5b041; /* 더 밝은 살구색 */
+  &:hover {
+    background-color: #e59866; /* 호버 시 약간 어두운 살구색 */
+  }
+
+  &:active {
+    background-color: #d98840; /* 클릭 시 더 어두운 오렌지 */
   }
 `;

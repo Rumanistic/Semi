@@ -8,7 +8,8 @@ import {
   Input,
   ErrorMessage,
   Button,
-  SignupButton
+  SignupButton,
+  FindButton // 추가된 버튼 스타일
 } from './styles/LoginStyle'; 
 
 function Login({ setUser }) {
@@ -43,6 +44,14 @@ function Login({ setUser }) {
     navigate('/signup');
   };
 
+  const handleFindId = () => {
+    navigate('/find-id'); // 아이디 찾기 페이지로 이동
+  };
+
+  const handleFindPassword = () => {
+    navigate('/find-password'); // 비밀번호 찾기 페이지로 이동
+  };
+
   return (
     <Container>
       <LoginContainer>
@@ -65,6 +74,13 @@ function Login({ setUser }) {
           <SignupButton type="button" onClick={handleSignUp}>
             회원가입
           </SignupButton>
+          {/* 아이디 및 비밀번호 찾기 버튼 추가 */}
+          <FindButton type="button" onClick={handleFindId}>
+            아이디 찾기
+          </FindButton>
+          <FindButton type="button" onClick={handleFindPassword}>
+            비밀번호 찾기
+          </FindButton>
         </form>
       </LoginContainer>
     </Container>

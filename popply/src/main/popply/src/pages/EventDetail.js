@@ -11,7 +11,7 @@ import {
   EventLocation,
   EventImages,
   Button
-} from './styles/EventDetailStyle'; // Import styled components
+} from './styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
 
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
@@ -55,7 +55,7 @@ function EventDetail() {
 
           <EventDetailItem>
             <EventHeading>안내 및 주의사항</EventHeading>
-            <EventParagraph>{event.caution}</EventParagraph>
+            <EventParagraph>❗모든 상품은 품절시 조기종료 될 수 있습니다❗</EventParagraph>
           </EventDetailItem>
 
           <Review eventNo={event.eventNo} eventTitle={event.title} />
