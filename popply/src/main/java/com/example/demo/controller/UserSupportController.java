@@ -60,7 +60,7 @@ public class UserSupportController {
 	}
 	
 	@GetMapping("/{no}")
-	public ResponseEntity<HashMap<String,Object>> getOneUserSupport(@RequestBody Long no){
+	public ResponseEntity<HashMap<String,Object>> getOneUserSupport(@PathVariable(name="no") Long no){
 		UserSupport s = ss.getSupport(no);
 		Answer a = as.getAnswer(no);
 
@@ -78,6 +78,7 @@ public class UserSupportController {
 	@PostMapping("/register")
 	public ResponseEntity<Void> setUserSupport(@RequestBody UserSupport s) {
 		ss.setSupport(s);
+		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
 	}
 

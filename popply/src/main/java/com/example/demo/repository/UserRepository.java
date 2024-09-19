@@ -8,5 +8,4 @@ import com.example.demo.domain.Users;
 @Repository
 public interface UserRepository extends JpaRepository<Users, String> {
 	
-	
 }

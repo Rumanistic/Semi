@@ -12,6 +12,7 @@ import Review from './pages/Review';
 import Test from './pages/Test';
 import PostRegister from './pages/PostRegister'
 import UserSupportDetail from './pages/support/UserSupportDetail';
+import PostRegister from './pages/PostRegister';
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
 				<Route path='/event/:no' element={<EventDetail />} />
 				<Route path='/review' element={<Review />}/>
   			<Route path='/supports/*' element={<Support />} />
-  			<Route path='/supports/*/:no' element={<UserSupportDetail />} />
+  			<Route path='/supports/usersupport/detail/:no' element={<UserSupportDetail />} />
   			<Route path='/test' element={<Test />}/>
 	  	</Routes>
     </div>
