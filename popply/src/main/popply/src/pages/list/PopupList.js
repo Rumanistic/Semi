@@ -50,7 +50,7 @@ function PopupList() {
 	return (
 		<span>
 			<ListHeaderContainer>
-				<ListHeaderContainerHead1>Pop-up List</ListHeaderContainerHead1>
+				<ListHeaderContainerHead1>{page === 'popup' ? 'Pop-up' : 'Share'} List</ListHeaderContainerHead1>
 				<div style={{marginRight: '5px'}}>
 					<RightFloatSpan>
 						<button>등록</button>
