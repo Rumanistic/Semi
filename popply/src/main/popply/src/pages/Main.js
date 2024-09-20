@@ -9,15 +9,9 @@ const Main = ({ user, setUser }) => {
 
 
   const images = [
-<<<<<<< HEAD
     `${process.env.PUBLIC_URL}/img/main-img.jpg`,
     `${process.env.PUBLIC_URL}/img/main-img2.jpg`,
     `${process.env.PUBLIC_URL}/img/main-img3.jpg`,
-=======
-    `/img/main-img.jpg`,
-    `/img/main-img2.jpg`,
-    `/img/main-img3.jpg`, // 추가할 이미지 경로
->>>>>>> 3bc2b937ad182e76a96892c364dec032db062adf
   ];
 
   const nextImage = () => {
@@ -61,10 +55,6 @@ const Main = ({ user, setUser }) => {
       <br/><br/><br/>
 
       <div className="container">
-<<<<<<< HEAD
-        {/* 리스트 아이템들 */}
-        {/* 게시물 등록 버튼 */}
-=======
         <div className="list_item">  {/* 리스트1 제목 */}
           <img src="/img/list1-img.jpg" alt="list_img" className = "list_img" /> 
 
@@ -112,7 +102,6 @@ const Main = ({ user, setUser }) => {
 
 
 {/* 게시물 등록 버튼  */}
->>>>>>> 3bc2b937ad182e76a96892c364dec032db062adf
         <div>
           <Link to="/register">
             <button>게시물 등록</button>

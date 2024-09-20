@@ -48,7 +48,7 @@ public class Event {
 	private String company;
 
 	@NonNull
-	@Column(name="CONTENT")
+	@Column(name="CONTENT", length = 4000)
 	private String content;
 	
 	@Column(name="ADDRESS")

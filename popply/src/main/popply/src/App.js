@@ -16,7 +16,6 @@ import FindId from './pages/FindId';
 import FindPassword from './pages/FindPassword';
 import MyPage from './pages/MyPage';
 import Withdraw from './pages/Withdraw';
-import PostRegister from './pages/PostRegister';
 import EventSubmit from './pages/event/EventSubmit';
 
 

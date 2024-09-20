@@ -135,6 +135,26 @@ function ShowTag({tags, setList}){
 function ShowList({list, view}){
 	const {eList, rPoint} = list;
 	const navigate = useNavigate();
+	const hyphenRemover = /-/g;
+	
+	const contentRegex = (content) => {
+		const tagRemover = /<[^>]*>/g;
+		const imgRemover = /image[0-9]+/g;
+		const alertRemover = /\[alert\]!\s*[가-힣]*(?:\s[가-힣]*)*/g;
+		
+		content = content.replace(tagRemover, '').replace(imgRemover, '').replace(alertRemover, '');
+		return (
+			<span>{content}</span>
+		)
+	}
+	
+	const checkDir = (createdDate) => {
+		const date = createdDate.replace(hyphenRemover, '');
+		
+		return date.substring(0,8);
+	}
+	
+
 	
 	// eslint-disable-next-line default-case
 	switch(view){
@@ -144,16 +164,27 @@ function ShowList({list, view}){
 					{eList.map((e, i) => {
 						return(
 							<Col1 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
-								<span>{e.company}</span>&emsp;
-								<span><EventListSpanImage src={`/img/${
+								<span style={{alignSelf: "center", maxwidth: "400px", minWidth: "400px"}}>
+									<EventListSpanImage src={`/img/${
 										e.images !== null && e.images !== '' ? 
-											(e.images.split(','))[0] :
-											'FullStar'
-									}.jpg`} alt="" style={{width: '10%'}}/></span>
-								<span>{e.content}</span>&emsp;
-								<span>{rPoint[e.eventNo] ? 
+												(e.images.split(','))[0] :
+												'FullStar'
+									}.jpg`}
+									onError={(event) => {
+										event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
+	                        e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'
+	                      }.png`;
+									}} 
+									alt=""/>
+								</span>
+								<span style={{margin: "10px 0", width: "55%", display:"flex", flexDirection: "column", justifyContent: "space-between"}}>
+									<span>{e.title}</span>
+									<span>{contentRegex(e.content)}</span>&emsp;
+								</span>&emsp;
+								<span style={{alignSelf: "center"}}>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
-								  : StarPoint(0.0)}</span>
+								  : StarPoint(0.0)}
+								  </span>
 							</Col1>
 						)
 					})}
@@ -166,13 +197,19 @@ function ShowList({list, view}){
 						let no = e.eventNo;
 						return(
 							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
-								<span>{e.company}</span>&emsp;
+								<span>{e.title}</span>&emsp;
 								<span><EventCardSpanImage src={`/img/${
-										e.images !== null && e.images !== '' ? 
+									e.images !== null && e.images !== '' ? 
 											(e.images.split(','))[0] :
 											'FullStar'
-									}.jpg`} alt="" style={{width: '10%'}}/></span>
-								<span>{e.content}</span>&emsp;
+								}.jpg`}
+								onError={(event) => {
+									event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
+                        e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'
+                      }.png`;
+								}} 
+								alt="" style={{width: '10%'}}/></span>
+								<span>{contentRegex(e.content)}</span>&emsp;
 								<span>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
 								  : StarPoint(0.0)}</span>

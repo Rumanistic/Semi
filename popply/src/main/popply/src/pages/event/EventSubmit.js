@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function EventSubmit() {
+	const userId = localStorage.getItem("user")
 	const [openTime, setOpenTime] = useState({
 		hour: '9',
 		min: '0'
@@ -14,7 +15,7 @@ function EventSubmit() {
 		min: '0'
 	})
 	const [eventData, setEventData] = useState({
-		userId: 'planner01',
+		userId,
 		name: '테스트플래너01',
 		title: '',
 		company: '',
@@ -120,8 +121,6 @@ function EventSubmit() {
 			content: contentData, 
 			tags
 		};
-		
-		setEventData(submitData);
 		
 		console.log(submitData);
 		axios.post('/event/submit', submitData, {
