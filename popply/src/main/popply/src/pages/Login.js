@@ -25,7 +25,11 @@ function Login({ setUser }) {
     axios.post('/users/login', { userIdOrEmail, userPwd: password }) // userIdOrEmail 필드로 전송
     .then(response => {
       if (response.data.success) {
-        localStorage.setItem('user', response.data);
+        console.log(response.data)
+        localStorage.setItem('user', response.data.userId);
+        localStorage.setItem('user1', response.data.name);
+        localStorage.setItem('user2', response.data.type);
+
    // 서버에서 사용자 정보 반환
         navigate('/main');
       } else {

@@ -6,7 +6,7 @@ import * as HeaderStyle from './styles/HeaderStyle';
 function Header() {
   
   // 로그인 상태를 관리하는 state
-  const savedUser = localStorage.getItem('user');
+  const savedUser = localStorage.getItem('user1');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');

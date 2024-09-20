@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
   MyPageContainer,
@@ -20,7 +20,7 @@ const MyPage = () => {
 
   // 현재 로그인된 사용자의 ID를 가져옴
   const savedUser = localStorage.getItem('user');
-
+  console.log(savedUser);
   const handlePasswordCheck = () => {
     // 서버에 비밀번호 확인 요청
     axios.post('/users/verify-password', { userId: savedUser, userPwd: password })
