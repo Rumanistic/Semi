@@ -1,8 +1,6 @@
 /* EventDetail.css */
-@import url('https://fonts.googleapis.com/earlyaccess/jejugothic.css');
 
 body {
-  font-family: 'Jeju Gothic', sans-serif;
   background-color: #fdfdfd;
   margin: 0;
   padding: 0;
@@ -17,7 +15,6 @@ body {
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Jeju Gothic', sans-serif;
 }
 
 .event-container:hover {
@@ -74,7 +71,6 @@ body {
   width: 200px; /* 고정된 너비 */
   height: 50px; /* 고정된 높이 */
   font-size: 1.1rem;
-  font-family: 'Jeju Gothic', sans-serif; /* 글씨체를 명시적으로 설정 */
   border-radius: 50px;
   margin-top: 20px;
   text-align: center; /* 텍스트를 중앙 정렬 */

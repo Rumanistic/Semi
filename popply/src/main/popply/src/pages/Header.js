@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import * as HeaderStyle from './styles/HeaderStyle'
 import './styles/HeaderStyle.css'; // CSS 파일 import
 
 function Header() {
@@ -15,10 +14,10 @@ function Header() {
         setIsModalOpen(false); // 검색 후 모달 닫기
     };
 
+   
 
 	return (
 		<header className="header-all">
-
 			<nav className="header-nav-menu">
 				<span className="header-logo" onClick={() => { navigate('/'); }}>
 					POPinnn
@@ -32,18 +31,14 @@ function Header() {
 				</ul>
 				{/* 검색 버튼 추가 */}
                 <div className="search-container">
-                    <button 
-                        className="search-button" 
-                        onClick={() => setIsModalOpen(true)}
-                    ><img 
-                    src="/img/search-icon.png" 
-                    alt="Search" 
-                    className="search-icon" 
-                />
+                    <button className="search-button" 
+                    onClick={() => setIsModalOpen(true)}
+                    ><img src="/img/search-icon.png" alt="Search" className="search-icon" 
+                    />
                     </button>
                 </div>
             </nav>
-
+            
             {/* 모달 검색 창 */}
             {isModalOpen && (
                 <div className="modal">
@@ -60,7 +55,7 @@ function Header() {
                             className="search-button" 
                             onClick={handleSearch}
                         >
-                            검색
+                            search
                         </button>
                     </div>
                 </div>

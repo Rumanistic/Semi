@@ -1,143 +1,75 @@
 /* 메인 이미지와 텍스트를 토탈 감싸는 */
 .main_container {
     position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
-
 }
 
 /* 메인 이미지 */
-    .main_image {
-        width: 100%;
-        height: 700px; /* 원하는 높이 */
-        object-fit: cover; /* 이미지 비율 유지하며 잘라냄 */
-        margin: auto;
-        display: block;
-
-    }
+.main_image {
+    width: 100%;
+    height: 700px; /* 원하는 높이 */
+    object-fit: cover; /* 이미지 비율 유지하며 잘라냄 */
+    margin: auto;
+    display: block;
+}
 
 /* 메인위에 입혀질 텍스트 */
-    .overlay_text {
-        position: absolute; /* 절대 위치 설정 */
-        top: 80%; /* 수직 정렬 */
-        left: 50%; /* 수평 중앙 정렬 */
-        transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */
-        color: white; /* 텍스트 색상 */
-        text-align: center; /* 텍스트 중앙 정렬 */
-        padding: 10px; /* 패딩 */
-        font-weight: normal; /* 텍스트 굵기 설정 (bold로 설정) */
-    }
+.overlay_text {
+    position: absolute; /* 절대 위치 설정 */
+    bottom: 20px; /* 하단에서 20px 위에 위치 */
+    left: 50%; /* 수평 중앙 정렬 */
+    transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */
+    color: white; /* 텍스트 색상 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    padding: 10px; /* 패딩 */
+    font-size: calc(1rem + 1vw); /* 기본 폰트 크기 설정 (비율 유지) */
+    font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+}
 
-    .overlay_title {
-        margin: 3px; /* 기본 마진 제거 */
-        font-size: 2.5rem; /* 글씨 크기 설정 (원하는 크기로 조정 가능) */
-        font-weight: normal; /* 글씨 두께 설정 (bold로 설정) */
-        color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
-    }
-    
-    .overlay_detail {
-        margin: 0; /* 기본 마진 제거 */
-        font-size: 1.5rem; /* 글씨 크기 설정 (원하는 크기로 조정 가능) */
-        font-weight: normal; /* 글씨 두께 설정 (bold로 설정) */
-        color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
+/* 메인위에 입혀질 텍스트 - 제목 */
+.overlay_title {
+    margin: 5px; /* 기본 마진 제거 */
+    font-size: calc(1.0rem + 1vw); /* 글씨 크기 설정 (비율 유지) */
+    color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
+}
 
-    }
+/* 메인위에 입혀질 텍스트 - 부제목 */
+.overlay_detail {
+    margin: 0; /* 기본 마진 제거 */
+    font-size: calc(0.7rem + 0.5vw); /* 글씨 크기 설정 (비율 유지) */
+    font-weight: normal; /* 글씨 두께 설정 (bold로 설정) */
+    color: white; /* 텍스트 색상 (필요에 따라 조정 가능) */
+}
 
 /* 버튼 컨테이너 */
-.button_container {
-    position: absolute; /* 절대적으로 위치 설정 */
-    top: 50%; /* 이미지 중간 정렬 */
-    left: 0; /* 왼쪽 정렬 */
-    right: 0; /* 오른쪽 정렬 */
-    display: flex; /* Flexbox 사용 */
-    justify-content: space-between; /* 버튼을 양 끝으로 배치 */
-    align-items: center; /*세로 중앙 정렬*/
-    transform: translateY(-50%); /*중앙 정렬*/
-    padding: 150px; /* 좌우 패딩 */
-    top: 80%; /* 수직 중앙 정렬 */
-    }
+.main_button_container {
+position: absolute; /* 절대적으로 위치 설정 */
+top: 80%; /* 이미지 하단에서 80% 위치 */
+left: 0; /* 왼쪽 정렬 */
+right: 0; /* 오른쪽 정렬 */
+display: flex; /* Flexbox 사용 */
+justify-content: space-between; /* 버튼을 양 끝으로 배치 */
+align-items: center; /* 세로 중앙 정렬 */
+transform: translateY(-50%); /* 중앙 정렬 */
+padding: 0 80px; /* 좌우 패딩 (상대적 크기 조정) */
+}
 
 /* 버튼 스타일 */
-    .image-toggle-button {
-        padding: 10px 15px; /* 버튼 패딩 */
-        background-color: rgba(0, 0, 0, 0); /* 반투명 배경 */
-        color: rgb(255, 255, 255); /* 버튼 텍스트 색상 */
-        border: none; /* 테두리 제거 */
-        cursor: pointer; /* 커서 변경 */
-        font-size: 30px; /* 글씨 크기 설정 (원하는 크기로 조정 가능) */
-        width: 100px; /* 버튼 너비 설정 (원하는 크기로 조정 가능) */
-        height: 40px; /* 버튼 높이 설정 (원하는 크기로 조정 가능) */
-    }
+.main_toggle_button {
+padding: 10px 15px; /* 버튼 패딩 */
+background-color: rgba(68, 32, 32, 0); /* 반투명 배경 */
+color: rgb(255, 255, 255); /* 버튼 텍스트 색상 */
+border: none; /* 테두리 제거 */
+cursor: pointer; /* 커서 변경 */
+font-size: calc(1rem + 1vw); /* 글씨 크기 설정 (비율 유지) */
+width: 80px; /* 버튼 너비 설정 (상대적 크기 조정) */
+height: 40px; /* 버튼 높이 설정 (원하는 크기로 조정 가능) */
+border-radius: 5px; /* 버튼 모서리 둥글게 */
+transition: background-color 0.3s; /* 배경색 전환 효과 */
+font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
 
-    /* 리스트 부분 전부 */
-.list_all {
-    margin: 50px;
 }
 
-/* 전체 리스트 컨테이너 */
-.container {
-    display: flex; /* Flexbox 사용 */
-    flex-direction: column; /* 세로 방향으로 정렬 */
-    align-items: center; /* 중앙 정렬 */
-}
-
-/* 제목과 리스트 항목을 감싸는 div */
-.header_and_items {
-    display: flex; /* Flexbox 사용 */
-    flex-direction: row; /* 수평 방향으로 정렬 */
-    align-items: flex-start; /* 수직 정렬 */
-    width: 100%; /* 전체 너비 사용 */
-    align-items: center;
-}
-
-
-
-
-/* 리스트 메인 제목 */
-.list_main_name {
-    font-weight: normal;
-    font-size: 30px;
-    text-align: left; /* 글씨를 왼쪽으로 정렬 */
-    margin-bottom: 20px; /* 제목과 리스트 항목 간의 간격 */
-}
-
-/* 리스트 항목들을 감싸는 div */
-.list_items {
-    display: flex; /* Flexbox 사용 */
-    flex-direction: row; /* 수평 방향으로 정렬 */
-    gap: 20px; /* 항목 간의 간격 조정 */
-    justify-content: center; /* 중앙 정렬 */
-}
-
-/* 리스트 아이템 */
-.list_item {
-    height: 350px; /* 이미지의 높이를 설정 */
-    width: 400px; /* 이미지의 너비를 설정 */
-    margin: 10px; /* 항목 간의 간격 */
-    display: flex; /* Flexbox 사용 */
-    align-items: flex-start; /* 이미지와 텍스트를 위쪽 정렬 */
-    flex-direction: column; /* 세로 방향으로 정렬 */
-}
-
-/* 리스트 이미지 */
-.list_img {
-    height: 200px; /* 이미지의 높이를 설정 */
-    width: auto; /* 이미지의 너비를 자동으로 설정 */
-    margin-bottom: 10px; /* 이미지와 텍스트 사이의 간격 */
-}
-
-/* 리스트 이미지 제목 */
-.list_subtitle {
-    font-weight: bold; /* 제목 두께 설정 */
-    text-align: left; /* 왼쪽 정렬 */
-}
-
-/* 리스트 이미지 내용 */
-.list_detail {
-    display: block; /* 기본 블록 요소 */
-    text-align: left; /* 왼쪽 정렬 */
-}
-
-/* 리스트 하위 키워드 버튼 */
-.list_button {
-    border: none; /* 테두리 제거 */
-    background-color: rgba(255, 230, 0, 0.171); /* 반투명 배경 */
+/* 버튼 호버(눌렀을때) 효과 */
+.main_toggle_button:hover {
+    background-color: #00000000; /* 호버 시 배경색 변경 */
 }

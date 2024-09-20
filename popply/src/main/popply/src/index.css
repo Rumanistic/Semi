@@ -1,8 +1,8 @@
 @font-face {
-  font-family: 'SUIT-Regular';
-  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
 }
 
 @font-face {
@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: 'SUIT-Regular' sans-serif; /* 원하는 폰트 설정 */
+  font-family: 'Pretendard-Regular' sans-serif; /* 원하는 폰트 설정 */
   margin: 0 4%; /* 기본 여백 제거 (필요 시) */
   padding: 0; /* 기본 패딩 제거 (필요 시) */
   line-height: 1.5; /* 줄 높이 조정 (필요 시) */
