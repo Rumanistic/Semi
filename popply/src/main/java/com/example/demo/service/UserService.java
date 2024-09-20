@@ -2,13 +2,15 @@ package com.example.demo.service;
 
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Users;
+import com.example.demo.repository.ReviewRepository;
 import com.example.demo.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -20,6 +22,11 @@ public class UserService {
     public Optional<Users> findByUserId(String userId) {
         return userRepository.findById(userId);
     }
+    
+    public Optional<Users> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
     public Users saveUser(Users user) {
         return userRepository.save(user); // 회원 정보 저장
@@ -64,4 +71,26 @@ public class UserService {
         
         return false;
     }
+    
+ // 회원 정보 수정
+    public boolean updateUserInfo(Users updatedUser) {
+        Optional<Users> userOptional = userRepository.findById(updatedUser.getUserId());
+
+        if (userOptional.isPresent()) {
+            Users existingUser = userOptional.get();
+
+            // 수정할 정보를 업데이트합니다.
+            existingUser.setName(updatedUser.getName());
+            existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setPhone(updatedUser.getPhone());
+
+            // 변경된 정보를 저장합니다.
+            userRepository.save(existingUser);
+            return true;
+        } else {
+            return false; // 사용자를 찾을 수 없음
+        }
+    }
+    
+  
 }
