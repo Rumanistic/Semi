@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.config.ImageManager;
 import com.example.demo.domain.Answer;
 import com.example.demo.domain.UserSupport;
 import com.example.demo.service.AnswerService;
@@ -70,7 +73,9 @@ public class UserSupportController {
 			result.put("answer", a);
 			return ResponseEntity.ok().body(result);			
 		} else {
-			result.put("answer", null);
+			result.put("answer", new Answer(
+						1l, 1l, "admin01", "답변!", LocalDateTime.now(), LocalDateTime.now(), false, LocalDateTime.now()
+					));
 			return ResponseEntity.ok().body(result);
 		}
 	}
@@ -80,6 +85,14 @@ public class UserSupportController {
 		ss.setSupport(s);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).build();
+	}
+	
+	@PostMapping("/answer/test")
+	public ResponseEntity<HashMap<String, String>> answerRegisterTest(@RequestParam(name="answer") String answer, @RequestParam(name="title") String title) throws Exception{
+		ImageManager im = new ImageManager();
+		HashMap<String, String> s = im.saveImage(answer, title);
+		System.out.println(s);
+		return ResponseEntity.ok().body(s);
 	}
 
 	/**

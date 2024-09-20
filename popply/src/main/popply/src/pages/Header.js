@@ -1,67 +1,97 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/HeaderStyle.css'; // CSS 파일 import
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import * as HeaderStyle from './styles/HeaderStyle';
 
 function Header() {
+  
+  // 로그인 상태를 관리하는 state
+  const [user, setUser] = useState(null);
 
-	const [isModalOpen, setIsModalOpen] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
-	const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
-	const handleSearch = () => {
-        // 검색 처리 로직 추가
-        console.log("검색어:", searchTerm);
-        setIsModalOpen(false); // 검색 후 모달 닫기
-    };
+  const handleSearch = () => {
+    // 검색 처리 로직 추가
+    console.log("검색어:", searchTerm);
+    setIsModalOpen(false); // 검색 후 모달 닫기
+  };
 
-   
+  useEffect(() => {
+    // localStorage에서 사용자 정보를 가져와 상태에 저장
+    const savedUser = localStorage.getItem('user');
+    if (savedUser) {
+      setUser(savedUser); // 저장된 사용자 이름으로 상태 설정
+    }
+  }, []);
 
-	return (
-		<header className="header-all">
-			<nav className="header-nav-menu">
-				<span className="header-logo" onClick={() => { navigate('/'); }}>
-					POPinnn
-				</span>
+  const handleLogout = () => {
+    // 로그아웃 시 localStorage에서 사용자 정보 제거
+    localStorage.removeItem('user');
+    setUser(null); // 상태 업데이트
+    alert("로그아웃 되었습니다!");
+    navigate('/main'); // 메인 페이지로 이동
+  };
 
-				<ul className="nav-menu-content">
-					<li className="nav-menu-content" onClick={() => { navigate('/popup'); }}>pop-up</li>
-					<li className="nav-menu-content" onClick={() => { navigate('/share'); }}>share</li>
-					<li className="nav-menu-content" onClick={() => { navigate('/supports/faq'); }}>Support</li>
-					<li className="nav-menu-content" onClick={() => { navigate('/Login'); }}>로그인</li>
-				</ul>
-				{/* 검색 버튼 추가 */}
-                <div className="search-container">
-                    <button className="search-button" 
-                    onClick={() => setIsModalOpen(true)}
-                    ><img src="/img/search-icon.png" alt="Search" className="search-icon" 
-                    />
-                    </button>
-                </div>
-            </nav>
-            
-            {/* 모달 검색 창 */}
-            {isModalOpen && (
-                <div className="modal">
-                    <div className="modal-content">
-                        <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
-                        <input 
-                            type="text" 
-                            className="search-input" 
-                            placeholder="검색..."
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button 
-                            className="search-button" 
-                            onClick={handleSearch}
-                        >
-                            search
-                        </button>
-                    </div>
-                </div>
+  return (
+    <HeaderStyle.HeaderArea>
+      <HeaderStyle.HeaderNavMenuContainer>
+        <HeaderStyle.HeaderLogoImgContainer onClick={() => { navigate('/') }}>
+          PopSpot
+        </HeaderStyle.HeaderLogoImgContainer>
+        <ul>
+          <HeaderStyle.NavMenuContent onClick={() => { navigate('/popup') }}>Pop-up</HeaderStyle.NavMenuContent>
+          <HeaderStyle.NavMenuContent onClick={() => { navigate('/share') }}>Share</HeaderStyle.NavMenuContent>
+          <HeaderStyle.NavMenuContent onClick={() => { navigate('/supports') }}>Support</HeaderStyle.NavMenuContent>
+          <HeaderStyle.NavMenuContent onClick={() => { navigate('/supports/faq') }}>FAQ</HeaderStyle.NavMenuContent>
+          <div className="header">
+            {user ? (
+              <>
+                <span>{user}님 환영합니다!</span>
+                <HeaderStyle.NavMenuContent onClick={() => { navigate('/mypage') }}>My Page</HeaderStyle.NavMenuContent>
+                <HeaderStyle.NavMenuContent onClick={handleLogout}>LogOut</HeaderStyle.NavMenuContent>
+              </>
+            ) : (
+              <HeaderStyle.NavMenuContent onClick={() => { navigate('/login') }}>Login</HeaderStyle.NavMenuContent>
             )}
-        </header>
-    );
+          </div>
+        </ul>
+
+        {/* 검색 버튼 추가 */}
+        <div className="search-container">
+          <button className="search-button" 
+          onClick={() => setIsModalOpen(true)}
+          ><img src="/img/search-icon.png" alt="Search" className="search-icon" 
+          />
+          </button>
+        </div>
+      </HeaderStyle.HeaderNavMenuContainer>
+
+    {isModalOpen && (
+      <div className="modal">
+          <div className="modal-content">
+              <span className="close" onClick={() => setIsModalOpen(false)}>&times;</span>
+              <input 
+                  type="text" 
+                  className="search-input" 
+                  placeholder="검색..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button 
+                  className="search-button" 
+                  onClick={handleSearch}
+              >
+                  search
+              </button>
+          </div>
+      </div>
+    )}
+    </HeaderStyle.HeaderArea>
+  );
 }
 
 export default Header;

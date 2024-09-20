@@ -1,65 +1,109 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import {
+  SignupContainer,
+  Title,
+  Form,
+  Label,
+  Input,
+  ErrorMessage,
+  SuccessMessage,
+  Button,
+} from './styles/SignUpStyle'; // Import styled components
 
 const Signup = () => {
   const [userData, setUserData] = useState({
     email: '',
-    password: '',
+    userId: '',
+    userPwd: '',
     name: '',
     phone: '',
     address: '',
   });
-  const dispatch = useDispatch();
+  const [isUserIdAvailable, setIsUserIdAvailable] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
   const navigate = useNavigate();
-  const [verificationCode, setVerificationCode] = useState('');
-  const [isCodeSent, setIsCodeSent] = useState(false);
-  const [isCodeVerified, setIsCodeVerified] = useState(false);
-  
 
   const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    // 전화번호에서 하이픈 제거
+    if (name === 'phone') {
+      const phoneValue = value.replace(/-/g, ''); // 하이픈 제거
+      setUserData({ ...userData, phone: phoneValue });
+    } else {
+      setUserData({ ...userData, [name]: value });
+    }
+
+    // 입력 필드 변경 시, 해당 필드의 에러 메시지 초기화
+    setFieldErrors({ ...fieldErrors, [name]: '' });
   };
 
-  const sendVerificationCode = () => {
-	  axios.post('api/send-verification-code', { phone: userData.phone })
-	  .then(() => setIsCodeSent(true))
-	  .catch(err => console.error(err));
+  const checkUserId = () => {
+    if (!userData.userId) return;
+
+    // 아이디 중복 체크
+    axios.post(`/api/check-username/${userData.userId}`)
+      .then(response => {
+        if (response.data) {
+          setIsUserIdAvailable(true);
+          setErrorMessage('');
+        } else {
+          setIsUserIdAvailable(false);
+          setErrorMessage('이미 사용 중인 아이디입니다.');
+        }
+      })
+      .catch(err => {
+        console.error('아이디 중복 체크 중 오류 발생:', err);
+        setErrorMessage('아이디 중복 체크에 실패했습니다.');
+      });
   };
-  
-  const verifyCode = () => {
-	  axios.post('/api/verify-code', { phone: userData.phone, code: verificationCode })
-	  .then(() => setIsCodeVerified(true))
-	  .catch(err => console.error(err));
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!isCodeVerified) {
-		alert('휴대폰번호를 인증해주세요');
-		return;
-	}
-	
-	axios.post('/api/signup', userData)
-	.then(response => {
-		console.log(response.data);
-		navigate('/');
-	})
-	.catch(err => console.error(err));
+
+    // 필수 필드 유효성 검사
+    const errors = {};
+    if (!userData.email) {
+      errors.email = '이메일을 입력해 주세요.';
+    } else if (!userData.email.includes('@')) { // 이메일에 '@' 포함 여부 확인
+      errors.email = '올바른 이메일 주소를 입력해 주세요.';
+    }
+
+    if (!userData.userId) errors.userId = '아이디를 입력해 주세요.';
+    if (!userData.userPwd) errors.userPwd = '비밀번호를 입력해 주세요.';
+    if (!userData.name) errors.name = '이름을 입력해 주세요.';
+    if (!userData.phone) errors.phone = '휴대폰 번호를 입력해 주세요.';
+
+    // 에러가 있으면 상태 업데이트하고 함수 종료
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    if (isUserIdAvailable === false) { // 중복 아이디인 경우
+      alert('아이디를 다시 확인해 주세요.');
+      return;
+    }
+
+    axios.post('/api/signup', userData)
+      .then(() => {
+        alert('회원가입이 완료되었습니다');
+        navigate('/login');
+      })
+      .catch(err => {
+        console.error('서버 요청 중 오류가 발생했습니다.', err);
+        alert('서버 오류가 발생했습니다. 다시 시도해 주세요.');
+      });
   };
-
-
-
 
   return (
     <SignupContainer>
-      <TitleContainer>
-      <h2>회원가입</h2>
-      </TitleContainer>
+      <Title>회원가입</Title>
       <Form onSubmit={handleSubmit}>
-        <Label> 이메일 </Label>
+        <Label>이메일</Label>
         <Input
           type="email"
           name="email"
@@ -67,23 +111,32 @@ const Signup = () => {
           value={userData.email}
           onChange={handleChange}
         />
-        <Label> 아이디 </Label>
+        {fieldErrors.email && <ErrorMessage>{fieldErrors.email}</ErrorMessage>} {/* 이메일 에러 메시지 */}
+
+        <Label>아이디</Label>
         <Input
-          type="userId"
+          type="text"
           name="userId"
           placeholder="userId"
           value={userData.userId}
           onChange={handleChange}
+          onBlur={checkUserId}
         />
-        <Label> 비밀번호 </Label>
+        {isUserIdAvailable === false && <ErrorMessage>{errorMessage}</ErrorMessage>}
+        {isUserIdAvailable === true && <SuccessMessage>사용 가능한 아이디입니다.</SuccessMessage>} {/* 성공 메시지 */}
+        {fieldErrors.userId && <ErrorMessage>{fieldErrors.userId}</ErrorMessage>} {/* 아이디 에러 메시지 */}
+
+        <Label>비밀번호</Label>
         <Input
           type="password"
-          name="password"
+          name="userPwd"
           placeholder="Password"
-          value={userData.password}
+          value={userData.userPwd}
           onChange={handleChange}
         />
-        <Label> 이름 </Label>
+        {fieldErrors.userPwd && <ErrorMessage>{fieldErrors.userPwd}</ErrorMessage>} {/* 비밀번호 에러 메시지 */}
+
+        <Label>이름</Label>
         <Input
           type="text"
           name="name"
@@ -91,10 +144,9 @@ const Signup = () => {
           value={userData.name}
           onChange={handleChange}
         />
-        
-        //휴대폰번호 부분 다시 수정해야 함
-        
-        <Label> 휴대폰번호 </Label>   
+        {fieldErrors.name && <ErrorMessage>{fieldErrors.name}</ErrorMessage>} {/* 이름 에러 메시지 */}
+
+        <Label>휴대폰번호</Label>
         <Input
           type="text"
           name="phone"
@@ -102,19 +154,9 @@ const Signup = () => {
           value={userData.phone}
           onChange={handleChange}
         />
-        <Button type="button" onClick={sendVerificationCode}> 인증번호 전송 </Button>
-        {isCodeSent && (
-			<Form>
-			<Label> 인증번호 </Label>
-			<Input
-			type="text"
-			value={verificationCode}
-			onChange={(e) => setVerificationCode(e.target.value)}
-			/>
-			<Button type="button" onClick={verifyCode}> 인증번호 </Button>
-			</Form>
-		)}
-        <Label> 주소 </Label>
+        {fieldErrors.phone && <ErrorMessage>{fieldErrors.phone}</ErrorMessage>} {/* 휴대폰번호 에러 메시지 */}
+
+        <Label>주소</Label>
         <Input
           type="text"
           name="address"
@@ -122,73 +164,11 @@ const Signup = () => {
           value={userData.address}
           onChange={handleChange}
         />
-        <Button type="submit" disabled={!isCodeVerified}>회원가입</Button>
+
+        <Button type="submit">회원가입</Button>
       </Form>
     </SignupContainer>
   );
 };
 
-const SignupContainer = styled.div`
-  margin-top: 100px;
-  margin-left: 680px;
-  width: 370px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: left;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  margin-top: 10px;
-  font-size: 14px;
-  padding: 3px;
-  text-align: left;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 90%;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  margin-left: 55px;
-  background-color: #5cb85c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 70%;
-  
- 
-  
-`;
-
-
-
-
-
-
-
 export default Signup;
-
-

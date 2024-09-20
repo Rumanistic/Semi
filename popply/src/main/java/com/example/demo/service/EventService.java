@@ -45,7 +45,7 @@ public class EventService {
     }
     
 	public void registerEvent(Event e) {
-		eventRepository.save(e);		
+		eventRepository.save(e);
 	}
 
 	public List<Event> getSearchListByTag(String[] tag) {
