@@ -5,18 +5,16 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Users;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 
 @RestController
@@ -25,17 +23,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-    
+   
     @Autowired
     PasswordEncoder passwordEncoder;
-    
-    @GetMapping("/test")
-    public @ResponseBody String testfunction() {
-    	return "success";
-    }
 
     @PostMapping("/signup")
     public void signUp(@RequestBody Users user) {
@@ -57,45 +47,19 @@ public class UserController {
     }
     
 
+    // login
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Map<String, String> loginData) {
-        Map<String, Object> result = new HashMap<>();
-        String userIdOrEmail = loginData.get("userIdOrEmail"); // 아이디 또는 이메일
-        String password = loginData.get("userPwd"); // 입력된 비밀번호
-        Optional<Users> loginUser;
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> loginData) {
+        String userIdOrEmail = loginData.get("userIdOrEmail");
+        String password = loginData.get("userPwd");
+        Map<String, Object> response = userService.loginUser(userIdOrEmail, password);
 
-        // 이메일인지 아이디인지 구분
-        if (userIdOrEmail.contains("@")) {
-            // 이메일로 검색
-            loginUser = userRepository.findByEmail(userIdOrEmail);
+        if ((boolean) response.get("success")) {
+            return ResponseEntity.ok(response);
         } else {
-            // 아이디로 검색 (이미 있는 메서드 사용)
-            loginUser = Optional.ofNullable(userRepository.findByUserId(userIdOrEmail));
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
-
-        // 사용자 존재 여부 확인
-        if (loginUser.isPresent()) {
-            Users foundUser = loginUser.get();
-
-            // 비밀번호 검증
-            if (passwordEncoder.matches(password, foundUser.getUserPwd())) {
-                result.put("success", true);
-                result.put("message", "로그인 성공");
-                result.put("userId", foundUser.getUserId()); // 성공 시 사용자 ID 반환
-                result.put("name", foundUser.getName());
-                result.put("type", foundUser.getType());
-            } else {
-                result.put("success", false);
-                result.put("message", "비밀번호가 잘못되었습니다.");
-            }
-        } else {
-            result.put("success", false);
-            result.put("message", "아이디 또는 이메일이 존재하지 않습니다.");
-        }
-
-        return result;
     }
-
     
     //아이디 찾기
     @PostMapping("/find-id")

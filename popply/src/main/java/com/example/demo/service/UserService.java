@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.Users;
-import com.example.demo.repository.ReviewRepository;
 import com.example.demo.repository.UserRepository;
-
-import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -32,6 +31,36 @@ public class UserService {
         return userRepository.save(user); // 회원 정보 저장
     }
     
+    public Map<String, Object> loginUser(String userIdOrEmail, String password) {
+        Map<String, Object> result = new HashMap<>();
+        Optional<Users> loginUser;
+
+        // 이메일인지 아이디인지 구분
+        if (userIdOrEmail.contains("@")) {
+            loginUser = userRepository.findByEmail(userIdOrEmail);
+        } else {
+            loginUser = Optional.ofNullable(userRepository.findByUserId(userIdOrEmail));
+        }
+
+        if (loginUser.isPresent()) {
+            Users foundUser = loginUser.get();
+            if (passwordEncoder.matches(password, foundUser.getUserPwd())) {
+                result.put("success", true);
+                result.put("message", "로그인 성공");
+                result.put("userId", foundUser.getUserId());
+                result.put("name", foundUser.getName());
+                result.put("type", foundUser.getType());
+            } else {
+                result.put("success", false);
+                result.put("message", "비밀번호가 잘못되었습니다.");
+            }
+        } else {
+            result.put("success", false);
+            result.put("message", "아이디 또는 이메일이 존재하지 않습니다.");
+        }
+
+        return result;
+    }
     // 이메일로 아이디 찾기
     public Optional<String> findUserIdByEmail(String email) {
         return userRepository.findByEmail(email).map(Users::getUserId);

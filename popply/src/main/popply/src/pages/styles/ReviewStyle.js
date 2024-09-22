@@ -7,7 +7,7 @@ export const ReviewContainer = styled.div`
   background-color: #fffaf0;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  font-family: 'Jeju Gothic', sans-serif;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewTitle = styled.h1`
@@ -16,10 +16,12 @@ export const ReviewTitle = styled.h1`
   text-align: center;
   margin-bottom: 25px;
   font-weight: 700;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewForm = styled.div`
   margin-bottom: 30px;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewInput = styled.textarea`
@@ -31,12 +33,13 @@ export const ReviewInput = styled.textarea`
   border: 2px solid #f39c12;
   margin-bottom: 20px;
   box-sizing: border-box;
-  font-family: 'Jeju Gothic', sans-serif;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewRatingSelect = styled.div`
   margin-bottom: 20px;
   text-align: center;
+  font-family: 'Pretendard-Regular', sans-serif;
 
   p {
     font-size: 1.5rem;
@@ -60,7 +63,7 @@ export const SubmitButton = styled.button`
   width: 200px;
   height: 50px;
   font-size: 1.2rem;
-  font-family: 'Jeju Gothic', sans-serif;
+  font-family: 'Pretendard-Regular', sans-serif;
   border-radius: 50px;
   margin-top: 20px;
   text-align: center;
@@ -83,6 +86,7 @@ export const SubmitButton = styled.button`
 export const ReviewList = styled.ul`
   list-style: none;
   padding: 0;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewItem = styled.li`
@@ -98,6 +102,7 @@ export const ReviewContent = styled.p`
   font-size: 1.2rem;
   color: #2d3436;
   margin-bottom: 10px;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewRating = styled.p`
@@ -105,6 +110,7 @@ export const ReviewRating = styled.p`
   color: #ffcc00;
   font-weight: bold;
   text-shadow: 0 0 5px #ffcc00;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewButton = styled.button`
@@ -119,6 +125,7 @@ export const ReviewButton = styled.button`
   min-width: 60px;
   transition: background 0.3s ease, transform 0.3s ease;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Pretendard-Regular', sans-serif;
 
   &:hover {
     background: linear-gradient(45deg, #ff4f4f, #ff7f7f);
@@ -136,6 +143,7 @@ export const NoReviews = styled.p`
   font-size: 1.5rem;
   color: #e67e22;
   margin-top: 30px;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewTextArea = styled.textarea`
@@ -147,6 +155,7 @@ export const ReviewTextArea = styled.textarea`
   border: 2px solid #f39c12;
   border-radius: 5px;
   box-sizing: border-box;
+  font-family: 'Pretendard-Regular', sans-serif;
 
   &:focus {
     outline: none;
@@ -164,6 +173,7 @@ export const EditButton = styled.button`
   cursor: pointer;
   margin-right: 5px;
   transition: background 0.3s ease, transform 0.3s ease;
+  font-family: 'Pretendard-Regular', sans-serif;
 
   &:hover {
     background: #2980b9;
@@ -176,7 +186,6 @@ export const EditButton = styled.button`
   }
 `;
 
-// 반응형 스타일
 export const ResponsiveContainer = styled.div`
   @media (max-width: 768px) {
     ${ReviewContainer} {
