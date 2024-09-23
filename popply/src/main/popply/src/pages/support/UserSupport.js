@@ -46,17 +46,26 @@ function UserSupportList({userId}) {
 	const navigate = useNavigate(); 
 	
 	return (
-		<ContentVerticalSpan style={{alignItems: 'center'}}>
-			<h2>고객 문의</h2>
+		<ContentVerticalSpan style={{alignItems: 'center' , marginTop: '15px'}}>
+			<h2>1:1 고객 문의</h2>
 			<RightFloatSpan style={{
 				position: 'absolute',
-		    right: '16%',
-		    top: '15%',
-		    float: 'right'
+		  	    right: '16%',
+		        top: '15%',
+		        float: 'right'
 			}}>
 				<input 
 					type="button" 
 					value={"문의사항 등록"}
+					style={{backgroundColor:'lightpink',
+							fontSize:'15px', 
+							borderRadius: '10px', 
+							padding: '5px', 
+							borderColor: 'transparent',
+							marginLeft: '400px',
+							marginTop: '60px',
+							
+					          }}					
 					onClick={() => navigate('/supports/usersupport/register')}
 				/>
 			</RightFloatSpan>
