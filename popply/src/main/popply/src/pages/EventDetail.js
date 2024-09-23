@@ -40,10 +40,10 @@ function EventDetail() {
 
           <EventDetailItem>
             <EventHeading>운영 시간</EventHeading>
-            <EventParagraph>{event.openTime} ~ {event.closeTime}</EventParagraph>
+            <EventParagraph>{event.openTime.substring(0,5)} ~ {event.closeTime.substring(0,5)}</EventParagraph>
           </EventDetailItem>
 
-          <SetParagraph content={event.content} company={event.company} createdDate={event.createDate} />
+          <SetParagraph content={event.content} company={event.company} createdDate={event.createdDate} />
 
           <EventDetailItem>
             <EventHeading>위치</EventHeading>
@@ -66,8 +66,8 @@ function EventDetail() {
 
 const SetParagraph = ({content, company, createdDate}) => {
 	const text = content;
-	const splitText = text.split(/<(?:\/)?[a-zA-Z]*>/);
-	const imgRegex = /^image[0-9]*/;
+	const splitText = text.split(/<(?:\/)?[a-zA-Z][^>]*>/);
+	const imgRegex = /^image[0-9]*$/;
 	const hyphenRemover = /-/g;
 	
 	const checkDir = (createdDate) => {
@@ -81,7 +81,7 @@ const SetParagraph = ({content, company, createdDate}) => {
 			<EventHeading>상세 정보</EventHeading>
 			{splitText.map((e, i) => {return (
 				imgRegex.test(e) ? 
-					<img src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(4)}`} alt=''/>:
+					<img src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt=''/>:
 					<EventParagraph>{e}</EventParagraph>
 			)})}
 		</EventDetailItem>

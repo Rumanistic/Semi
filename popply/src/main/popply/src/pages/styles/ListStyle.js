@@ -125,7 +125,7 @@ export const Col4 = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  max-width: 33%;
+  max-width: 31.9%;
   margin: 10px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);

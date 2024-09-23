@@ -16,22 +16,23 @@ import FindPassword from './pages/FindPassword';
 import MyPage from './pages/MyPage';
 import Withdraw from './pages/Withdraw';
 import EventSubmit from './pages/event/EventSubmit';
+import { useState } from 'react';
 
 
-function App() {
+function App({setUser}) {
+	
   return (
 	
     <div className="App">
   		<Routes>
   			<Route path='/' element={<Main />}/>
-				<Route path="/login" element={<Login />} />
+				<Route path="/login" element={<Login setUser={setUser}/>} />
 				<Route path="/main" element={<Main />} />
 				<Route path="/signup" element={<Signup />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/delete-account" element={<DeleteAccount />} />
 				<Route path='/:page' element={<List />}/>
 				<Route path='/:page/submit' element={<EventSubmit />}/>
-			  <Route path="/register" element={<PostRegister />} />
 				<Route path='/event/:no' element={<EventDetail />} />
 				<Route path='/review' element={<Review />}/>
   			<Route path='/supports/*' element={<Support />} />

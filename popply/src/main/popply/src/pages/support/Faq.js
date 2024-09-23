@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import * as FaqStyle from '../styles/FaqStyle';
 import { useNavigate } from 'react-router-dom';
 
-const userPermissions = ["user"];
+const userPermissions = ["user", "admin"];
 const userData = {userId: 'admin2', permissions: userPermissions}
 const isAdmin = userData.permissions.includes("admin");
 const userId = userData.userId;

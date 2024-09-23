@@ -14,7 +14,7 @@ import {
 
 function Login({ setUser }) {
   const [userId, setUserId] = useState('');
-  const [password, setPassword] = useState('');
+  const [userPwd, setUserPwd] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -22,12 +22,32 @@ function Login({ setUser }) {
     e.preventDefault();
 
     // 서버에 로그인 요청 보내기
-    axios.post('/api/login', { userId, userPwd: password })
+    axios.post('/api/login', { userId, userPwd })
       .then(response => {
         if (response.data.success) {
+					const loginData = response.data.userData
+					let permissions = ['user'];
           // localStorage에 사용자 정보 저장
-          localStorage.setItem('user', userId);
-
+          // localStorage.setItem('user', userId);
+					// 탭 닫기 혹은 브라우저 종료 시 저장된 데이터를 지우기 위해 
+					// sessionStorage 사용
+					sessionStorage.setItem('userId', loginData.userId);
+					sessionStorage.setItem('name', loginData.name);
+					switch(loginData.type){
+						case 0:
+							permissions.push('admin');
+							break;
+						case 1:
+							permissions.push('planner');
+							break;
+						//case 2:
+							//permissions.push('');
+							//break;
+						default:
+							break;
+					}
+					sessionStorage.setItem('permissions', permissions);
+					setUser(loginData.name);
           // 메인 페이지로 이동
           navigate('/main');
         } else {
@@ -66,8 +86,8 @@ function Login({ setUser }) {
           <Input
             type="password"
             placeholder="비밀번호"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={userPwd}
+            onChange={(e) => setUserPwd(e.target.value)}
           />
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <Button type="submit">로그인</Button>

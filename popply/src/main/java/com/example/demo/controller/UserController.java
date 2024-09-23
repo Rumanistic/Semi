@@ -53,6 +53,8 @@ public class UserController {
             if (passwordEncoder.matches(user.getUserPwd(), foundUser.getUserPwd())) {
                 result.put("success", true);
                 result.put("message", "로그인 성공");
+                // 사용자 데이터 세션으로 전송
+                result.put("userData", foundUser);
             } else {
                 result.put("success", false);
                 result.put("message", "비밀번호가 잘못되었습니다.");
