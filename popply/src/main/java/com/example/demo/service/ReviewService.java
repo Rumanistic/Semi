@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.domain.Review;
+import com.example.demo.domain.ReviewPoint;
 import com.example.demo.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,5 +41,9 @@ public class ReviewService {
         existingReview.setContent(updatedReview.getContent());
         existingReview.setRating(updatedReview.getRating());
         return reviewRepository.save(existingReview);
+    }
+    
+    public List<ReviewPoint> getReviewPointAvg(){
+    	return reviewRepository.findAllByDeleted(0);
     }
 }

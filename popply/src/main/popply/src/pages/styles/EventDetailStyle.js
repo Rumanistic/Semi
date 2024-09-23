@@ -8,7 +8,6 @@ export const EventContainer = styled.div`
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
 
   &:hover {
     transform: translateY(-5px);
@@ -22,13 +21,11 @@ export const EventTitle = styled.h1`
   text-align: center;
   margin-bottom: 25px;
   font-weight: 700;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
 `;
 
 export const EventDetailItem = styled.div`
   padding: 10px 0;
   border-bottom: 2px dashed #f39c12;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
 
   &:last-child {
     border-bottom: none;
@@ -40,7 +37,6 @@ export const EventHeading = styled.h3`
   font-size: 1.5rem;
   margin-top: 20px;
   margin-bottom: 10px;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
 `;
 
 export const EventParagraph = styled.p`
@@ -48,7 +44,6 @@ export const EventParagraph = styled.p`
   margin-bottom: 1.2rem;
   color: #2d3436;
   line-height: 1.8;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
 
   span {
     font-weight: 500;
@@ -60,7 +55,6 @@ export const EventLocation = styled.p`
   font-size: 1.3rem;
   color: #e74c3c;
   font-weight: bold;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
 `;
 
 export const Button = styled.button`
@@ -70,7 +64,6 @@ export const Button = styled.button`
   width: 200px;
   height: 50px;
   font-size: 1.1rem;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
   border-radius: 50px;
   margin-top: 20px;
   text-align: center;
@@ -92,9 +85,9 @@ export const Button = styled.button`
   }
 `;
 
-export const EventImages = styled.div`
-  margin-bottom: 20px;
-  font-family: 'Jeju Gothic', sans-serif; /* 폰트 적용 */
+export const EventImages = styled.img`
+	margin: 2px 0;
+	max-width: 100%;
 `;
 
 // 반응형 스타일

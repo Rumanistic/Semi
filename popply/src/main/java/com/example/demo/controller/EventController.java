@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.config.ImageManager;
 import com.example.demo.domain.Event;
+import com.example.demo.domain.ReviewPoint;
 import com.example.demo.service.EventService;
+import com.example.demo.service.ReviewService;
 
 @Controller
 @RequestMapping("/event")
@@ -23,6 +25,9 @@ public class EventController {
 
 	@Autowired
 	private EventService eventService;
+	
+	@Autowired
+	private ReviewService reviewService;
 
 	@GetMapping("/{page}/lists")
 	public ResponseEntity<HashMap<String, Object>> getAllList(@PathVariable(name="page") String type) {
@@ -31,9 +36,12 @@ public class EventController {
 		List<Event> eList = eventService.getAllList();
 
 		// review group by event_no 쿼리
-		double point = 0.0d;
 		HashMap<Long, Double> rPoint = new HashMap<>();
-		rPoint.put(1l, 3.5d);
+		List<ReviewPoint> rPoints = reviewService.getReviewPointAvg();
+		
+		for(ReviewPoint rp : rPoints) {
+			rPoint.put(rp.getEventNo(), rp.getReviewPointAvg());
+		}
 		
 		/* 의사코드
 		 * 인터페이스 domain/ReviewPoint.java

@@ -34,17 +34,15 @@ function Header({user, setUser}) {
           <HeaderStyle.NavMenuContent onClick={() => { navigate('/share') }}>Share</HeaderStyle.NavMenuContent>
           <HeaderStyle.NavMenuContent onClick={() => { navigate('/supports') }}>Support</HeaderStyle.NavMenuContent>
           <HeaderStyle.NavMenuContent onClick={() => { navigate('/supports/faq') }}>FAQ</HeaderStyle.NavMenuContent>
-          <div className="header">
             {user ? (
-              <>
+              <span>
                 <span>{user}님 환영합니다!</span>
                 <HeaderStyle.NavMenuContent onClick={() => { navigate('/mypage') }}>My Page</HeaderStyle.NavMenuContent>
                 <HeaderStyle.NavMenuContent onClick={handleLogout}>LogOut</HeaderStyle.NavMenuContent>
-              </>
+              </span>
             ) : (
               <HeaderStyle.NavMenuContent onClick={() => { navigate('/login') }}>Login</HeaderStyle.NavMenuContent>
             )}
-          </div>
         </ul>
 
         {/* 검색 버튼 추가 */}

@@ -27,11 +27,8 @@ function EventDetail() {
       {event ? (
         <EventContainer>
           {/* 이미지 출력 */}
-          <EventImages>
-            {/* 이미지 출력 로직이 여기에 추가될 수 있습니다 */}
-          </EventImages>
-
           <EventTitle>{event.title}</EventTitle>
+          {event.userId === sessionStorage.userId ? <Button> 수정 </Button> : <></>}
           
           <EventDetailItem>
             <EventHeading>운영 날짜</EventHeading>
@@ -81,7 +78,7 @@ const SetParagraph = ({content, company, createdDate}) => {
 			<EventHeading>상세 정보</EventHeading>
 			{splitText.map((e, i) => {return (
 				imgRegex.test(e) ? 
-					<img src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt=''/>:
+					<EventImages src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt=''/>:
 					<EventParagraph>{e}</EventParagraph>
 			)})}
 		</EventDetailItem>
