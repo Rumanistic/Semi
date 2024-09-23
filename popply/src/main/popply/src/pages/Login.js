@@ -9,11 +9,11 @@ import {
   ErrorMessage,
   Button,
   SignupButton,
-  FindButton // 추가된 버튼 스타일
+  FindButton
 } from './styles/LoginStyle'; 
 
 function Login({ setUser }) {
-  const [userId, setUserId] = useState('');
+  const [userIdOrEmail, setUserIdOrEmail] = useState(''); // 아이디 또는 이메일 입력 필드
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -22,22 +22,24 @@ function Login({ setUser }) {
     e.preventDefault();
 
     // 서버에 로그인 요청 보내기
-    axios.post('/api/login', { userId, userPwd: password })
-      .then(response => {
-        if (response.data.success) {
-          // localStorage에 사용자 정보 저장
-          localStorage.setItem('user', userId);
+    axios.post('/users/login', { userIdOrEmail, userPwd: password }) // userIdOrEmail 필드로 전송
+    .then(response => {
+      if (response.data.success) {
+        console.log(response.data)
+        localStorage.setItem('user', response.data.userId);
+        localStorage.setItem('user1', response.data.name);
+        localStorage.setItem('user2', response.data.type);
 
-          // 메인 페이지로 이동
-          navigate('/main');
-        } else {
-          setError(response.data.message);
-        }
-      })
-      .catch(error => {
-        console.error('로그인 중 오류가 발생했습니다.', error);
-        setError('서버에 문제가 발생했습니다. 다시 시도해 주세요.');
-      });
+   // 서버에서 사용자 정보 반환
+        navigate('/main');
+      } else {
+        setError(response.data.message);
+      }
+    })
+    .catch(error => {
+      console.error('로그인 중 오류가 발생했습니다.', error);
+      setError('서버에 문제가 발생했습니다. 다시 시도해 주세요.');
+    });
   };
 
   const handleSignUp = () => {
@@ -59,9 +61,9 @@ function Login({ setUser }) {
           <Title>Login</Title>
           <Input
             type="text"
-            placeholder="아이디"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
+            placeholder="아이디 또는 이메일"
+            value={userIdOrEmail}
+            onChange={(e) => setUserIdOrEmail(e.target.value)}
           />
           <Input
             type="password"
@@ -74,7 +76,6 @@ function Login({ setUser }) {
           <SignupButton type="button" onClick={handleSignUp}>
             회원가입
           </SignupButton>
-          {/* 아이디 및 비밀번호 찾기 버튼 추가 */}
           <FindButton type="button" onClick={handleFindId}>
             아이디 찾기
           </FindButton>
