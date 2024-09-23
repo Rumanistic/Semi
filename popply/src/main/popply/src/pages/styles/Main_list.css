@@ -1,0 +1,75 @@
+/* 전체 리스트 컨테이너 */
+.list_container {
+    display: flex; /* Flexbox 사용 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+    align-items: center; /* 중앙 정렬 */
+}
+
+/* 리스트 항목들을 감싸는 div */
+.list_items {
+    display: flex; /* Flexbox 사용 */
+    flex-direction: row; /* 수평 방향으로 정렬 */
+    gap: 20px; /* 항목 간의 간격 조정 */
+    justify-content: center; /* 중앙 정렬 */
+    flex-direction: column;
+    font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+}
+
+/* 리스트 메인 제목 */
+.list_main_name {
+    display: flex; /* Flexbox 사용 */
+    font-weight: bold;
+    font-size: 30px;
+    text-align: left; /* 글씨를 왼쪽으로 정렬 */
+    margin-bottom: 0px; /* 제목과 리스트 항목 간의 간격 */
+    font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+}
+
+.list_content {
+    display: flex; /* Flexbox 사용 */
+    flex-direction: row; /* 수평 방향으로 정렬 */
+    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    width: 100%; /* 전체 너비 사용 */
+}
+
+
+.list_items_container {
+    display: flex; /* Flexbox 사용 */
+    flex: 1; /* 남은 공간을 차지하도록 설정 */
+    transition: transform 0.5s ease; /* 슬라이드 애니메이션 효과 */
+}
+
+/* 리스트 아이템 */
+.list_item {
+    height: 350px; /* 이미지의 높이를 설정 */
+    width: 400px; /* 이미지의 너비를 설정 */
+    margin: 10px; /* 항목 간의 간격 */
+    display: flex; /* Flexbox 사용 */
+    align-items: flex-start; /* 이미지와 텍스트를 위쪽 정렬 */
+    flex-direction: column; /* 세로 방향으로 정렬 */
+}
+
+/* 리스트 이미지 */
+.list_img {
+    height: 200px; /* 이미지의 높이를 설정 */
+    width: auto; /* 이미지의 너비를 자동으로 설정 */
+    margin-bottom: 10px; /* 이미지와 텍스트 사이의 간격 */
+}
+
+/* 리스트 이미지 제목 */
+.list_subtitle {
+    font-weight: bold; /* 제목 두께 설정 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+/* 리스트 이미지 내용 */
+.list_detail {
+    display: block; /* 기본 블록 요소 */
+    text-align: left; /* 왼쪽 정렬 */
+}
+
+/* 리스트 하위 키워드 버튼 */
+.list_button {
+    border: none; /* 테두리 제거 */
+    background-color: #ff440062; /* 반투명 배경 */
+}

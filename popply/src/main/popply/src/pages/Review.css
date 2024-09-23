@@ -1,8 +1,4 @@
-@import url('https://fonts.googleapis.com/earlyaccess/jejugothic.css');
 
-body {
-  font-family: 'Jeju Gothic', sans-serif;
-}
 
 /* 리뷰 컨테이너 */
 .review-container {
@@ -13,7 +9,6 @@ body {
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Jeju Gothic', sans-serif;
 }
 
 .review-container:hover {
@@ -44,7 +39,6 @@ body {
   border: 2px solid #f39c12;
   margin-bottom: 20px;
   box-sizing: border-box;
-  font-family: 'Jeju Gothic', sans-serif;
 }
 
 .review-rating-select {

@@ -1,194 +1,242 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import {
+  SignupContainer,
+  Title,
+  Form,
+  Label,
+  Input,
+  ErrorMessage,
+  SuccessMessage,
+  Button,
+  Select, 
+} from './styles/SignUpStyle'; 
 
 const Signup = () => {
   const [userData, setUserData] = useState({
     email: '',
-    password: '',
+    userId: '',
+    userPwd: '',
     name: '',
     phone: '',
     address: '',
+    birthdate: '', // 생년월일 추가
+    accountType: '',
   });
-  const dispatch = useDispatch();
+  const [isUserIdAvailable, setIsUserIdAvailable] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [isAccountTypeSelected, setIsAccountTypeSelected] = useState(false); 
   const navigate = useNavigate();
-  const [verificationCode, setVerificationCode] = useState('');
-  const [isCodeSent, setIsCodeSent] = useState(false);
-  const [isCodeVerified, setIsCodeVerified] = useState(false);
-  
+
+  const handleAccountTypeChange = (e) => {
+    setUserData({ ...userData, accountType: e.target.value });
+  };
 
   const handleChange = (e) => {
-    setUserData({ ...userData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === 'phone') {
+      const phoneValue = value.replace(/-/g, ''); 
+      setUserData({ ...userData, phone: phoneValue });
+    } else {
+      setUserData({ ...userData, [name]: value });
+    }
+
+    setFieldErrors({ ...fieldErrors, [name]: '' });
   };
 
-  const sendVerificationCode = () => {
-	  axios.post('api/send-verification-code', { phone: userData.phone })
-	  .then(() => setIsCodeSent(true))
-	  .catch(err => console.error(err));
+  const checkUserId = () => {
+    if (!userData.userId) return;
+
+    axios.post(`/users/check-username/${userData.userId}`)
+      .then(response => {
+        if (response.data) {
+          setIsUserIdAvailable(true);
+          setErrorMessage('');
+        } else {
+          setIsUserIdAvailable(false);
+          setErrorMessage('이미 사용 중인 아이디입니다.');
+        }
+      })
+      .catch(err => {
+        console.error('아이디 중복 체크 중 오류 발생:', err);
+        setErrorMessage('아이디 중복 체크에 실패했습니다.');
+      });
   };
-  
-  const verifyCode = () => {
-	  axios.post('/api/verify-code', { phone: userData.phone, code: verificationCode })
-	  .then(() => setIsCodeVerified(true))
-	  .catch(err => console.error(err));
-  }
+
+  const calculateAge = (birthdate) => {
+    const today = new Date();
+    const birthDate = new Date(birthdate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(!isCodeVerified) {
-		alert('휴대폰번호를 인증해주세요');
-		return;
-	}
-	
-	axios.post('/api/signup', userData)
-	.then(response => {
-		console.log(response.data);
-		navigate('/');
-	})
-	.catch(err => console.error(err));
+
+    const errors = {};
+    if (!userData.email) {
+      errors.email = '이메일을 입력해 주세요.';
+    } else if (!userData.email.includes('@')) {
+      errors.email = '올바른 이메일 주소를 입력해 주세요.';
+    }
+
+    if (!userData.userId) errors.userId = '아이디를 입력해 주세요.';
+    if (!userData.userPwd) errors.userPwd = '비밀번호를 입력해 주세요.';
+    if (!userData.name) errors.name = '이름을 입력해 주세요.';
+    if (!userData.birthdate) {
+      errors.birthdate = '생년월일을 입력해 주세요.';
+    } else if (calculateAge(userData.birthdate) < 14) {
+      errors.birthdate = '14세 이상만 가입할 수 있습니다.';
+    }
+
+    const phoneRegex = /^(010|011)\d{7,8}$/;
+    if (!userData.phone) {
+      errors.phone = '휴대폰 번호를 입력해 주세요.';
+    } else if (!phoneRegex.test(userData.phone)) {
+      errors.phone = '올바른 휴대폰 번호를 입력해 주세요.';
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      return;
+    }
+
+    if (isUserIdAvailable === false) {
+      alert('아이디를 다시 확인해 주세요.');
+      return;
+    }
+
+    const userToSubmit = {
+      ...userData,
+      type: userData.accountType,
+    };
+
+    axios.post('/users/signup', userToSubmit)
+      .then(() => {
+        alert('회원가입이 완료되었습니다');
+        navigate('/login');
+      })
+      .catch(err => {
+        console.error('서버 요청 중 오류가 발생했습니다.', err);
+        alert('서버 오류가 발생했습니다. 다시 시도해 주세요.');
+      });
   };
 
-
-
+  const handleSelectAccountType = (e) => {
+    e.preventDefault();
+    if (!userData.accountType) {
+      alert('계정 타입을 선택해 주세요.');
+    } else {
+      setIsAccountTypeSelected(true); 
+    }
+  };
 
   return (
     <SignupContainer>
-      <TitleContainer>
-      <h2>회원가입</h2>
-      </TitleContainer>
-      <Form onSubmit={handleSubmit}>
-        <Label> 이메일 </Label>
-        <Input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={userData.email}
-          onChange={handleChange}
-        />
-        <Label> 아이디 </Label>
-        <Input
-          type="userId"
-          name="userId"
-          placeholder="userId"
-          value={userData.userId}
-          onChange={handleChange}
-        />
-        <Label> 비밀번호 </Label>
-        <Input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={userData.password}
-          onChange={handleChange}
-        />
-        <Label> 이름 </Label>
-        <Input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={userData.name}
-          onChange={handleChange}
-        />
-        
-        //휴대폰번호 부분 다시 수정해야 함
-        
-        <Label> 휴대폰번호 </Label>   
-        <Input
-          type="text"
-          name="phone"
-          placeholder="Phone"
-          value={userData.phone}
-          onChange={handleChange}
-        />
-        <Button type="button" onClick={sendVerificationCode}> 인증번호 전송 </Button>
-        {isCodeSent && (
-			<Form>
-			<Label> 인증번호 </Label>
-			<Input
-			type="text"
-			value={verificationCode}
-			onChange={(e) => setVerificationCode(e.target.value)}
-			/>
-			<Button type="button" onClick={verifyCode}> 인증번호 </Button>
-			</Form>
-		)}
-        <Label> 주소 </Label>
-        <Input
-          type="text"
-          name="address"
-          placeholder="주소 (선택 사항)"
-          value={userData.address}
-          onChange={handleChange}
-        />
-        <Button type="submit" disabled={!isCodeVerified}>회원가입</Button>
-      </Form>
+      {!isAccountTypeSelected ? (
+        <Form onSubmit={handleSelectAccountType}>
+          <Label>계정 타입을 선택해 주세요</Label>
+          <Select
+            name="accountType"
+            value={userData.accountType}
+            onChange={handleAccountTypeChange}
+          >
+            <option value="">계정 타입 선택</option>
+            <option value="0">관리자</option>
+            <option value="1">기획자</option>
+            <option value="2">사업자</option>
+            <option value="3">일반 사용자</option>
+          </Select>
+          <Button type="submit">확인</Button>
+        </Form>
+      ) : (
+        <Form onSubmit={handleSubmit}>
+          <Title>회원가입</Title>
+
+          <Label>이메일</Label>
+          <Input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={userData.email}
+            onChange={handleChange}
+          />
+          {fieldErrors.email && <ErrorMessage>{fieldErrors.email}</ErrorMessage>}
+
+          <Label>아이디</Label>
+          <Input
+            type="text"
+            name="userId"
+            placeholder="userId"
+            value={userData.userId}
+            onChange={handleChange}
+            onBlur={checkUserId}
+          />
+          {isUserIdAvailable === false && <ErrorMessage>{errorMessage}</ErrorMessage>}
+          {isUserIdAvailable === true && <SuccessMessage>사용 가능한 아이디입니다.</SuccessMessage>}
+          {fieldErrors.userId && <ErrorMessage>{fieldErrors.userId}</ErrorMessage>}
+
+          <Label>비밀번호</Label>
+          <Input
+            type="password"
+            name="userPwd"
+            placeholder="Password"
+            value={userData.userPwd}
+            onChange={handleChange}
+          />
+          {fieldErrors.userPwd && <ErrorMessage>{fieldErrors.userPwd}</ErrorMessage>}
+
+          <Label>이름</Label>
+          <Input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={userData.name}
+            onChange={handleChange}
+          />
+          {fieldErrors.name && <ErrorMessage>{fieldErrors.name}</ErrorMessage>}
+
+          <Label>생년월일</Label>
+          <Input
+            type="date"
+            name="birthdate"
+            placeholder="생년월일"
+            value={userData.birthdate}
+            onChange={handleChange}
+          />
+          {fieldErrors.birthdate && <ErrorMessage>{fieldErrors.birthdate}</ErrorMessage>}
+
+          <Label>휴대폰번호</Label>
+          <Input
+            type="text"
+            name="phone"
+            placeholder="Phone"
+            value={userData.phone}
+            onChange={handleChange}
+          />
+          {fieldErrors.phone && <ErrorMessage>{fieldErrors.phone}</ErrorMessage>}
+
+          <Label>주소</Label>
+          <Input
+            type="text"
+            name="address"
+            placeholder="주소 (선택 사항)"
+            value={userData.address}
+            onChange={handleChange}
+          />
+
+          <Button type="submit">회원가입</Button>
+        </Form>
+      )}
     </SignupContainer>
   );
 };
 
-const SignupContainer = styled.div`
-  margin-top: 100px;
-  margin-left: 680px;
-  width: 370px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  text-align: left;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Label = styled.label`
-  margin-top: 10px;
-  font-size: 14px;
-  padding: 3px;
-  text-align: left;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 90%;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  margin-left: 55px;
-  background-color: #5cb85c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  width: 70%;
-  
- 
-  
-`;
-
-
-
-
-
-
-
 export default Signup;
-
-

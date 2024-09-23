@@ -11,6 +11,8 @@ function PopupList() {
 	const [view, setView] = useState('list');
 	const {page} = useParams();
 	
+	const navigate = useNavigate();
+	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
 		console.log(page)
@@ -50,10 +52,10 @@ function PopupList() {
 	return (
 		<span>
 			<ListHeaderContainer>
-				<ListHeaderContainerHead1>Pop-up List</ListHeaderContainerHead1>
+				<ListHeaderContainerHead1>{page === 'popup' ? 'Pop-up' : 'Share'} List</ListHeaderContainerHead1>
 				<div style={{marginRight: '5px'}}>
 					<RightFloatSpan>
-						<button>등록</button>
+						<button onClick={() => {navigate('/popup/submit')}}>등록</button>
 					</RightFloatSpan>
 				</div>
 				<ViewChangeSpanContainer onClick={viewToggleHandler} islistview={view}>
