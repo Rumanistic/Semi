@@ -9,7 +9,7 @@ import {
   ErrorMessage,
   Button,
   SignupButton,
-  FindButton // 추가된 버튼 스타일
+  FindButton
 } from './styles/LoginStyle'; 
 
 function Login({ setUser }) {
@@ -22,9 +22,9 @@ function Login({ setUser }) {
     e.preventDefault();
 
     // 서버에 로그인 요청 보내기
-    axios.post('/api/login', { userId, userPwd })
-      .then(response => {
-        if (response.data.success) {
+    axios.post('/users/login', { userId, userPwd }) // userIdOrEmail 필드로 전송
+    .then(response => {
+      if (response.data.result) {
 					const loginData = response.data.userData
 					let permissions = ['user'];
           // localStorage에 사용자 정보 저장
@@ -51,13 +51,13 @@ function Login({ setUser }) {
           // 메인 페이지로 이동
           navigate('/main');
         } else {
-          setError(response.data.message);
-        }
-      })
-      .catch(error => {
-        console.error('로그인 중 오류가 발생했습니다.', error);
-        setError('서버에 문제가 발생했습니다. 다시 시도해 주세요.');
-      });
+        setError(response.data.message);
+      }
+    })
+    .catch(error => {
+      console.error('로그인 중 오류가 발생했습니다.', error);
+      setError('서버에 문제가 발생했습니다. 다시 시도해 주세요.');
+    });
   };
 
   const handleSignUp = () => {
@@ -79,7 +79,7 @@ function Login({ setUser }) {
           <Title>Login</Title>
           <Input
             type="text"
-            placeholder="아이디"
+            placeholder="아이디 또는 이메일"
             value={userId}
             onChange={(e) => setUserId(e.target.value)}
           />
@@ -94,7 +94,6 @@ function Login({ setUser }) {
           <SignupButton type="button" onClick={handleSignUp}>
             회원가입
           </SignupButton>
-          {/* 아이디 및 비밀번호 찾기 버튼 추가 */}
           <FindButton type="button" onClick={handleFindId}>
             아이디 찾기
           </FindButton>

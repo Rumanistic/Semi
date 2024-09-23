@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/HeaderStyle.css'; // CSS 파일 import
+import React, { useState, useEffect } from 'react';
 import * as HeaderStyle from './styles/HeaderStyle';
 
 function Header({user, setUser}) {

@@ -17,54 +17,76 @@ import com.example.demo.domain.Users;
 import com.example.demo.service.UserService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     UserService userService;
-
+   
     @Autowired
     PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
     public void signUp(@RequestBody Users user) {
         // 비밀번호 암호화
-        String enco = passwordEncoder.encode(user.getUserPwd());
-        user.setUserPwd(enco);
-        
+        String encryptedPassword = passwordEncoder.encode(user.getUserPwd());
+        user.setUserPwd(encryptedPassword);
+
+        // 계정 타입(type) 설정: 0: 관리자, 1: 기획자, 2: 사업자, 3: 일반 사용자
+        int accountType = user.getType(); // 클라이언트에서 전달된 타입 값 사용
+        user.setType(accountType); // 타입 값을 DB에 저장
+
         // 회원 정보 저장
         userService.saveUser(user);
     }
-
+    
     @PostMapping("/check-username/{userId}")
     public boolean checkUsername(@PathVariable(name="userId") String userId) {
         return !userService.findByUserId(userId).isPresent();  // 존재하지 않으면 true 반환
     }
     
-    // 로그인 처리
+
+    // login
     @PostMapping("/login")
-    public Map<String, Object> login(@RequestBody Users user) {
-        Map<String, Object> result = new HashMap<>();
-        Optional<Users> loginUser = userService.findByUserId(user.getUserId());
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Users users) {
+    	Map<String, Object> result = new HashMap<>();
+    	System.out.println(users);
+    	String userId = users.getUserId();
+    	String userPwd = users.getUserPwd();
+    	Optional<Users> foundUser = userId.contains("@") ? 
+    			userService.findByEmail(userId) :
+    			userService.findByUserId(userId);
+    	
+    	if(foundUser.isPresent()) {
+    		
+    		Users loginUser = foundUser.get();
+    		System.out.println(loginUser);
+    		
+    		if(passwordEncoder.matches(userPwd, loginUser.getUserPwd())) {
+    			result.put("result", true);
+    			result.put("message", "로그인 성공");
+    			result.put("userData", Users.builder()
+    					.userId(loginUser.getUserId())
+    					.userPwd("")
+    					.email(loginUser.getEmail())
+    					.phone(loginUser.getPhone())
+    					.receptioned(false)
+    					.name(loginUser.getName())
+    					.type(loginUser.getType())
+    					.build());
+    			return ResponseEntity.ok().body(result);
+    		}
 
-        if (loginUser.isPresent()) {
-            Users foundUser = loginUser.get();
-
-            if (passwordEncoder.matches(user.getUserPwd(), foundUser.getUserPwd())) {
-                result.put("success", true);
-                result.put("message", "로그인 성공");
-                // 사용자 데이터 세션으로 전송
-                result.put("userData", foundUser);
-            } else {
-                result.put("success", false);
-                result.put("message", "비밀번호가 잘못되었습니다.");
-            }
-        } else {
-            result.put("success", false);
-            result.put("message", "아이디가 존재하지 않습니다.");
-        }
-
-        return result;
+    		result.put("result", false);
+			result.put("type", "계정 정보 불일치");
+			result.put("message", "아이디 혹은 패스워드가 일치하지 않습니다.");
+    	} else {
+    		result.put("result", false);
+    		result.put("type", "로그인 실패");
+    		result.put("message", "등록되지 않은 사용자입니다.");
+    	}
+    	
+    	return ResponseEntity.status(401).body(result);
 
     }
     
@@ -135,6 +157,7 @@ public class UserController {
         return response;
     }
     
+    // 회원 탈퇴
     @PostMapping("/withdraw")
     public Map<String, String> withdraw(@RequestBody Map<String, String> request) {
         String userId = request.get("userId");
@@ -157,5 +180,54 @@ public class UserController {
 
         return response;
     }
+    
+    @PostMapping("/verify-password")
+    public ResponseEntity<Map<String, Object>> verifyPassword(@RequestBody Map<String, String> request) {
+        String userId = request.get("userId");
+        String userPwd = request.get("userPwd");
+
+        Map<String, Object> response = new HashMap<>();
+        Optional<Users> userOpt = userService.findByUserId(userId);
+        
+        System.out.println(userOpt.isPresent());
+        System.out.println("------------------------------");
+        System.out.println(passwordEncoder.matches(userPwd, userOpt.get().getUserPwd()));
+
+        if (userOpt.isPresent() && passwordEncoder.matches(userPwd, userOpt.get().getUserPwd())) {
+            Users user = userOpt.get();
+            response.put("success", true);
+            response.put("userInfo", Map.of(
+                    "userId", user.getUserId(),
+                    "name", user.getName(),
+                    "email", user.getEmail(),
+                    "phone", user.getPhone()
+            ));
+        } else {
+            response.put("success", false);
+        }
+
+        return ResponseEntity.ok(response);
+
+}
+    
+    // 회원 정보 수정
+    @PostMapping("/update-user-info")
+    public Map<String, Object> updateUserInfo(@RequestBody Users userInfo) {
+        Map<String, Object> response = new HashMap<>();
+
+        boolean isUpdated = userService.updateUserInfo(userInfo);
+
+        if (isUpdated) {
+            response.put("success", true);
+            response.put("message", "회원 정보가 수정되었습니다.");
+        } else {
+            response.put("success", false);
+            response.put("message", "회원 정보 수정에 실패했습니다.");
+        }
+
+        return response;
+    }
+    
+   
 
 }
