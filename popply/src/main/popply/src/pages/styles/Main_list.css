@@ -26,27 +26,27 @@
 }
 
 .list_content {
+    position: relative; /* 버튼 위치를 리스트 항목 기준으로 맞추기 위한 설정 */
     display: flex; /* Flexbox 사용 */
     flex-direction: row; /* 수평 방향으로 정렬 */
     justify-content: space-between; /* 양쪽 끝으로 정렬 */
     width: 100%; /* 전체 너비 사용 */
+    align-items: center; /* 세로 중앙 정렬 */
+    height: 300px; /* 적절한 높이 설정 */
+    padding: 0 50px; /* 좌우 여백 추가 */
 }
 
 
 .list_items_container {
-    display: flex; /* Flexbox 사용 */
-    flex: 1; /* 남은 공간을 차지하도록 설정 */
-    transition: transform 0.5s ease; /* 슬라이드 애니메이션 효과 */
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* 부드러운 슬라이드 애니메이션 */
+    width: 100%;
 }
 
 /* 리스트 아이템 */
 .list_item {
-    height: 350px; /* 이미지의 높이를 설정 */
-    width: 400px; /* 이미지의 너비를 설정 */
-    margin: 10px; /* 항목 간의 간격 */
-    display: flex; /* Flexbox 사용 */
-    align-items: flex-start; /* 이미지와 텍스트를 위쪽 정렬 */
-    flex-direction: column; /* 세로 방향으로 정렬 */
+    width: 33.33%; /* 3개가 한 화면에 보이도록 설정 */
+    flex-shrink: 0;
 }
 
 /* 리스트 이미지 */
@@ -72,4 +72,33 @@
 .list_button {
     border: none; /* 테두리 제거 */
     background-color: #ff440062; /* 반투명 배경 */
+}
+
+.list_carousel_button_container{
+    position: absolute;
+    top: 50%; /* 세로 중앙 정렬 */
+    transform: translateY(-50%);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 1; /* 버튼을 다른 요소 위로 올리기 */
+}
+
+.list_carousel-button {
+    position: absolute;
+    top: 50%; /* 세로 중앙 정렬 */
+    transform: translateY(-50%);
+    background-color: #ff440062; /* 반투명 배경 */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    
+}
+
+.list_carousel-button:first-child {
+    left: -60px; /* 왼쪽 정렬 */
+}
+
+.list_carousel-button:last-child {
+    right: -1300px; /* 오른쪽 정렬 */
 }

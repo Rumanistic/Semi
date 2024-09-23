@@ -82,7 +82,7 @@ const Main = () => {
         <div className="list_items"> 
           <h2 className='list_main_name'>POPIN POP-UP</h2>
           <div className="list_content">
-            <div className="list_button_container">
+            <div className="list_carousel_button_container">
               <button className="list_carousel-button" onClick={previousItem}>이전</button>
               <button className="list_carousel-button" onClick={nextItem}>다음</button>
             </div>
@@ -96,11 +96,13 @@ const Main = () => {
                     <p className="list_detail">{listItems[index].detail}</p>
                     <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>키워드 1</button>
                     <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>키워드 2</button>
-                  </div>
+                    </div>
+                  
                 </article>
               ))}
+              </div>
             </div>
-          </div>
+          
         </div>
       </section>
     </>
