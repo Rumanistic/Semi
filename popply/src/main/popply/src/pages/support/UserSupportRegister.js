@@ -4,6 +4,14 @@ import { ContentContainer, ContentHorizontalBar, ContentHorizontalSpan, ContentV
 import Wysiwyg from "../component/WYSIWYG";
 import { RightFloatSpan } from "../styles/FaqStyle";
 import axios from 'axios';
+import { 
+  TitleInput,
+  SelectType,
+  Label,
+  CheckboxLabel,
+  SecretCheckbox,
+  SubmitResetButtons
+} from "../styles/UserSupportStyle";
 
 function UserSupportRegister() {
 	const [width, setWidth] = useState(window.innerWidth);
@@ -95,46 +103,45 @@ function UserSupportRegister() {
 	}
 	
 	return (
-		<ContentContainer width={width}>
-			<ContentHorizontalBar borderpixel={3} />
-			<h2>문의사항 등록</h2>
-			<ContentHorizontalBar width={'90%'} borderpixel={1} />
-			<ContentHorizontalSpan>
-				<label style={{fontSize: '16px', width: '30%', alignContent: 'center'}}>문의사항</label>
-				<input ref={titleRef} name="title" style={{fontSize: '16px', width: '60%'}} placeholder="문의하실 내용을 간략하게 정리해주세요." onChange={dataChange}/>
-			</ContentHorizontalSpan>
-			<ContentHorizontalBar width={'90%'} borderpixel={1} />
-			<ContentHorizontalSpan>
-				<label style={{fontSize: '16px', width: '30%', alignContent: 'center'}}>종류</label>
-				<select name="type" style={{fontSize: '16px', width: '10%'}} onChange={dataChange}>
-					<option value={1}>&ensp;로그인</option>
-					<option value={2}>&ensp;회원가입</option>
-					<option value={9}>&ensp;기타</option>
-				</select>
-			</ContentHorizontalSpan>
-			<ContentHorizontalBar width={'90%'} borderpixel={1} />
-			<ContentHorizontalSpan>
-				<label style={{fontSize: '16px', width: '30%', alignContent: 'center'}}>상세 내용 문의</label>
-				<ContentVerticalSpan>
-					<Wysiwyg editorRef={editorRef}/>
-					<ContentHorizontalSpan style={{justifyContent: "flex-end"}}>
-						<RightFloatSpan>
-							<label style={{fontSize: '16px', width: '30%', alignContent: 'center'}}>비밀글 등록</label>
-							<input name="secret" type="checkbox" onChange={dataChange}/>
-						</RightFloatSpan>
-					</ContentHorizontalSpan>
-				</ContentVerticalSpan>
-			</ContentHorizontalSpan>
-			<ContentHorizontalBar width={'90%'} borderpixel={1} />
-			<ContentHorizontalSpan style={{justifyContent: "flex-end"}}>
-				<RightFloatSpan>
-					<input type="reset" value={"취소"} />
-					<input type="submit" value={"등록"} onClick={submitData} />
-				</RightFloatSpan>
-			</ContentHorizontalSpan>
-			<ContentHorizontalBar borderpixel={3} />
-		</ContentContainer>
-	)
-}
+	    <ContentContainer width={width}>
+	      <ContentHorizontalBar borderpixel={3} />
+	         <h2 style={{margin: '0 auto'}}>1:1 문의사항 등록</h2>
+	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	      <ContentHorizontalSpan>
+	       	 <Label>문의사항</Label>
+	       	 <TitleInput ref={titleRef} name="title" placeholder="문의하실 내용을 간략하게 정리해주세요." onChange={dataChange} />
+	      </ContentHorizontalSpan>
+	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	      <ContentHorizontalSpan>
+	         <Label>종류</Label>
+	        <SelectType name="type" onChange={dataChange}>
+	          <option value={1}>&ensp;로그인</option>
+	          <option value={2}>&ensp;회원가입</option>
+	          <option value={9}>&ensp;기타</option>
+	        </SelectType>
+	      </ContentHorizontalSpan>
+	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	      <ContentHorizontalSpan>
+	         <Label width="40%">상세 내용 문의</Label>
+	      <ContentVerticalSpan>
+	         <Wysiwyg editorRef={editorRef} />
+	      <ContentHorizontalSpan style={{ justifyContent: "flex-end" }}>
+	         <RightFloatSpan>
+	          <CheckboxLabel>비밀글 등록</CheckboxLabel>
+	           <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} />
+	          </RightFloatSpan>
+	      </ContentHorizontalSpan>
+	      </ContentVerticalSpan>
+	      </ContentHorizontalSpan>
+	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	      	<SubmitResetButtons>
+	          <input type="reset" value="취소" />
+	          <input type="submit" value="등록" onClick={submitData} />
+	        </SubmitResetButtons>
+	      <ContentHorizontalBar borderpixel={3} />
+	    </ContentContainer>
+	  );
+	}
+
 
 export default UserSupportRegister;
