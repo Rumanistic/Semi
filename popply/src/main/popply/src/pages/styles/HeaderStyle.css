@@ -37,6 +37,12 @@
         transition: color 0.3s; /* 색상 전환 효과 추가 */
 }
 
+.nav-menu-content:hover {
+    color: red; /* 마우스를 올렸을 때 글씨 색상 변경 */
+    transition: color 0.3s; /* 부드러운 전환 효과 */
+}
+
+
 .nav-menu-content li {
     display: inline; /* li 요소를 inline으로 설정 */
     margin: 0 20px; /* 좌우 간격 설정 (원하는 값으로 조정) */
