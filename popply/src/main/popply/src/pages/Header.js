@@ -1,7 +1,6 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/HeaderStyle.css'; // CSS 파일 import
-import React, { useState, useEffect } from 'react';
-import * as HeaderStyle from './styles/HeaderStyle';
 
 function Header({user, setUser}) {
   // 로그인 상태를 관리하는 state
@@ -24,24 +23,24 @@ function Header({user, setUser}) {
   };
 
   return (
-    <HeaderStyle.HeaderArea>
-      <HeaderStyle.HeaderNavMenuContainer>
-        <HeaderStyle.HeaderLogoImgContainer onClick={() => { navigate('/') }}>
-          PopSpot
-        </HeaderStyle.HeaderLogoImgContainer>
-        <ul>
-          <HeaderStyle.NavMenuContent onClick={() => { navigate('/popup') }}>Pop-up</HeaderStyle.NavMenuContent>
-          <HeaderStyle.NavMenuContent onClick={() => { navigate('/share') }}>Share</HeaderStyle.NavMenuContent>
-          <HeaderStyle.NavMenuContent onClick={() => { navigate('/supports') }}>Support</HeaderStyle.NavMenuContent>
-          <HeaderStyle.NavMenuContent onClick={() => { navigate('/supports/faq') }}>FAQ</HeaderStyle.NavMenuContent>
-            {user ? (
-              <span>
+    <header className="header-all">
+      <nav className="header-nav-menu">
+        <span className="header-logo" onClick={() => { navigate('/') }}>
+          POPSPOT
+        </span>
+        <ul className="nav-menu-content">
+          <li className="nav-menu-content" onClick={() => { navigate('/popup') }}>Pop-up</li>
+          <li className="nav-menu-content" onClick={() => { navigate('/share') }}>Share</li>
+          <li className="nav-menu-content" onClick={() => { navigate('/supports') }}>Support</li>
+          <li className="nav-menu-content" onClick={() => { navigate('/supports/faq') }}>FAQ</li>
+            {savedUser ? (
+              <>
                 <span>{user}님 환영합니다!</span>
-                <HeaderStyle.NavMenuContent onClick={() => { navigate('/mypage') }}>My Page</HeaderStyle.NavMenuContent>
-                <HeaderStyle.NavMenuContent onClick={handleLogout}>LogOut</HeaderStyle.NavMenuContent>
-              </span>
+                <li className="nav-menu-content" onClick={() => { navigate('/mypage') }}>My Page</li>
+                <li className="nav-menu-content" onClick={handleLogout}>LogOut</li>
+              </>
             ) : (
-              <HeaderStyle.NavMenuContent onClick={() => { navigate('/login') }}>Login</HeaderStyle.NavMenuContent>
+              <li className="nav-menu-content" onClick={() => { navigate('/login') }}>Login</li>
             )}
         </ul>
 
@@ -53,7 +52,7 @@ function Header({user, setUser}) {
           />
           </button>
         </div>
-      </HeaderStyle.HeaderNavMenuContainer>
+      </nav>
 
     {isModalOpen && (
       <div className="modal">
@@ -75,7 +74,7 @@ function Header({user, setUser}) {
           </div>
       </div>
     )}
-    </HeaderStyle.HeaderArea>
+    </header>
   );
 }
 

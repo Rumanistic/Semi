@@ -1,156 +1,144 @@
-import { styled } from 'styled-components'
+import styled from 'styled-components';
 
-/* 오른쪽 버튼 띄우기용 span */
+// 기본 스타일 컨테이너
 export const RightFloatSpan = styled.span`
-	float: right;
+  float: right;
+  margin-right: 10px;
 `;
 
 export const FaqDetails = styled.details`
-	text-align: left;
-  padding-left: 300px;
-  
-  summary::-webkit-details-marker { /* Safari 브라우저용 사용자 정의 스타일 */
-    display: none;
-	}
-	
-	summary {
-	    list-style-type: none; /* 그 외의 브라우저용 사용자 정의 스타일 */
-	}
-	
-	summary {
-		cursor: pointer;
-	}
-	
-	summary::before {
-		content: "❓";
-	}
-	
-	p::before {
-		content: "❗";
-	}
-	
-	details[open] {
-		transition: 0.5s;
-	}
+  margin-bottom: 40px;
+   font-size: 18px;
 `;
+
+export const FaqBox = styled.div`
+  border: 1px transparent;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 20px 0;
+  background-color: #fffaf0;
+  
+`;
+
 
 /* 모달 배경 */
 export const ModalBackgroundArea = styled.div`
-	position: fixed;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10; /* 모달을 최상위로 올리기 */
 `;
 
 /* 모달 컨텐츠 박스 */
 export const ModalContentArea = styled.div`
-  background-color: white;
+  background-color: #fffcf7;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
-  width: 100%;
-  height: 30%;
-  z-index: 11;
-  position: relative;
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  width: 500px;
+  max-width: 80%;
 `;
 
-/* 모달 헤드 div */
-export const ModalHeadArea = styled.div`
-	margin-bottom: 20px;
-`;
-
-/* 닫기 버튼 */
-export const ModalCloseButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: transparent;
-  border: none;
-  font-size: 18px;
-  cursor: pointer;
-`;
-
-/* 모달 제목 */
-export const ModalHeadH2 = styled.h2`
-	display: inline;
-	top: 10px;
-`;
-
-/* 모달 컨텐츠 */
+/* 모달 컨텐츠 부분 */
 export const ModalFormContentArea = styled.article`
-	width: 100%;
+   width: 100%;
+`;
+
+
+/* 모달 헤드 */
+export const ModalHeadArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #FFA2A2;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+`;
+
+/* 모달 제목 부분 */
+export const ModalHeadH2 = styled.h2`
+  font-size: 24px;
+  color: #FFA2A2;
+`;
+
+/* 모달 닫기 버튼*/
+export const ModalCloseButton = styled.button`
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
 `;
 
 /* 폼 내부 label */
 export const FormLabel = styled.label`
-	display: flex;
-	font-size: 20px;
-	align-items: center;
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: block;
 `;
 
 /* 폼 내부 input */
 export const FormInput = styled.input`
-	width: 80%;
-	height: 20px;
-	margin-left: 10px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 `;
 
 /* 폼 내부 textarea */
 export const FormTextArea = styled.textarea`
-	width: 80%;
-	height: 7em;
-	resize: none;
-	margin-left: 10px;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: vertical;
 `;
 
-/* 폼 내부 submit&reset 버튼 영역 */
-export const FormButtonArea = styled.span`
-	float: right;
-	margin-right: 10%;
+/* 폼 내부 버튼 영역 */
+export const FormButtonArea = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 `;
 
 /* 폼 submit 버튼 */
 export const FormSubmitButton = styled.button`
-	border-radius: 4px;
-	border: none;
-	width: 80px;
-	height: 30px;
-	background-color: rgba(0, 255, 0, 0.3);
-	margin-right: 20px;
-	font-size: 20px;
-	cursor: pointer;
-	
-	&:hover {
-		background-color: rgba(0, 255, 0, 0.7);
-	}
+  background-color: #FFA2A2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ff8f8f;
+  }
 `;
 
 /* 폼 reset 버튼 */
 export const FormResetButton = styled.button`
-	border-radius: 4px;
-	border: none;
-	width: 80px;
-	height: 30px;
-	background-color: rgba(255, 0, 0, 0.3);
-	font-size: 20px;
-	cursor: pointer;
-	
-	&:hover {
-		background-color: rgba(255, 0, 0, 0.7);
-	}
+  background-color: #ddd;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #bbb;
+  }
 `;
 
-/* 고객지원 이동 헤더 */
+/* 고객지원 이동 헤더 = 찾으시는 내용이 없나요?*/
 export const FaqH3 = styled.h3`
-	width: 40%;
-	display: inline-flex;
-	align-items: center;
-	justify-content: space-evenly;
+   width: 40%;
+   display: inline-flex;
+   align-items: center;
+   justify-content: space-evenly;
 `;
