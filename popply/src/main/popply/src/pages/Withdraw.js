@@ -34,6 +34,15 @@ const Withdraw = () => {
       return;
     }
 
+    // 사용자에게 탈퇴 확인 요청
+    const isConfirmed = window.confirm('정말로 탈퇴하시겠습니까? 탈퇴 후에는 복구가 불가능합니다.');
+    
+    if (!isConfirmed) {
+      // 사용자가 취소한 경우 아무 처리도 하지 않음
+      return;
+    }
+
+    // 탈퇴 처리 진행
     axios.post('/api/withdraw', userData)
       .then(() => {
         alert('회원 탈퇴가 완료되었습니다.');

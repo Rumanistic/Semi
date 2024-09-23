@@ -3,20 +3,22 @@ import axios from 'axios';
 import {
   ReviewContainer,
   ReviewTitle,
-  ReviewForm,
   ReviewInput,
-  ReviewRatingSelect,
   Star,
+  ReviewRatingSelect,
   SubmitButton,
   ReviewList,
   ReviewItem,
   ReviewContent,
-  ReviewRating,
-  ReviewButton,
   NoReviews,
   ReviewTextArea,
-  EditButton
-} from './styles/ReviewStyle'; 
+  ReviewButton,
+  EditButton,
+  ReviewRating,
+  ReviewForm  // ReviewForm 추가
+} from './styles/ReviewStyle';
+
+
 
 function Review({ eventNo, eventTitle }) {
   const [reviews, setReviews] = useState([]);
@@ -206,12 +208,13 @@ const handleReviewSubmit = () => {
                   <ReviewRating>{renderStars(review.rating)}</ReviewRating>
                   <ReviewContent>{review.content}</ReviewContent>
                   {/* 탈퇴한 회원 표시 */}
-                  <p>{review.userId ? review.userId : '탈퇴한 회원입니다'}</p>
+                  <p>{review.userId ? `작성자 : ${review.userId}` : '탈퇴한 회원입니다'}</p>
+
                   <p>
             {/* 리뷰 작성 날짜 표시 */}
                 {review.createdDate && (
                   <p>
-                    작성일: {new Date(review.createdDate).toLocaleDateString('ko-KR', {
+                    작성일 : {new Date(review.createdDate).toLocaleDateString('ko-KR', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric'
@@ -225,6 +228,8 @@ const handleReviewSubmit = () => {
                     <div>
                       <ReviewButton onClick={() => handleEditClick(review)}>수정</ReviewButton>
                       <ReviewButton onClick={() => handleReviewDelete(review.reviewNo, review.userId)}>삭제</ReviewButton>
+
+                      <br/><br/>
                     </div>
                   )}
                 </>

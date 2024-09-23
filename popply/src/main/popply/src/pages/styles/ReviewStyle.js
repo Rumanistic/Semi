@@ -12,7 +12,7 @@ export const ReviewContainer = styled.div`
 
 export const ReviewTitle = styled.h1`
   font-size: 2.4rem;
-  color: #e74c3c;
+  color: #f08a5d; /* 코랄색 */
   text-align: center;
   margin-bottom: 25px;
   font-weight: 700;
@@ -34,6 +34,13 @@ export const ReviewInput = styled.textarea`
   margin-bottom: 20px;
   box-sizing: border-box;
   font-family: 'Pretendard-Regular', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
+  transition: box-shadow 0.3s ease;
+
+  &:focus {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* 포커스 시 그림자 확대 */
+    border-color: #f08a5d; /* 포커스 시 테두리 색상 */
+  }
 `;
 
 export const ReviewRatingSelect = styled.div`
@@ -58,7 +65,7 @@ export const Star = styled.span`
 
 export const SubmitButton = styled.button`
   display: inline-block;
-  background-color: #e67e22;
+  background-color: #f08a5d;
   color: white;
   width: 200px;
   height: 50px;
@@ -71,14 +78,15 @@ export const SubmitButton = styled.button`
   transition: background-color 0.3s ease, transform 0.3s ease;
   border: none;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background-color: #d35400;
+    background-color: #e76f51;
     transform: scale(1.05);
   }
 
   &:active {
-    background-color: #c0392b;
+    background-color: #d1603d;
     transform: scale(0.98);
   }
 `;
@@ -86,17 +94,21 @@ export const SubmitButton = styled.button`
 export const ReviewList = styled.ul`
   list-style: none;
   padding: 0;
+  margin: 0; /* 상하 간격을 없애기 위해 기본 마진을 제거 */
   font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ReviewItem = styled.li`
-  padding: 15px 0;
+  padding: 20px 0; /* 위아래 간격을 20px으로 조정 */
   border-bottom: 2px dashed #f39c12;
-
+  margin-bottom: 20px; /* 각 리뷰 항목 간의 간격 추가 */
+  
   &:last-child {
     border-bottom: none;
+    margin-bottom: 0; /* 마지막 항목 아래에는 간격을 없앰 */
   }
 `;
+
 
 export const ReviewContent = styled.p`
   font-size: 1.2rem;
@@ -114,7 +126,7 @@ export const ReviewRating = styled.p`
 `;
 
 export const ReviewButton = styled.button`
-  background: linear-gradient(45deg, #ff7f7f, #ff4f4f);
+  background: linear-gradient(45deg, #f08a5d, #f39c12); /* 코랄-오렌지 그라디언트 */
   color: white;
   border: none;
   padding: 5px 10px;
@@ -128,12 +140,12 @@ export const ReviewButton = styled.button`
   font-family: 'Pretendard-Regular', sans-serif;
 
   &:hover {
-    background: linear-gradient(45deg, #ff4f4f, #ff7f7f);
+    background: linear-gradient(45deg, #e67e22, #f08a5d); /* 오렌지-코랄 색상 */
     transform: translateY(-2px);
   }
 
   &:active {
-    background: linear-gradient(45deg, #e64545, #ff4f4f);
+    background: linear-gradient(45deg, #d35400, #e67e22); /* 더 강렬한 오렌지 */
     transform: scale(0.95);
   }
 `;
@@ -156,15 +168,16 @@ export const ReviewTextArea = styled.textarea`
   border-radius: 5px;
   box-sizing: border-box;
   font-family: 'Pretendard-Regular', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 */
 
   &:focus {
     outline: none;
-    border-color: #e67e22;
+    border-color: #f08a5d;
   }
 `;
 
 export const EditButton = styled.button`
-  background: #3498db;
+  background: #f08a5d; /* 코랄색 */
   color: white;
   border: none;
   padding: 5px 10px;
@@ -174,14 +187,15 @@ export const EditButton = styled.button`
   margin-right: 5px;
   transition: background 0.3s ease, transform 0.3s ease;
   font-family: 'Pretendard-Regular', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   &:hover {
-    background: #2980b9;
+    background: #e67e22; /* 호버 시 따뜻한 오렌지색 */
     transform: translateY(-2px);
   }
 
   &:active {
-    background: #2471a3;
+    background: #d35400; /* 더 강렬한 오렌지 */
     transform: scale(0.95);
   }
 `;

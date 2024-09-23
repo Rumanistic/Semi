@@ -2,20 +2,21 @@ import styled from 'styled-components';
 
 export const WithdrawContainer = styled.div`
   max-width: 500px;
-  margin: 0 auto;
-  padding: 50px;
-  border: 1px solid #dcdcdc;
-  border-radius: 15px;
-  background-color: #f7f7f7;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: 100px auto;
+  padding: 40px;
+  background-color: #fffaf0;
+  border-radius: 20px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   font-family: 'Pretendard-Regular', sans-serif;
+  text-align: center;
+  box-sizing: border-box; /* box-sizing 설정 */
 `;
 
 export const Title = styled.h2`
   text-align: center;
   margin-bottom: 40px;
   font-size: 2.4rem;
-  color: #8a8a8a;
+  color: #4a4a4a;
   font-family: 'Pretendard-Regular', sans-serif;
   font-weight: 700;
 `;
@@ -25,11 +26,12 @@ export const Form = styled.form`
   flex-direction: column;
   gap: 20px;
   font-family: 'Pretendard-Regular', sans-serif;
+  width: 100%; /* Form이 전체 너비를 차지하도록 설정 */
 `;
 
 export const Label = styled.label`
   text-align: left;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   color: #555;
   font-weight: 500;
   font-size: 1.2rem;
@@ -37,14 +39,17 @@ export const Label = styled.label`
 `;
 
 export const Input = styled.input`
-  padding: 12px;
+  padding: 14px;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: #fafafa;
+  background-color: #f9f9f9;
   color: #333;
   font-size: 1.1rem;
+  width: 100%; /* Input의 너비를 100%로 설정 */
+  box-sizing: border-box; /* box-sizing 설정 */
   box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
   font-family: 'Pretendard-Regular', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:focus {
     outline: none;
@@ -55,24 +60,25 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   padding: 15px;
-  background: linear-gradient(45deg, #f2c6c6, #f4dcdc);
-  color: #444;
+  background: linear-gradient(45deg, #f4b5b5, #f6d3d3);
+  color: #fff;
   border: none;
   border-radius: 25px;
   cursor: pointer;
   font-size: 1.2rem;
+  width: 100%; /* 버튼도 전체 너비를 차지하도록 설정 */
   font-family: 'Pretendard-Regular', sans-serif;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 
   &:hover {
-    background: linear-gradient(45deg, #e3b0b0, #e8caca);
+    background: linear-gradient(45deg, #e89b9b, #f0b6b6);
     transform: translateY(-3px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   }
 
   &:active {
-    background: linear-gradient(45deg, #d89f9f, #e0b8b8);
+    background: linear-gradient(45deg, #d87e7e, #e5a2a2);
     transform: scale(0.98);
   }
 `;
