@@ -5,7 +5,7 @@ import './styles/HeaderStyle.css'; // CSS 파일 import
 function Header() {
   
   // 로그인 상태를 관리하는 state
-  const [user, setUser] = useState(null);
+  const savedUser = localStorage.getItem('user1');
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -17,18 +17,10 @@ function Header() {
     setIsModalOpen(false); // 검색 후 모달 닫기
   };
 
-  useEffect(() => {
-    // localStorage에서 사용자 정보를 가져와 상태에 저장
-    const savedUser = localStorage.getItem('user');
-    if (savedUser) {
-      setUser(savedUser); // 저장된 사용자 이름으로 상태 설정
-    }
-  }, []);
 
   const handleLogout = () => {
     // 로그아웃 시 localStorage에서 사용자 정보 제거
-    localStorage.removeItem('user');
-    setUser(null); // 상태 업데이트
+    localStorage.clear();
     alert("로그아웃 되었습니다!");
     navigate('/main'); // 메인 페이지로 이동
   };
@@ -46,7 +38,7 @@ function Header() {
           <li className="nav-menu-content" onClick={() => { navigate('/supports/faq') }}>FAQ</li>
         </ul>
           <div className="header">
-            {user ? (
+            {savedUser ? (
               <>
                 <span>{user}님 환영합니다!</span>
                 <li className="nav-menu-content" onClick={() => { navigate('/mypage') }}>My Page</li>
