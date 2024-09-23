@@ -127,6 +127,7 @@ const MyPage = () => {
                 />
               </p>
               <Button onClick={handleSaveChanges}>저장</Button>
+              <br /><br />
               <Button onClick={() => setIsEditing(false)}>취소</Button>
             </div>
           ) : (
@@ -139,7 +140,7 @@ const MyPage = () => {
               <Button onClick={() => setIsEditing(true)}>수정</Button>
             </div>
           )}
-
+            <br />
           {/* 회원 탈퇴 버튼을 InfoContainer 내부에 추가 */}
           <Button onClick={handleWithdraw}>회원 탈퇴</Button>
         </InfoContainer>

@@ -159,10 +159,6 @@ public class UserController {
 
         Map<String, Object> response = new HashMap<>();
         Optional<Users> userOpt = userService.findByUserId(userId);
-        
-        System.out.println(userOpt.isPresent());
-        System.out.println("------------------------------");
-        System.out.println(passwordEncoder.matches(userPwd, userOpt.get().getUserPwd()));
 
         if (userOpt.isPresent() && passwordEncoder.matches(userPwd, userOpt.get().getUserPwd())) {
             Users user = userOpt.get();

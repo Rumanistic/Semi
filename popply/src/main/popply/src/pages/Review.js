@@ -38,33 +38,40 @@ function Review({ eventNo, eventTitle }) {
   }, [eventNo]);
 
   // 리뷰 제출 처리
-  const handleReviewSubmit = () => {
-    if (!newReview || selectedRating === 0) {
-      alert('리뷰 내용과 평점을 입력하세요.');
-      return;
-    }
+const handleReviewSubmit = () => {
+  if (!newReview || selectedRating === 0) {
+    alert('리뷰 내용과 평점을 입력하세요.');
+    return;
+  }
 
-    setSubmitting(true);
+  setSubmitting(true);
 
-    const newReviewData = {
-      content: newReview,
-      rating: selectedRating,
-      eventNo,
-      userId: savedUser
-    };
-
-    axios.post('/review/insert', newReviewData)
-      .then(response => {
-        setReviews([response.data, ...reviews]);
-        setNewReview('');
-        setSelectedRating(0);
-      })
-      .catch(error => {
-        console.error('리뷰 제출 중 오류가 발생했습니다.', error);
-        alert('리뷰 제출 중 오류가 발생했습니다.');
-      })
-      .finally(() => setSubmitting(false));
+  const newReviewData = {
+    content: newReview,
+    rating: selectedRating,
+    eventNo,
+    userId: savedUser
   };
+
+  axios.post('/review/insert', newReviewData)
+    .then(response => {
+      axios.get(`/review/${eventNo}`)
+      .then(response => setReviews(response.data))
+      .catch(error => console.error('리뷰 데이터를 가져오는 중 오류가 발생했습니다.', error));
+
+      
+
+      // 리뷰 제출 후 입력 폼 초기화
+      setNewReview('');
+      setSelectedRating(0);
+    })
+    .catch(error => {
+      console.error('리뷰 제출 중 오류가 발생했습니다.', error);
+      alert('리뷰 제출 중 오류가 발생했습니다.');
+    })
+    .finally(() => setSubmitting(false));
+};
+  
 
   // 리뷰 삭제 처리
   const handleReviewDelete = (reviewNo, reviewUserId) => {
@@ -200,6 +207,20 @@ function Review({ eventNo, eventTitle }) {
                   <ReviewContent>{review.content}</ReviewContent>
                   {/* 탈퇴한 회원 표시 */}
                   <p>{review.userId ? review.userId : '탈퇴한 회원입니다'}</p>
+                  <p>
+            {/* 리뷰 작성 날짜 표시 */}
+                {review.createdDate && (
+                  <p>
+                    작성일: {new Date(review.createdDate).toLocaleDateString('ko-KR', {
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric'
+                    })}
+                  </p>
+                )}
+
+                  </p>
+
                   {savedUser === review.userId.toString() && (
                     <div>
                       <ReviewButton onClick={() => handleEditClick(review)}>수정</ReviewButton>
