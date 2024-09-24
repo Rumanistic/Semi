@@ -9,7 +9,6 @@ import {
   InputField,
   ErrorMessage
 } from './styles/MyPageStyle'; // MyPage에 맞는 스타일 컴포넌트만 임포트
-// 필요한 styled components만 임포트
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -24,6 +23,12 @@ const MyPage = () => {
   console.log(savedUser);
   
   const handlePasswordCheck = () => {
+    // 비밀번호가 입력되지 않았을 경우 오류 메시지 설정
+    if (!password) {
+      setError('비밀번호를 입력하세요.');
+      return;
+    }
+
     // 서버에 비밀번호 확인 요청
     axios.post('/users/verify-password', { userId: savedUser, userPwd: password })
       .then(response => {

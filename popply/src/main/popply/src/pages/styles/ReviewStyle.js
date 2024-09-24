@@ -232,3 +232,18 @@ export const ResponsiveContainer = styled.div`
     }
   }
 `;
+
+export const LoginButton = styled.button`
+  padding: 10px 20px;
+  background-color: #f08a5d;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1e88e5;
+  }
+`;
