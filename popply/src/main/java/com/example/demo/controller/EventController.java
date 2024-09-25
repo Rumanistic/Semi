@@ -30,6 +30,8 @@ public class EventController {
 	
 	@Autowired
 	private ReviewService reviewService;
+	
+	ImageManager im = new ImageManager();
 
 	@GetMapping("/popup/lists")
 	public ResponseEntity<HashMap<String, Object>> getAllList() {
@@ -76,7 +78,7 @@ public class EventController {
 		String company = e.getCompany();
 		String content = e.getContent();
 		
-		ImageManager im = new ImageManager();
+		
 		
 		HashMap<String, String> resultSet = im.saveImage(content, company);
 		e.setImages(resultSet.get("images"));
@@ -121,9 +123,19 @@ public class EventController {
 	
 	@PutMapping("/{no}")
 	public ResponseEntity<HashMap<String, String>> editEvent(
-			@PathVariable(name="no") Long eventNo
-		){
-		return ResponseEntity.ok().body(null);
+			@PathVariable(name="no") Long eventNo,
+			@RequestBody Event e
+		) throws Exception{
+		System.out.println(e);
+		String curDir = e.getCompany() + e.getCreatedDate().toLocalDate().toString().replaceAll("-", "");
+		
+		HashMap<String, String> resultSet = im.editImage(e.getContent(), e.getCompany(), curDir);
+		e.setImages(resultSet.get("images"));
+		e.setContent(resultSet.get("content"));
+		
+		eventService.registerEvent(e);
+		
+		return ResponseEntity.noContent().build();
 	}
 	
 	

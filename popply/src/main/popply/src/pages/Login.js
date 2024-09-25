@@ -27,8 +27,8 @@ function Login({ setUser }) {
       if (response.data.result) {
 					const loginData = response.data.userData
 					let permissions = ['user'];
-          // localStorage에 사용자 정보 저장
-          // localStorage.setItem('user', userId);
+          // Storage에 사용자 정보 저장
+          // Storage.setItem('user', userId);
 					// 탭 닫기 혹은 브라우저 종료 시 저장된 데이터를 지우기 위해 
 					// sessionStorage 사용
 					sessionStorage.setItem('userId', loginData.userId);

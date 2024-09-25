@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,6 +11,11 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.TrueFileFilter;
+
+
 
 public class ImageManager {
 	private final String ROOTPATH = System.getProperty("user.dir") + "/src/main/popply/public/img/";
@@ -75,6 +81,81 @@ public class ImageManager {
 		resultSet.put("content", setTag);
 		resultSet.put("images", imgs.toString());
 		
+		return resultSet;
+	}
+	
+	
+	public HashMap<String, String> editImage(String content, String company, String directory ) throws Exception {
+		String setTag = content;
+		String imgSrc = "";
+		String dir = Paths.get(ROOTPATH, directory).toString();
+		
+		File countDir = new File(dir);
+		File[] list = countDir.listFiles();
+		if(list == null) {
+			HashMap<String, String> resultSet = new HashMap<>();
+			resultSet.put("content", setTag);
+			resultSet.put("images", "");
+			return resultSet;
+		}
+		int count = list.length + 1;
+		
+		String base64 = "base64,";
+		HashMap<String, String> resultSet = new HashMap<>();
+		StringBuilder imgs = new StringBuilder();
+		
+		while(setTag.contains("<img")) {
+			int imgStart = setTag.indexOf("<img");
+			int imgEnd = setTag.indexOf(">", imgStart);
+			int baseStart = setTag.indexOf(base64, imgStart) + base64.length();
+			int baseEnd = setTag.indexOf("\"", baseStart);
+			int fileNameEnd = setTag.indexOf(".png", imgStart);
+			
+			System.out.println(imgStart +"|"+ imgEnd +"|"+ baseStart +"|"+ baseEnd +"|"+ fileNameEnd);
+			
+			if(baseStart != -1 && baseEnd != -1 && fileNameEnd == -1) {
+				imgSrc = setTag.substring(baseStart, baseEnd);
+				
+				String fileExt = ".png";
+				String fileName = new StringBuilder()
+									.append(company)
+									.append("_")
+									.append(count)
+									.append(fileExt)
+									.toString();
+				
+				String fullPath = Paths.get(dir, fileName).toString();
+				
+				byte[] decodedBytes = Base64.getDecoder().decode(imgSrc);
+				try (FileOutputStream fos = new FileOutputStream(fullPath)) {
+					fos.write(decodedBytes);
+				}
+				
+				if(imgs.length() > 0) {
+					imgs.append(",");
+				}
+				
+				imgs.append(company).append("_").append(count);
+				setTag = setTag.replaceFirst("<img[^>]*>", "image" + count++);
+			}
+			
+			if(fileNameEnd != -1 && baseStart > imgEnd) {
+				String imgNum = setTag.substring(fileNameEnd-1, fileNameEnd); 
+//				System.out.println(imgNum +"|"+ setTag.charAt(93) + setTag.charAt(94) + setTag.charAt(95));
+				if(imgs.length() > 0) {
+					imgs.append(",");
+				}
+				
+				imgs.append(company).append("_").append(imgNum);
+				setTag = setTag.replaceFirst("<img[^>]*>", "image" + imgNum);
+			}
+		}
+		
+		System.out.println(setTag);
+		resultSet.put("content", setTag);
+		resultSet.put("images", imgs.toString());
+		
+		System.out.println(resultSet);
 		return resultSet;
 	}
 }

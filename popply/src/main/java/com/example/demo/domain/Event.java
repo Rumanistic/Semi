@@ -93,7 +93,6 @@ public class Event {
 	@Column(name="CREATED_DATE", insertable=false, updatable=false, columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime createdDate;
 
-	@NonNull
 	@LastModifiedDate
 	@Column(name="MODIFIED_DATE", columnDefinition="DATE DEFAULT SYSDATE")
 	private LocalDateTime modifiedDate;

@@ -1,8 +1,7 @@
 /* 헤더 전체 */
     .header-all {
-				margin: 0 2%;
-        width: 96%;
-        height: 100px;
+        width: 100%;
+        height: 120px;
         position: sticky; /* 스크롤 시에도 고정되도록 설정 */
         top: 0; /* 상단에 고정 */
         left: 0; /* 좌측에 고정 */
@@ -31,19 +30,51 @@
         cursor: pointer;
     }
 
+/* NavMenuContainer */
+.nav-menu-container {
+	float: left;
+	display: flex;
+}
+
 /* NavMenuContent 스타일 */
-    .nav-menu-content {
-        float: left;
-        margin: 0 10px;
+.nav-menu-content {
+			  margin: 0 20px;
         font-size: 25px;
         font-weight: bold;
         cursor: pointer;
-        transition: color 0.3s; /* 색상 전환 효과 추가 */
 }
 
 .nav-menu-content:hover {
     color: red; /* 마우스를 올렸을 때 글씨 색상 변경 */
     transition: color 0.3s; /* 부드러운 전환 효과 */
+}
+
+.nav-menu-search-content {
+  width: 36px;
+  height: 36px;
+	display: flex;
+	flex-wrap: nowrap;
+  border-radius: 10px;
+  margin: 0 20px;
+  background-color: rgba(0, 0, 0, 0.1);
+  align-self: center;
+  font-size: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: width 0.5s ease;
+}
+
+.nav-menu-search-content.expanded {
+  width: 327px;
+  height: 36px;
+  transition: width 0.2s ease;
+}
+
+.nav-menu-search-text {
+	border: none;
+	background-color: rgba(255, 255, 255, 0.5);
+	font-size: 20px;
+	align-self: center;
 }
 
 /* login 스타일 */
@@ -56,13 +87,6 @@
         cursor: pointer;
         white-space: nowrap; /* 줄 바꿈 방지 */
     }
-
-
-.nav-menu-content li {
-    display: inline; /* li 요소를 inline으로 설정 */
-    margin: 0 20px; /* 좌우 간격 설정 (원하는 값으로 조정) */
-}
-
 
 
 /* NavMenuLogin 스타일 */
@@ -131,6 +155,7 @@
 
 /* 검색 아이콘 */
     .search-icon {
+			  padding: 6px;
         width: 24px; /* 원하는 너비로 조정 */
         height: 24px; /* 원하는 높이로 조정 */
         display: block; /* 블록 요소로 설정 */

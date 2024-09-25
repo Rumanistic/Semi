@@ -21,49 +21,55 @@ import PopupList from './pages/list/PopupList';
 
 function App({user, setUser}) {
 	
-	const [permissions, setPermissions] = useState('');
-	const logined = () => {setPermissions(sessionStorage.getItem("permissions"))}
+	const [permissions, setPermissions] = useState(sessionStorage.getItem("permissions"));
 	
 	useEffect(() => {
-		logined();
-	}, [user]);
+    setPermissions(sessionStorage.getItem("permissions"));
+  }, [user]);
+  
+  const noPermissionRoutes = [
+		{ path:'/', element: <Main />},
+		{ path:'/login', element: <Login setUser={setUser}/>},
+		{ path:'/main', element: <Main />},
+		{ path:'/signup', element:<Signup />},
+		{ path:'/popup', element: <PopupList />},
+		{ path:'/event/:no', element: <EventDetail />},
+		{ path:'/review', element: <Review />},
+		{ path:'/supports/*', element: <Support />},
+		{ path:'/find-id', element: <FindId />},
+		{ path:'/find-password', element: <FindPassword />}
+	];
+  
+  const userPermissionRoutes = [
+		{ path:'/supports/usersupport/detail/:no', element: <UserSupportDetail />},
+		{ path:'/profile', element: <Profile />},
+		{ path:'/mypage', element: <MyPage />},
+		{ path:'/delete-account', element: <DeleteAccount />},
+		{ path:'/withdraw', element: <Withdraw />}
+	];
+  
+  const plannerPermissionRoutes = [
+		{path: '/popup/submit', element: <EventSubmit />},
+		{path: '/popup/edit', element: <EventEdit />}
+	];
 	
   return (
 	
     <div className="App">
   		<Routes>
-  			<Route path='/' element={<Main />}/>
-				<Route path="/login" element={<Login setUser={setUser}/>} />
-				<Route path="/main" element={<Main />} />
-				<Route path="/signup" element={<Signup />} />
-				<Route path='/popup' element={<PopupList />}/>
-				<Route path='/event/:no' element={<EventDetail />} />
-				<Route path='/review' element={<Review />}/>
-  			<Route path='/supports/*' element={<Support />} />
-			  <Route path="/find-id" element={<FindId />} />
-			  <Route path="/find-password" element={<FindPassword />} />
+  			{noPermissionRoutes.map((r, i) => (
+					<Route key={i} path={r.path} element={r.element}/>
+				))}
+				{user &&
+					userPermissionRoutes.map((r, i) => (
+					<Route key={i} path={r.path} element={r.element}/>
+				))}
+				{user !== null && permissions && permissions.includes('planner') &&
+					plannerPermissionRoutes.map((r, i) => (
+					<Route key={i} path={r.path} element={r.element}/>
+				))}
 	  	</Routes>
-	  	
-	  	{user && 
-		  	<Routes>
-		  		<Route path='/' element={<Main />}/>
-					<Route path='/supports/usersupport/detail/:no' element={<UserSupportDetail />} />
-					<Route path="/profile" element={<Profile />} />
-					<Route path="/mypage" element={<MyPage />} />
-        	<Route path="/delete-account" element={<DeleteAccount />} />
-					<Route path="/withdraw" element={<Withdraw />} />
-		  	</Routes>
-	  	}
-	  	
-	  	{
-				 user !== null && permissions !== null && permissions.includes('planner') && 
-				<Routes>
-					<Route path='/' element={<Main />}/>
-		  		<Route path='/popup/submit' element={<EventSubmit />}/>
-					<Route path='/popup/edit' element={<EventEdit />}/>
-				</Routes>
-			}
-	  	
+	  		  	
     </div>
   );
 }

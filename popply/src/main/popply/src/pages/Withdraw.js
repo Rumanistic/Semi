@@ -47,9 +47,7 @@ const Withdraw = () => {
         alert('회원 탈퇴가 완료되었습니다.');
         
         // 로그아웃 처리
-        localStorage.removeItem('user');  // localStorage에 저장된 사용자 정보 삭제
-        localStorage.removeItem('user1'); // 추가 정보 삭제
-        localStorage.removeItem('user2'); // 추가 정보 삭제
+        sessionStorage.clear();
         
         navigate('/'); // 메인 페이지로 이동
         window.location.reload(); // 상태 업데이트를 위해 페이지 리로드
