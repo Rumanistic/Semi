@@ -12,7 +12,6 @@ import {
   EventImages,
   Button
 } from './styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
-import EventEdit from './event/EventEdit';
 
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴

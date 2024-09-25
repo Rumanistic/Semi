@@ -55,4 +55,8 @@ public class EventService {
 		
 		return new ArrayList<>(tagSet);
 	}
+
+	public void deleteEvent(Event e) {
+		eventRepository.save(e);
+	}
 }

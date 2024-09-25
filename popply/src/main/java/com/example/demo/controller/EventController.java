@@ -144,8 +144,14 @@ public class EventController {
 				@PathVariable(name="no") Long eventNo
 			){
 		HashMap<String, String> result = new HashMap<>();
-		result.put("result", "success");
-		result.put("msg", "성공적으로 삭제되었습니다.");
-		return ResponseEntity.ok().body(result);
+		Event e = eventService.findEventByNo(eventNo).get();
+		if(e != null) {
+			e.setDeleted(true);
+			eventService.deleteEvent(e);
+			result.put("result", "success");
+			result.put("msg", "성공적으로 삭제되었습니다.");
+			return ResponseEntity.ok().body(result);			
+		}
+		return ResponseEntity.notFound().build();
 	}
 }
