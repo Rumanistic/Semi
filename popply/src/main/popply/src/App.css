@@ -14,8 +14,3 @@ ul {
   padding: 0; /* Removes default padding */
   margin: 0; /* Removes default margin */
 }
-
-li {
-  margin-bottom: 10px; /* Optional: Adds space between list items */
-}
-

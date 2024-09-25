@@ -19,7 +19,7 @@ const MyPage = () => {
   const [error, setError] = useState('');
 
   // 현재 로그인된 사용자의 ID를 가져옴
-  const savedUser = localStorage.getItem('user');
+  const savedUser = sessionStorage.getItem('userId');
   console.log(savedUser);
   
   const handlePasswordCheck = () => {

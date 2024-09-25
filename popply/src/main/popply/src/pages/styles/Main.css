@@ -1,6 +1,5 @@
 /* 메인 이미지와 텍스트를 토탈 감싸는 */
 .main_container {
-		top: 100px;
     position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
 }
 

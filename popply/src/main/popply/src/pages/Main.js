@@ -80,7 +80,7 @@ const Main = () => {
       {/* 리스트 항목 */}
       <section className="list_container">
         <div className="list_items"> 
-          <h2 className='list_main_name'>POPIN POP-UP</h2>
+          <h2 className='list_main_name'>POP IN POP-UP</h2>
           <div className="list_content">
             <div className="list_carousel_button_container">
               <button className="list_carousel-button" onClick={previousItem}>이전</button>

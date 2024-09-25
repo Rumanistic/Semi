@@ -217,7 +217,7 @@ function ShowList({list, view}){
 								alt="" style={{width: '10%'}}/></span>
 								<span>{contentRegex(e.content)}</span>&emsp;
 								<span>{rPoint[e.eventNo] ? 
-								  StarPoint(rPoint[e.eventNo]) 
+								  StarPoint(rPoint[e.eventNo])
 								  : StarPoint(0.0)}</span>
 							</Col4>
 						)

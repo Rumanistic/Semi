@@ -1,21 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './styles/HeaderStyle.css'; // CSS 파일 import
 
 function Header({user, setUser}) {
   // 로그인 상태를 관리하는 state
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [search, setSearch] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    // 검색 처리 로직 추가
-    console.log("검색어:", searchTerm);
-    setIsModalOpen(false); // 검색 후 모달 닫기
-  };
-
   const handleLogout = () => {
-    // 로그아웃 시 localStorage에서 사용자 정보 제거
     sessionStorage.clear();
     setUser(null);
     alert("로그아웃 되었습니다!");
@@ -28,19 +21,37 @@ function Header({user, setUser}) {
         POPSPOT
       </span>
       <nav className="header-nav-menu">
-        <ul className="nav-menu-content">
+        <ul className="nav-menu-container">
           <li className="nav-menu-content" onClick={() => { navigate('/popup') }}>Pop-up</li>
-          <li className="nav-menu-content" onClick={() => { navigate('/share') }}>Share</li>
-          <li className="nav-menu-content" onClick={() => { navigate('/supports') }}>Support</li>
-          <li className="nav-menu-content" onClick={() => { navigate('/supports/faq') }}>FAQ</li>
+          <li className="nav-menu-content" onClick={() => { navigate('/supports/faq') }}>Support</li>
           
 	        {/* 검색 버튼 추가 */}
-	        <li className="search-container">
-	          <button className="search-button" 
-	          onClick={() => setIsModalOpen(true)}
-	          ><img src="/img/search-icon.png" alt="Search" className="search-icon" 
-	          />
-	          </button>
+	        <li className="nav-menu-search-container">
+	          <span className={`nav-menu-search-content ${search ? 'expanded':''}`}>
+	          	<img 
+	          		src="/img/search-icon.png" 
+	          		alt="Search" 
+	          		className="search-icon"
+	          		onClick={() => {setSearch(!search)}}
+          		/>
+          		{search && 
+	          		<span style={{display: 'flex'}}>
+	          			<input 
+	          				className="nav-menu-search-text"
+	          				onChange={(e) => {setSearchQuery(e.target.value)}}
+          				/>
+	          			<button 
+	          				style={{margin: 0, alignSelf: 'center', height: '36px'}}
+	          				onClick={
+											() => {
+												setSearch(!search);
+												console.log(searchQuery);
+											}
+										}
+	          			>검색</button>
+	          		</span>
+          		}
+	          </span>
 	        </li>
 
         </ul>
