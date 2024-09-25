@@ -4,6 +4,8 @@ import styled from 'styled-components';
 export const SupportContainer = styled.div`
   display: flex;
   width: 100%;
+  margin: auto;
+  padding: 20px 20px 20px 20px;
   min-height: 80vh;
   background-color: white; 
   border-radius: 20px;
@@ -28,7 +30,7 @@ export const AsideNavMenuContainer = styled.nav`
 
 // 고객문의 버튼
 export const RegisterButton = styled.button`
-  background-color: lightpink;
+  background-color:  #ff8f8f;
   font-size: 20px;
   padding: 10px 20px;
   border-radius: 10px; 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ContentContainer, ContentDetailBody, ContentHorizontalBar } from "../styles/UserSupportStyle";
+import { ContentContainer, ContentDetailBody, ContentHorizontalBar, label } from "../styles/UserSupportStyle";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { RightFloatSpan } from "../styles/FaqStyle";
@@ -68,11 +68,13 @@ function UserSupportDetail() {
 	
 	return (
 		<ContentContainer width={width}>
-			<ContentHorizontalBar />
+			<ContentHorizontalBar borderpixel={3}/>
 				<ContentDetailBody>
 				{console.log(supportData)}
-					<p><label>제목</label> <span>{supportData.title}</span></p>
-					<p><label>분류</label> <span>{supportData.type}</span></p>
+					<p><label>제목 : </label><span>{supportData.title}</span></p>
+					<ContentHorizontalBar width={'80%'}/>
+					<p><label>분류 : </label> <span>{supportData.type}</span></p>
+					<ContentHorizontalBar width={'80%'}/>
 					<span><p dangerouslySetInnerHTML={{__html: supportData.inquiry}}></p></span>
 				</ContentDetailBody>
 				{supportData.answer !== '' ? <AnswerData /> : <span />}
@@ -84,7 +86,7 @@ function UserSupportDetail() {
 					</RightFloatSpan>)
 				}
 				<RegisterAnswer state={state} title={supportData.title} answer={supportData.answer} stateChange={stateChange} />
-			<ContentHorizontalBar />
+			<ContentHorizontalBar borderpixel={3}/>
 		</ContentContainer>
 	)
 }

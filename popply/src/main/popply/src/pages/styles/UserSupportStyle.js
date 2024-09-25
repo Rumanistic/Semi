@@ -7,17 +7,17 @@ export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  padding: 25px 0;
 `;
 
 export const ContentHorizontalBar = styled.span`
-  display: block;
-  margin: 5px 0;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  width: ${({ width }) => width || '90%'};
-  background-color: #FFA2A2;
-  border: solid ${({ borderpixel }) => borderpixel || 1}px #FFA2A2;
+  
+  display: flex;
+  margin: 0 auto;
+  width: ${({ width }) => width || '93%'};
+  
+  background-color: #ff8f8f;
+  border: solid ${({ borderpixel }) => borderpixel || 1}px #ff8f8f;
 `;
 
 export const ContentHorizontalSpan = styled.span`
@@ -62,18 +62,24 @@ export const ContentHorizontalSpan = styled.span`
 export const ContentVerticalSpan = styled.span`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  padding: 25px 0 25px 80px;
   width: 90%;
   height: 100%;
-  font-family: 'Pretendard-Regular', sans-serif;
   margin-bottom: 10px;
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ContentDetailBody = styled.section`
   min-width: 90%;
-  text-align: left;
+  text-align: center;
   font-family: 'Pretendard-Regular', sans-serif;
   margin-bottom: 10px;
 `;
+
+export const label = styled.span`
+  margin-left: 100px;
+`
 
 export const StyledButton = styled.button`
   font-size: 16px;
@@ -100,9 +106,9 @@ export const StyledButton = styled.button`
 
 export const TitleInput = styled.input`
   font-size: 16px;
-  width: 60%;
-  height: 28px;
-  margin-top: 5px;
+  width: 58%;
+  height: 25px;
+  margin-top: 15px;
   font-family: 'Pretendard-Regular', sans-serif;
 `;
 
@@ -111,41 +117,67 @@ export const SelectType = styled.select`
   width: 10%;
   height: 28px;
   margin-top: 10px;
+  margin-bottom: 7px;
   font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const Label = styled.label`
   font-size: 20px;
   width: ${({ width }) => width || '30%'};
-  align-content: center;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
   font-family: 'Pretendard-Regular', sans-serif;
+`;
+
+export const RightFloatSpan = styled.span`
+  display: flex;
+  gap: 8px; 
+  background-color: #ff8f8f;
 `;
 
 export const CheckboxLabel = styled.label`
   font-size: 19px;
-  width: 40%;
-  align-content: center;
+  color: black;
   font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const SecretCheckbox = styled.input`
-  margin-left: 10px;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 `;
 
 export const SubmitResetButtons = styled.div`
   display: flex;
+  width: auto;
   justify-content: flex-end;
-  width: 90%;
+  align-items: center;
   margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 9%;
 
-  input[type='reset'],
-  input[type='submit'] {
-   background-color: lightpink;
-   font-size: 13px;
+  input[type='reset'] {
+   background-color: #ff8f8f;
+   color: white;
+   font-size: 15px;
    border-color: transparent;
    border-radius: 10px;
    cursor: pointer;
-   padding: 5px 15px;
+   padding: 8px 10px;
    margin-left: 10px;
+   margin-right: 20px;
+   width: auto;
+  }
+  input[type='submit'] {
+   background-color: #ff8f8f;
+   color: white;
+   font-size: 15px;
+   border-color: transparent;
+   border-radius: 10px;
+   cursor: pointer;
+   padding: 8px 10px;
+   margin-right: 0px;
+   width: auto;
   }
 `;
