@@ -6,9 +6,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +31,8 @@ public class EventController {
 	@Autowired
 	private ReviewService reviewService;
 
-	@GetMapping("/{page}/lists")
-	public ResponseEntity<HashMap<String, Object>> getAllList(@PathVariable(name="page") String type) {
+	@GetMapping("/popup/lists")
+	public ResponseEntity<HashMap<String, Object>> getAllList() {
 		HashMap<String, Object> result = new HashMap<>();
 		
 		List<Event> eList = eventService.getAllList();
@@ -87,7 +89,7 @@ public class EventController {
 	
 	
 	
-	@GetMapping("/{page}/tags")
+	@GetMapping("/popup/tags")
 	public ResponseEntity<String> getAllTags(){
 		return ResponseEntity.ok().body(eventService.getAllTags());
 	}
@@ -114,6 +116,24 @@ public class EventController {
 		result.put("rPoint", rPoint);
 		
 		System.out.println(result);
+		return ResponseEntity.ok().body(result);
+	}
+	
+	@PutMapping("/{no}")
+	public ResponseEntity<HashMap<String, String>> editEvent(
+			@PathVariable(name="no") Long eventNo
+		){
+		return ResponseEntity.ok().body(null);
+	}
+	
+	
+	@DeleteMapping("/{no}")
+	public ResponseEntity<HashMap<String, String>> deleteEvent(
+				@PathVariable(name="no") Long eventNo
+			){
+		HashMap<String, String> result = new HashMap<>();
+		result.put("result", "success");
+		result.put("msg", "성공적으로 삭제되었습니다.");
 		return ResponseEntity.ok().body(result);
 	}
 }

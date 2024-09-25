@@ -16,7 +16,7 @@ function Main(){
 	  <Provider store={store}>
 			<BrowserRouter>
 				<Header user={user} setUser={setUser}/>
-			  <App setUser={setUser}/>
+			  <App user={user} setUser={setUser}/>
 				<Footer />
 			</BrowserRouter>
 	  </Provider>

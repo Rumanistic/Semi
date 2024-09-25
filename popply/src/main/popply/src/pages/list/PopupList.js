@@ -13,6 +13,10 @@ function PopupList() {
 	
 	const navigate = useNavigate();
 	
+	const userId = sessionStorage.getItem("userId");
+	const userPermissions = sessionStorage.getItem("permissions");
+	
+	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
 		console.log(page)
@@ -52,12 +56,14 @@ function PopupList() {
 	return (
 		<span>
 			<ListHeaderContainer>
-				<ListHeaderContainerHead1>{page === 'popup' ? 'Pop-up' : 'Share'} List</ListHeaderContainerHead1>
+				<ListHeaderContainerHead1>Pop-up List</ListHeaderContainerHead1>
+				{userPermissions !== null && userPermissions.includes("planner") ? 
 				<div style={{marginRight: '5px'}}>
 					<RightFloatSpan>
 						<button onClick={() => {navigate('/popup/submit')}}>등록</button>
 					</RightFloatSpan>
-				</div>
+				</div> : 
+				 <span></span>}
 				<ViewChangeSpanContainer onClick={viewToggleHandler} islistview={view}>
 					<ViewChangeSpan islistview={view}/>
 					<ViewChangeSpanHamburger islistview={view}/>
@@ -171,6 +177,7 @@ function ShowList({list, view}){
 												'FullStar'
 									}.jpg`}
 									onError={(event) => {
+										console.log(`png 이미지로 로드중...`);
 										event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
 	                        e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'
 	                      }.png`;
@@ -204,6 +211,7 @@ function ShowList({list, view}){
 											'FullStar'
 								}.jpg`}
 								onError={(event) => {
+									console.log(`png 이미지로 로드중...`);
 									event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
                         e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'
                       }.png`;

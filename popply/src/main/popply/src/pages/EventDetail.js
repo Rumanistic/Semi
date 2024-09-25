@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Review from './Review';
 import {
@@ -12,15 +12,28 @@ import {
   EventImages,
   Button
 } from './styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
+import EventEdit from './event/EventEdit';
 
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
   const [event, setEvent] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get(`/detail/${no}`)
       .then(result => setEvent(result.data));
   }, [no]);
+  
+  const doDelete = () => {
+		axios.delete(`/event/${no}`)
+			.then(result => {alert(result.data.msg);
+				navigate("/popup");
+			})
+	}
+	
+	const doEdit = () => {
+		navigate('/popup/edit', {state: {event}})
+	}
 
   return (
     <div>
@@ -28,8 +41,8 @@ function EventDetail() {
         <EventContainer>
           {/* 이미지 출력 */}
           <EventTitle>{event.title}</EventTitle>
-          {event.userId === sessionStorage.userId ? <Button> 수정 </Button> : <></>}
-          
+          {event.userId === sessionStorage.userId ? <Button onClick={() => doEdit()}> 수정 </Button> : <></>}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          {event.userId === sessionStorage.userId ? <Button onClick={doDelete}> 삭제 </Button> : <></>}
           <EventDetailItem>
             <EventHeading>운영 날짜</EventHeading>
             <EventParagraph>{event.startDate} - {event.endDate}</EventParagraph>
