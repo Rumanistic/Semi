@@ -2,8 +2,15 @@ import styled from 'styled-components';
 
 // 기본 스타일 컨테이너
 export const RightFloatSpan = styled.span`
-  float: right;
-  margin-right: 10px;
+  margin-bottom: 10px;
+  margin-right: 70px;
+  position: 'absolute'
+  right: '16%'
+  top: '15%'
+  background-color: #FFA2A2;
+  color: white;
+  border-radius: 10px;
+  margin-left: auto;
 `;
 
 export const FaqDetails = styled.details`
@@ -19,6 +26,15 @@ export const FaqBox = styled.div`
   background-color: #fffaf0;
   
 `;
+
+/*export const RegisterButton = styled.button`
+	background-color: lightpink;
+	font-size: 15px;
+	border-radius: 10px;
+	padding: 10px;
+	border-color: transparent;
+	float: right;
+`;*/
 
 
 /* 모달 배경 */
@@ -46,7 +62,9 @@ export const ModalContentArea = styled.div`
 
 /* 모달 컨텐츠 부분 */
 export const ModalFormContentArea = styled.article`
-   width: 100%;
+   width: 95%;
+   text-align: center;
+   
 `;
 
 
@@ -63,6 +81,8 @@ export const ModalHeadArea = styled.div`
 /* 모달 제목 부분 */
 export const ModalHeadH2 = styled.h2`
   font-size: 24px;
+  margin-left: 10px;
+  margin-bottom: 20px;
   color: #FFA2A2;
 `;
 

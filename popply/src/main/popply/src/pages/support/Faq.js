@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import * as FaqStyle from '../styles/FaqStyle'; // styled-components 파일 import
+import * as FaqStyle from '../styles/FaqStyle';
 import { useNavigate } from 'react-router-dom';
-import { ContentHorizontalBar } from "../styles/UserSupportStyle"; // 다른 스타일 import
+import { ContentHorizontalBar } from "../styles/UserSupportStyle";
+import './Faq.css';
 
 const userPermissions = ["user", "admin"];
 const userData = {userId: 'admin2', permissions: userPermissions}
@@ -52,13 +53,14 @@ function Faq() {
     	<ContentHorizontalBar width={'100%'} borderpixel={2} /> 
 			{
 				isAdmin &&
-				(<FaqStyle.RightFloatSpan>	
-					<button onClick={() => {
-						openModalHandler(); 
-						modalTypeHandler('new'); 
-						faqHandler({});
-						headTypeHandler('추가');
-					}}>FAQ 추가</button>
+				(<FaqStyle.RightFloatSpan>
+			  	    	<button style={{float: 'right', padding: '10px'}} 
+			  	    		onClick={() => {
+							openModalHandler(); 
+							modalTypeHandler('new'); 
+							faqHandler({});
+							headTypeHandler('추가');
+							}}>FAQ 추가</button>
 				</FaqStyle.RightFloatSpan>)
 			}
     	</h1>
@@ -68,16 +70,13 @@ function Faq() {
     		</article>
     		<article>
     			<FaqStyle.FaqH3>찾으시는 내용이 없나요 ❓</FaqStyle.FaqH3>
-    		</article>
-    		<FaqStyle.RightFloatSpan>
-					<button style={{backgroundColor:'lightpink',
-									fontSize:'15px', 
-									borderRadius: '10px', 
-									padding: '5px', 
-									borderColor: 'transparent',
-									marginRight: '30px'
-									}} onClick={() => {navigate('/supports/usersupport')}}>고객지원 문의하기</button>
+    			<FaqStyle.RightFloatSpan>
+					<button style={{alignContent: 'center'}} 
+				    	onClick={() => {
+						navigate('/supports/usersupport')}}>고객지원 문의하기</button>
 				</FaqStyle.RightFloatSpan>
+    		</article>
+    		
     	</section>
 			{
 				isOpen && (<Modal isOpen={isOpen} modalType={modalType} faq={faq} onClose={openModalHandler} headType={headType}/>)
@@ -99,13 +98,23 @@ function Faq() {
 		              {
 		                isAdmin && 
 		                (<FaqStyle.RightFloatSpan>
-		                  <button onClick={() => {
+		                  <button style={{backgroundColor: 'transparent', 
+		                 				  borderColor: 'lightpink', 
+		                 				  float: 'right', 
+		                 				  marginLeft: '15px', 
+		                 				  color: 'black'}} 
+                 				  onClick={() => {
 		                    openModalHandler(); 
 		                    modalTypeHandler('edit'); 
 		                    faqHandler(faq);
 		                    headTypeHandler('수정');
 		                  }}>수정</button>&emsp;
-		                  <button onClick={() => (DeleteFaq(faq.faqNo))}>삭제</button>
+		                  <button style={{backgroundColor: 'transparent', 
+		                  				  borderColor: 'lightpink', 
+		                  				  float: 'right', 
+		                  				  color: 'black'}} 
+                  				  onClick={() => 
+		                  	(DeleteFaq(faq.faqNo))}>삭제</button>
 		                </FaqStyle.RightFloatSpan>)
 		              }
 		            </p>

@@ -88,6 +88,8 @@ function UserSupportRegister() {
 		})
 	}
 	
+	 const handleCancel = () => { navigate('/supports/usersupport'); };
+		
 	function doSubmit(submitData) {
 		
 		axios
@@ -105,13 +107,13 @@ function UserSupportRegister() {
 	return (
 	    <ContentContainer width={width}>
 	      <ContentHorizontalBar borderpixel={3} />
-	         <h2 style={{margin: '0 auto'}}>1:1 문의사항 등록</h2>
-	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	         <h2>1:1 문의사항 등록</h2>
+	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      <ContentHorizontalSpan>
 	       	 <Label>문의사항</Label>
 	       	 <TitleInput ref={titleRef} name="title" placeholder="문의하실 내용을 간략하게 정리해주세요." onChange={dataChange} />
 	      </ContentHorizontalSpan>
-	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      <ContentHorizontalSpan>
 	         <Label>종류</Label>
 	        <SelectType name="type" onChange={dataChange}>
@@ -120,24 +122,24 @@ function UserSupportRegister() {
 	          <option value={9}>&ensp;기타</option>
 	        </SelectType>
 	      </ContentHorizontalSpan>
-	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      <ContentHorizontalSpan>
 	         <Label width="40%">상세 내용 문의</Label>
 	      <ContentVerticalSpan>
-	         <Wysiwyg editorRef={editorRef} />
-	      <ContentHorizontalSpan style={{ justifyContent: "flex-end" }}>
+	         <Wysiwyg editorRef={editorRef}/>
+	      <ContentHorizontalSpan>
 	         <RightFloatSpan>
 	          <CheckboxLabel>비밀글 등록</CheckboxLabel>
-	           <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} />
+	          <SecretCheckbox name="secret" type="checkbox" onChange={dataChange} />
 	          </RightFloatSpan>
 	      </ContentHorizontalSpan>
 	      </ContentVerticalSpan>
 	      </ContentHorizontalSpan>
-	      <ContentHorizontalBar width={'90%'} borderpixel={1} />
+	      <ContentHorizontalBar width={'85%'} borderpixel={1} />
 	      	<SubmitResetButtons>
-	          <input type="reset" value="취소" />
+	          <input type="reset" value="취소" onClick={handleCancel} />
 	          <input type="submit" value="등록" onClick={submitData} />
-	        </SubmitResetButtons>
+	 		</SubmitResetButtons>
 	      <ContentHorizontalBar borderpixel={3} />
 	    </ContentContainer>
 	  );

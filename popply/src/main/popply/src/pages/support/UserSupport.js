@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ContentContainer, ContentHorizontalBar, ContentHorizontalSpan, ContentVerticalSpan } from "../styles/UserSupportStyle";
+import { ContentContainer, ContentHorizontalBar, ContentHorizontalSpan, ContentVerticalSpan } from '../styles/UserSupportStyle';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { RightFloatSpan } from "../styles/FaqStyle";
@@ -25,7 +25,7 @@ function UserSupport() {
 	
 	return (
 		<ContentContainer width={width}>
-			<ContentVerticalSpan style={{alignItems: 'center'}}>
+			<ContentVerticalSpan>
 				<ContentHorizontalBar borderpixel={3} />				
 					<UserSupportList userId={userId}/>
 				<ContentHorizontalBar borderpixel={3} />
@@ -46,30 +46,23 @@ function UserSupportList({userId}) {
 	const navigate = useNavigate(); 
 	
 	return (
-		<ContentVerticalSpan style={{alignItems: 'center' , marginTop: '15px'}}>
-			<h2>1:1 고객 문의</h2>
-			<RightFloatSpan style={{
-				position: 'absolute',
-		  	    right: '16%',
-		        top: '15%',
-		        float: 'right'
-			}}>
+		<ContentVerticalSpan style={{alignItems: 'center'}}>
+			<h2 style={{margin: '0 auto'}}>1:1 고객 문의</h2>
+			<RightFloatSpan>
 				<input 
 					type="button" 
 					value={"문의사항 등록"}
-					style={{backgroundColor:'lightpink',
+					style={{backgroundColor: '#ff8f8f',
+							color: 'white',
 							fontSize:'15px', 
 							borderRadius: '10px', 
-							padding: '5px', 
-							borderColor: 'transparent',
-							marginLeft: '400px',
-							marginTop: '60px',
-							
-					          }}					
+							padding: '10px', 
+							borderColor: 'transparent'			
+					      }}					
 					onClick={() => navigate('/supports/usersupport/register')}
 				/>
 			</RightFloatSpan>
-			<ContentHorizontalBar width={'90%'} />
+			<ContentHorizontalBar width={'98%'} />
 			{sList.map((e, i) => {
 				if(e.secret !== 1){
 					return (
