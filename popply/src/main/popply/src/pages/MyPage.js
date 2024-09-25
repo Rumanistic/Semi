@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
   MyPageContainer,
-  Title,
-  Button,
+  MyPageTitle,
+  MyPageButton,
   InfoContainer,
-  Input,
+  InputField,
   ErrorMessage
-} from './styles/MyPageStyle'; // Import styled components
+} from './styles/MyPageStyle'; // MyPage에 맞는 스타일 컴포넌트만 임포트
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -21,7 +21,14 @@ const MyPage = () => {
   // 현재 로그인된 사용자의 ID를 가져옴
   const savedUser = localStorage.getItem('user');
   console.log(savedUser);
+  
   const handlePasswordCheck = () => {
+    // 비밀번호가 입력되지 않았을 경우 오류 메시지 설정
+    if (!password) {
+      setError('비밀번호를 입력하세요.');
+      return;
+    }
+
     // 서버에 비밀번호 확인 요청
     axios.post('/users/verify-password', { userId: savedUser, userPwd: password })
       .then(response => {
@@ -70,7 +77,6 @@ const MyPage = () => {
 
   // 전화번호를 '010-1234-5678' 형식으로 변환하는 함수
   const formatPhoneNumber = (phone) => {
-    // 전화번호에 하이픈이 없을 경우에만 포맷팅
     if (!phone.includes('-')) {
       return phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
     }
@@ -79,30 +85,27 @@ const MyPage = () => {
 
   return (
     <MyPageContainer>
-      <Title>마이 페이지</Title>
+      <MyPageTitle>마이 페이지</MyPageTitle>
 
       {!isPasswordVerified ? (
-        // 비밀번호 입력 필드
         <div>
-          <Input
+          <InputField
             type="password"
             placeholder="비밀번호를 입력하세요"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <Button onClick={handlePasswordCheck}>확인</Button>
+          <MyPageButton onClick={handlePasswordCheck}>확인</MyPageButton>
         </div>
       ) : (
-        // 비밀번호 확인 후 사용자 정보 표시 또는 수정
         <InfoContainer>
           {isEditing ? (
-            // 수정 모드일 때
             <div>
               <p><strong>아이디:</strong> {userInfo.userId}</p>
               <p>
                 <strong>이름:</strong>
-                <Input
+                <InputField
                   type="text"
                   name="name"
                   value={userInfo.name}
@@ -111,37 +114,37 @@ const MyPage = () => {
               </p>
               <p>
                 <strong>이메일:</strong>
-                <Input
+                <InputField
                   type="email"
                   name="email"
+                  value={userInfo.email}
                   onChange={handleInputChange}
                 />
               </p>
               <p>
                 <strong>전화번호:</strong>
-                <Input
+                <InputField
                   type="text"
                   name="phone"
                   value={userInfo.phone}
                   onChange={handleInputChange}
                 />
               </p>
-              <Button onClick={handleSaveChanges}>저장</Button>
-              <Button onClick={() => setIsEditing(false)}>취소</Button>
+              <MyPageButton onClick={handleSaveChanges}>저장</MyPageButton>
+              <br /><br />
+              <MyPageButton onClick={() => setIsEditing(false)}>취소</MyPageButton>
             </div>
           ) : (
-            // 일반 모드일 때
             <div>
               <p><strong>아이디:</strong> {userInfo.userId}</p>
               <p><strong>이름:</strong> {userInfo.name}</p>
               <p><strong>이메일:</strong> {userInfo.email}</p>
-              <p><strong>전화번호:</strong> {formatPhoneNumber(userInfo.phone)}</p> {/* 포맷팅된 전화번호 표시 */}
-              <Button onClick={() => setIsEditing(true)}>수정</Button>
+              <p><strong>전화번호:</strong> {formatPhoneNumber(userInfo.phone)}</p>
+              <MyPageButton onClick={() => setIsEditing(true)}>수정</MyPageButton>
             </div>
           )}
-
-          {/* 회원 탈퇴 버튼을 InfoContainer 내부에 추가 */}
-          <Button onClick={handleWithdraw}>회원 탈퇴</Button>
+          <br />
+          <MyPageButton onClick={handleWithdraw}>회원 탈퇴</MyPageButton>
         </InfoContainer>
       )}
     </MyPageContainer>

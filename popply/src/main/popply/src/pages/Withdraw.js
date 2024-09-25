@@ -28,17 +28,29 @@ const Withdraw = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     if (!userData.userId || !userData.userPwd || !userData.phone || !userData.email) {
       setErrorMessage('모든 필드를 입력해 주세요.');
       return;
     }
-
-    axios.post('/api/withdraw', userData)
+  
+    // 사용자에게 탈퇴 확인 요청
+    const isConfirmed = window.confirm('정말로 탈퇴하시겠습니까? 탈퇴 후에는 복구가 불가능합니다.');
+    
+    if (!isConfirmed) {
+      return; // 취소한 경우 아무 처리도 하지 않음
+    }
+  
+    // 탈퇴 처리 진행
+    axios.post('/users/withdraw', userData)
       .then(() => {
         alert('회원 탈퇴가 완료되었습니다.');
+        
         // 로그아웃 처리
-        localStorage.removeItem('user');
+        localStorage.removeItem('user');  // localStorage에 저장된 사용자 정보 삭제
+        localStorage.removeItem('user1'); // 추가 정보 삭제
+        localStorage.removeItem('user2'); // 추가 정보 삭제
+        
         navigate('/'); // 메인 페이지로 이동
         window.location.reload(); // 상태 업데이트를 위해 페이지 리로드
       })
@@ -47,7 +59,7 @@ const Withdraw = () => {
         alert('서버 오류가 발생했습니다. 다시 시도해 주세요.');
       });
   };
-
+  
   return (
     <WithdrawContainer>
       <Title>회원 탈퇴</Title>

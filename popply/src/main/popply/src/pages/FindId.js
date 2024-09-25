@@ -16,7 +16,7 @@ function FindId() {
 
   const handleFindId = () => {
     // 서버에 이메일로 아이디 찾기 요청
-    axios.post('/api/find-id', { email })
+    axios.post('/users/find-id', { email })
       .then(response => {
         if (response.data.success) {
           setResult(`아이디는 ${response.data.userId}입니다.`);

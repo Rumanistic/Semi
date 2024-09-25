@@ -21,7 +21,8 @@ function EventDetail() {
 
   useEffect(() => {
     axios.get(`/detail/${no}`)
-      .then(result => setEvent(result.data));
+      .then(result => setEvent(result.data))
+      .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
   }, [no]);
   
   const doDelete = () => {

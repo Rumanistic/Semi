@@ -20,5 +20,4 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	@Query(value = "select r.event_no as eventNo, avg(r.rating) as reviewPointAvg from review r where r.is_deleted = :i group by r.event_no", nativeQuery = true)
 	List<ReviewPoint> findAllByDeleted(@Param("i") int i);
  
-	
 }

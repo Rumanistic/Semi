@@ -56,7 +56,7 @@ function Login({ setUser }) {
     })
     .catch(error => {
       console.error('로그인 중 오류가 발생했습니다.', error);
-      setError('서버에 문제가 발생했습니다. 다시 시도해 주세요.');
+      setError('일치하는 회원정보가 없습니다');
     });
   };
 
