@@ -1,6 +1,5 @@
 import './App.css';
 import Main from './pages/Main';
-import List from './pages/List';
 import Support from './pages/Support'
 import Login from './pages/Login';
 import Profile from './pages/Profile';
@@ -47,6 +46,7 @@ function App({user, setUser}) {
 	  	
 	  	{user && 
 		  	<Routes>
+		  		<Route path='/' element={<Main />}/>
 					<Route path='/supports/usersupport/detail/:no' element={<UserSupportDetail />} />
 					<Route path="/profile" element={<Profile />} />
 					<Route path="/mypage" element={<MyPage />} />
@@ -56,8 +56,9 @@ function App({user, setUser}) {
 	  	}
 	  	
 	  	{
-				 user !== null && permissions.includes('planner') && 
+				 user !== null && permissions !== null && permissions.includes('planner') && 
 				<Routes>
+					<Route path='/' element={<Main />}/>
 		  		<Route path='/popup/submit' element={<EventSubmit />}/>
 					<Route path='/popup/edit' element={<EventEdit />}/>
 				</Routes>

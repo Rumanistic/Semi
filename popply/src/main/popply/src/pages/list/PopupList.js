@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import StarPoint from "../component/StarPoint";
 import { Col1, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
@@ -9,7 +9,6 @@ function PopupList() {
 	const [list, setList] = useState({eList:[], rPoint: {}});
 	const [tags, setTags] = useState([]);
 	const [view, setView] = useState('list');
-	const {page} = useParams();
 	
 	const navigate = useNavigate();
 	
@@ -19,14 +18,13 @@ function PopupList() {
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		console.log(page)
-		axios.get(`/event/${page}/lists`)
+		axios.get(`/event/popup/lists`)
 				 .then(result => setList(result.data));
-		axios.get(`/event/${page}/tags`)
+		axios.get(`/event/popup/tags`)
 				 .then(result => {
 					 	setTags(result.data.split(','))
 					 });
-	}, [page])
+	}, [])
 	
 	// 페이지 표시 형태 변경(list <-> card)
 	const viewToggleHandler = () => {
