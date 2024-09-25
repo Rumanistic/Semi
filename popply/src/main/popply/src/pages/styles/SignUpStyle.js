@@ -8,9 +8,9 @@ export const SignupContainer = styled.div`
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-align: center;
-  margin: 0 auto; /* 가로 중앙 정렬 */
-  margin-top: 100px; /* 위쪽에서 충분한 간격을 두기 위해 여백 추가 */
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  margin: 0 auto;
+  margin-top: 100px;
+  font-family: 'Pretendard-Regular', sans-serif;
 
   &:hover {
     transform: translateY(-5px);
@@ -23,20 +23,20 @@ export const Title = styled.h2`
   color: #333;
   margin-bottom: 25px;
   font-weight: 700;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const Label = styled.label`
   text-align: left;
   margin: 10px 0 5px;
   font-size: 1.2rem;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const Input = styled.input`
@@ -47,21 +47,21 @@ export const Input = styled.input`
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 1.2rem;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const ErrorMessage = styled.p`
   color: red;
   font-size: 1rem;
   margin-bottom: 10px;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const SuccessMessage = styled.p`
   color: green;
   font-size: 1rem;
   margin-bottom: 10px;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 export const Button = styled.button`
@@ -74,8 +74,8 @@ export const Button = styled.button`
   border-radius: 50px;
   cursor: pointer;
   width: 100%;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
-  font-size: 1.2rem; /* 버튼 글씨 크기 */
+  font-family: 'Pretendard-Regular', sans-serif;
+  font-size: 1.2rem;
 
   &:hover {
     background-color: #d35400;
@@ -94,5 +94,5 @@ export const Select = styled.select`
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 1.2rem;
-  font-family: 'Pretendard-Regular', sans-serif; /* Pretendard-Regular 폰트 */
+  font-family: 'Pretendard-Regular', sans-serif;
 `;

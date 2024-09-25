@@ -26,9 +26,6 @@ public class ReviewService {
 
     // 리뷰 삭제
     public void deleteReview(Long id) {
-        if (!reviewRepository.existsById(id)) {
-            throw new IllegalArgumentException("해당 ID의 리뷰를 찾을 수 없습니다.");
-        }
         reviewRepository.deleteById(id);
     }
 
@@ -41,4 +38,5 @@ public class ReviewService {
         existingReview.setRating(updatedReview.getRating());
         return reviewRepository.save(existingReview);
     }
+        
 }

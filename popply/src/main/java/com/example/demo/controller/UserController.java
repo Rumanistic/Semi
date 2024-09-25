@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.domain.Users;
+import com.example.demo.service.ReviewService;
 import com.example.demo.service.UserService;
 
 @RestController
@@ -159,10 +161,6 @@ public class UserController {
 
         Map<String, Object> response = new HashMap<>();
         Optional<Users> userOpt = userService.findByUserId(userId);
-        
-        System.out.println(userOpt.isPresent());
-        System.out.println("------------------------------");
-        System.out.println(passwordEncoder.matches(userPwd, userOpt.get().getUserPwd()));
 
         if (userOpt.isPresent() && passwordEncoder.matches(userPwd, userOpt.get().getUserPwd())) {
             Users user = userOpt.get();
@@ -199,6 +197,4 @@ public class UserController {
         return response;
     }
     
-   
-
 }

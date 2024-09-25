@@ -13,6 +13,7 @@ import com.example.demo.domain.Users;
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
 	List<Review> findByEventNoOrderByCreatedDateDesc(Long eventNo);
+
  
 	
 }

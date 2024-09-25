@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // useNavigate import 추가
 import {
   ReviewContainer,
   ReviewTitle,
-  ReviewForm,
   ReviewInput,
-  ReviewRatingSelect,
   Star,
+  ReviewRatingSelect,
   SubmitButton,
   ReviewList,
   ReviewItem,
   ReviewContent,
-  ReviewRating,
-  ReviewButton,
   NoReviews,
   ReviewTextArea,
-  EditButton
-} from './styles/ReviewStyle'; 
+  ReviewButton,
+  EditButton,
+  ReviewRating,
+  ReviewForm,  // ReviewForm 추가
+  LoginButton  // 로그인 버튼을 위한 스타일 추가 필요
+} from './styles/ReviewStyle'; // LoginButton 스타일도 여기에 추가 필요
 
 function Review({ eventNo, eventTitle }) {
   const [reviews, setReviews] = useState([]);
@@ -26,6 +28,8 @@ function Review({ eventNo, eventTitle }) {
   const [editingReviewNo, setEditingReviewNo] = useState(null);
   const [editingContent, setEditingContent] = useState('');
   const [editingRating, setEditingRating] = useState(0);
+
+  const navigate = useNavigate(); // useNavigate 사용
 
   // localStorage에서 사용자 ID 추출 
   const savedUser = localStorage.getItem('user');
@@ -55,7 +59,11 @@ function Review({ eventNo, eventTitle }) {
 
     axios.post('/review/insert', newReviewData)
       .then(response => {
-        setReviews([response.data, ...reviews]);
+        axios.get(`/review/${eventNo}`)
+          .then(response => setReviews(response.data))
+          .catch(error => console.error('리뷰 데이터를 가져오는 중 오류가 발생했습니다.', error));
+        
+        // 리뷰 제출 후 입력 폼 초기화
         setNewReview('');
         setSelectedRating(0);
       })
@@ -88,13 +96,11 @@ function Review({ eventNo, eventTitle }) {
 
   // 리뷰 수정 버튼 클릭 처리
   const handleEditClick = (review) => {
-    // 현재 로그인한 사용자가 작성한 리뷰인지 확인
     if (savedUser !== review.userId.toString()) {
       alert('이 리뷰를 수정할 권한이 없습니다.');
       return;
     }
 
-    // 수정할 리뷰의 번호와 내용을 상태에 저장하여 수정 모드로 전환
     setEditingReviewNo(review.reviewNo);
     setEditingContent(review.content);
     setEditingRating(review.rating);
@@ -166,7 +172,10 @@ function Review({ eventNo, eventTitle }) {
           </SubmitButton>
         </ReviewForm>
       ) : (
-        <h2>로그인 후 이용 가능합니다!</h2>
+        <>
+          <h2>로그인 후 이용 가능합니다!</h2>
+          <LoginButton onClick={() => navigate('/login')}>로그인 페이지로 이동</LoginButton> {/* 로그인 버튼 추가 */}
+        </>
       )}
 
       {/* 기존 리뷰 목록 */}
@@ -199,7 +208,21 @@ function Review({ eventNo, eventTitle }) {
                   <ReviewRating>{renderStars(review.rating)}</ReviewRating>
                   <ReviewContent>{review.content}</ReviewContent>
                   {/* 탈퇴한 회원 표시 */}
-                  <p>{review.userId ? review.userId : '탈퇴한 회원입니다'}</p>
+                  <p>{review.userId ? `작성자 : ${review.userId}` : '탈퇴한 회원입니다'}</p>
+
+                  <p>
+                    {/* 리뷰 작성 날짜 표시 */}
+                    {review.createdDate && (
+                      <p>
+                        작성일 : {new Date(review.createdDate).toLocaleDateString('ko-KR', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </p>
+                    )}
+                  </p>
+
                   {savedUser === review.userId.toString() && (
                     <div>
                       <ReviewButton onClick={() => handleEditClick(review)}>수정</ReviewButton>
