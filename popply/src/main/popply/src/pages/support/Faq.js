@@ -4,7 +4,7 @@ import * as FaqStyle from '../styles/FaqStyle'; // styled-components 파일 impo
 import { useNavigate } from 'react-router-dom';
 import { ContentHorizontalBar } from "../styles/UserSupportStyle"; // 다른 스타일 import
 
-const userPermissions = ["user"];
+const userPermissions = ["user", "admin"];
 const userData = {userId: 'admin2', permissions: userPermissions}
 const isAdmin = userData.permissions.includes("admin");
 const userId = userData.userId;

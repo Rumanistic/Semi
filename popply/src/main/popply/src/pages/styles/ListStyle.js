@@ -8,10 +8,10 @@ export const ListContainer = styled.section`
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  &:hover {
+/*  &:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-  }
+  }*/
 `;
 
 export const StarImg = styled.img`
@@ -46,8 +46,8 @@ export const ViewChangeSpanContainer = styled.span`
 
 export const ViewChangeSpanHamburger = styled.span`
   position: absolute;
-  top: 10px;
-  left: 10px;
+  top: 8px;
+  left: 8px;
   width: 25px;
   height: 25px;
   background-image: url('/img/hamburger.png');
@@ -59,8 +59,8 @@ export const ViewChangeSpanHamburger = styled.span`
 
 export const ViewChangeSpanDot = styled.span`
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   width: 25px;
   height: 25px;
   background-image: url('/img/dot.png');
@@ -91,16 +91,21 @@ export const EventListSpan = styled.span`
 `;
 
 export const Col1 = styled.div`
+	padding: 5px;
   min-width: 100%;
   max-height: 400px;
   min-height: 400px;
   margin-bottom: 20px;
   border-radius: 15px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const EventListSpanImage = styled.img`
-  min-height: 80%;
-  width: auto;
+	width: auto;
+  height: auto;
+  max-width: 400px;
+  max-height: 400px;
   background-size: cover;
   background-position: center;
   border-radius: 15px;
@@ -119,7 +124,8 @@ export const EventCardSpan = styled.span`
 export const Col4 = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 33%;
+  justify-content: space-around;
+  max-width: 31.9%;
   margin: 10px;
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -155,6 +161,8 @@ export const ListContentTagsContainer = styled.aside`
   align-content: flex-start;
   min-width: 180px;
   padding: 10px;
+  max-width: 250px;
+  justify-content: center;
 `;
 
 export const ListContentTag = styled.span`
@@ -176,7 +184,6 @@ export const ListContentTag = styled.span`
   &:hover {
     background-color: ${({ value }) =>
       value ? 'rgba(255, 102, 51, 1)' : 'rgba(255, 153, 102, 0.4)'};
-    transform: scale(1.05); /* 살짝 커지는 효과 */
   }
 `;
 

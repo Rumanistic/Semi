@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import StarPoint from "../component/StarPoint";
 import { Col1, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
@@ -9,20 +9,22 @@ function PopupList() {
 	const [list, setList] = useState({eList:[], rPoint: {}});
 	const [tags, setTags] = useState([]);
 	const [view, setView] = useState('list');
-	const {page} = useParams();
 	
 	const navigate = useNavigate();
 	
+	const userId = sessionStorage.getItem("userId");
+	const userPermissions = sessionStorage.getItem("permissions");
+	
+	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		console.log(page)
-		axios.get(`/event/${page}/lists`)
+		axios.get(`/event/popup/lists`)
 				 .then(result => setList(result.data));
-		axios.get(`/event/${page}/tags`)
+		axios.get(`/event/popup/tags`)
 				 .then(result => {
 					 	setTags(result.data.split(','))
 					 });
-	}, [page])
+	}, [])
 	
 	// 페이지 표시 형태 변경(list <-> card)
 	const viewToggleHandler = () => {
@@ -52,12 +54,14 @@ function PopupList() {
 	return (
 		<span>
 			<ListHeaderContainer>
-				<ListHeaderContainerHead1>{page === 'popup' ? 'Pop-up' : 'Share'} List</ListHeaderContainerHead1>
+				<ListHeaderContainerHead1>Pop-up List</ListHeaderContainerHead1>
+				{userPermissions !== null && userPermissions.includes("planner") ? 
 				<div style={{marginRight: '5px'}}>
 					<RightFloatSpan>
 						<button onClick={() => {navigate('/popup/submit')}}>등록</button>
 					</RightFloatSpan>
-				</div>
+				</div> : 
+				 <span></span>}
 				<ViewChangeSpanContainer onClick={viewToggleHandler} islistview={view}>
 					<ViewChangeSpan islistview={view}/>
 					<ViewChangeSpanHamburger islistview={view}/>
@@ -135,6 +139,26 @@ function ShowTag({tags, setList}){
 function ShowList({list, view}){
 	const {eList, rPoint} = list;
 	const navigate = useNavigate();
+	const hyphenRemover = /-/g;
+	
+	const contentRegex = (content) => {
+		const tagRemover = /<[^>]*>/g;
+		const imgRemover = /image[0-9]+/g;
+		const alertRemover = /\[alert\]!\s*[가-힣]*(?:\s[가-힣]*)*/g;
+		
+		content = content.replace(tagRemover, '').replace(imgRemover, '').replace(alertRemover, '');
+		return (
+			<span>{content}</span>
+		)
+	}
+	
+	const checkDir = (createdDate) => {
+		const date = createdDate.replace(hyphenRemover, '');
+		
+		return date.substring(0,8);
+	}
+	
+
 	
 	// eslint-disable-next-line default-case
 	switch(view){
@@ -144,16 +168,28 @@ function ShowList({list, view}){
 					{eList.map((e, i) => {
 						return(
 							<Col1 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
-								<span>{e.company}</span>&emsp;
-								<span><EventListSpanImage src={`/img/${
+								<span style={{alignSelf: "center", maxwidth: "400px", minWidth: "400px"}}>
+									<EventListSpanImage src={`/img/${
 										e.images !== null && e.images !== '' ? 
-											(e.images.split(','))[0] :
-											'FullStar'
-									}.jpg`} alt="" style={{width: '10%'}}/></span>
-								<span>{e.content}</span>&emsp;
-								<span>{rPoint[e.eventNo] ? 
+												(e.images.split(','))[0] :
+												'FullStar'
+									}.jpg`}
+									onError={(event) => {
+										console.log(`png 이미지로 로드중...`);
+										event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
+	                        e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'
+	                      }.png`;
+									}} 
+									alt=""/>
+								</span>
+								<span style={{margin: "10px 0", width: "55%", display:"flex", flexDirection: "column", justifyContent: "space-between"}}>
+									<span>{e.title}</span>
+									<span>{contentRegex(e.content)}</span>&emsp;
+								</span>&emsp;
+								<span style={{alignSelf: "center"}}>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
-								  : StarPoint(0.0)}</span>
+								  : StarPoint(0.0)}
+								  </span>
 							</Col1>
 						)
 					})}
@@ -166,13 +202,20 @@ function ShowList({list, view}){
 						let no = e.eventNo;
 						return(
 							<Col4 onClick={() => {navigate(`/event/${no}`)}} key={e.eventNo}>
-								<span>{e.company}</span>&emsp;
+								<span>{e.title}</span>&emsp;
 								<span><EventCardSpanImage src={`/img/${
-										e.images !== null && e.images !== '' ? 
+									e.images !== null && e.images !== '' ? 
 											(e.images.split(','))[0] :
 											'FullStar'
-									}.jpg`} alt="" style={{width: '10%'}}/></span>
-								<span>{e.content}</span>&emsp;
+								}.jpg`}
+								onError={(event) => {
+									console.log(`png 이미지로 로드중...`);
+									event.target.src = `/img/${e.company}${checkDir(e.createdDate)}/${
+                        e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'
+                      }.png`;
+								}} 
+								alt="" style={{width: '10%'}}/></span>
+								<span>{contentRegex(e.content)}</span>&emsp;
 								<span>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
 								  : StarPoint(0.0)}</span>

@@ -13,8 +13,8 @@ import {
 } from './styles/LoginStyle'; 
 
 function Login({ setUser }) {
-  const [userIdOrEmail, setUserIdOrEmail] = useState(''); // 아이디 또는 이메일 입력 필드
-  const [password, setPassword] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userPwd, setUserPwd] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -22,17 +22,35 @@ function Login({ setUser }) {
     e.preventDefault();
 
     // 서버에 로그인 요청 보내기
-    axios.post('/users/login', { userIdOrEmail, userPwd: password }) // userIdOrEmail 필드로 전송
+    axios.post('/users/login', { userId, userPwd }) // userIdOrEmail 필드로 전송
     .then(response => {
-      if (response.data.success) {
-        console.log(response.data)
-        localStorage.setItem('user', response.data.userId);
-        localStorage.setItem('user1', response.data.name);
-        localStorage.setItem('user2', response.data.type);
-
-   // 서버에서 사용자 정보 반환
-        navigate('/main');
-      } else {
+      if (response.data.result) {
+					const loginData = response.data.userData
+					let permissions = ['user'];
+          // localStorage에 사용자 정보 저장
+          // localStorage.setItem('user', userId);
+					// 탭 닫기 혹은 브라우저 종료 시 저장된 데이터를 지우기 위해 
+					// sessionStorage 사용
+					sessionStorage.setItem('userId', loginData.userId);
+					sessionStorage.setItem('name', loginData.name);
+					switch(loginData.type){
+						case 0:
+							permissions.push('admin');
+							break;
+						case 1:
+							permissions.push('planner');
+							break;
+						//case 2:
+							//permissions.push('');
+							//break;
+						default:
+							break;
+					}
+					sessionStorage.setItem('permissions', permissions);
+					setUser(loginData.name);
+          // 메인 페이지로 이동
+          navigate('/main');
+        } else {
         setError(response.data.message);
       }
     })
@@ -62,14 +80,14 @@ function Login({ setUser }) {
           <Input
             type="text"
             placeholder="아이디 또는 이메일"
-            value={userIdOrEmail}
-            onChange={(e) => setUserIdOrEmail(e.target.value)}
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
           />
           <Input
             type="password"
             placeholder="비밀번호"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={userPwd}
+            onChange={(e) => setUserPwd(e.target.value)}
           />
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <Button type="submit">로그인</Button>

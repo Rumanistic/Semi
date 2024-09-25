@@ -1,8 +1,9 @@
 /* 헤더 전체 */
     .header-all {
-        width: 100%;
+				margin: 0 2%;
+        width: 96%;
         height: 100px;
-        position: fixed; /* 스크롤 시에도 고정되도록 설정 */
+        position: sticky; /* 스크롤 시에도 고정되도록 설정 */
         top: 0; /* 상단에 고정 */
         left: 0; /* 좌측에 고정 */
         background-color: white; /* 배경색 설정 (필요시) */
@@ -14,7 +15,9 @@
     .header-nav-menu {
         display: flex; /* Flexbox 사용 */
         align-items: center; /* 수직 중앙 정렬 */
-        /* margin-top: 5px; 필요에 따라 조정 */
+        height: 100%; /* 부모 요소 높이 사용 */
+        justify-content: space-between;
+        margin: 0 10px; /* 필요에 따라 조정 */
     }
 
 /* HeaderLogo 스타일 */
@@ -25,6 +28,7 @@
         font-size: 80px; /* 필요에 따라 크기 조정 */
         font-weight: bold; /* 필요에 따라 두께 조정 */
         white-space: nowrap; /* 줄 바꿈 방지 */
+        cursor: pointer;
     }
 
 /* NavMenuContent 스타일 */
@@ -41,6 +45,17 @@
     color: red; /* 마우스를 올렸을 때 글씨 색상 변경 */
     transition: color 0.3s; /* 부드러운 전환 효과 */
 }
+
+/* login 스타일 */
+    .header-login {
+        float: right;
+        display: flex;
+        margin: 0 10px;
+        font-size: 25px; /* 필요에 따라 크기 조정 */
+        font-weight: bold; /* 필요에 따라 두께 조정 */
+        cursor: pointer;
+        white-space: nowrap; /* 줄 바꿈 방지 */
+    }
 
 
 .nav-menu-content li {

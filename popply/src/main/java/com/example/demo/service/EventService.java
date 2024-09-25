@@ -20,7 +20,7 @@ public class EventService {
 	EventRepository eventRepository;
 	
 	public List<Event> getAllList() {
-		return eventRepository.findAll();
+		return eventRepository.findAllByDeleted(false);
 	}
 	
 	public String getAllTags() {

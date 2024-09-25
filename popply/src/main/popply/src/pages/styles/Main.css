@@ -1,5 +1,6 @@
 /* 메인 이미지와 텍스트를 토탈 감싸는 */
 .main_container {
+		top: 100px;
     position: relative; /* 자식 요소의 절대 위치를 기준으로 설정 */
 }
 
@@ -10,11 +11,12 @@
     object-fit: cover; /* 이미지 비율 유지하며 잘라냄 */
     margin: auto;
     display: block;
+    position: relative;
 }
 
 /* 메인위에 입혀질 텍스트 */
 .overlay_text {
-    position: absolute; /* 절대 위치 설정 */
+    position: relative; /* 절대 위치 설정 */
     bottom: 20px; /* 하단에서 20px 위에 위치 */
     left: 50%; /* 수평 중앙 정렬 */
     transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */

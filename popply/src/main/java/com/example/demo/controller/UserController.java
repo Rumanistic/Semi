@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -51,16 +50,46 @@ public class UserController {
 
     // login
     @PostMapping("/login")
-    public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, String> loginData) {
-        String userIdOrEmail = loginData.get("userIdOrEmail");
-        String password = loginData.get("userPwd");
-        Map<String, Object> response = userService.loginUser(userIdOrEmail, password);
+    public ResponseEntity<Map<String, Object>> login(@RequestBody Users users) {
+    	Map<String, Object> result = new HashMap<>();
+    	System.out.println(users);
+    	String userId = users.getUserId();
+    	String userPwd = users.getUserPwd();
+    	Optional<Users> foundUser = userId.contains("@") ? 
+    			userService.findByEmail(userId) :
+    			userService.findByUserId(userId);
+    	
+    	if(foundUser.isPresent()) {
+    		
+    		Users loginUser = foundUser.get();
+    		System.out.println(loginUser);
+    		
+    		if(passwordEncoder.matches(userPwd, loginUser.getUserPwd())) {
+    			result.put("result", true);
+    			result.put("message", "로그인 성공");
+    			result.put("userData", Users.builder()
+    					.userId(loginUser.getUserId())
+    					.userPwd("")
+    					.email(loginUser.getEmail())
+    					.phone(loginUser.getPhone())
+    					.receptioned(false)
+    					.name(loginUser.getName())
+    					.type(loginUser.getType())
+    					.build());
+    			return ResponseEntity.ok().body(result);
+    		}
 
-        if ((boolean) response.get("success")) {
-            return ResponseEntity.ok(response);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
-        }
+    		result.put("result", false);
+			result.put("type", "계정 정보 불일치");
+			result.put("message", "아이디 혹은 패스워드가 일치하지 않습니다.");
+    	} else {
+    		result.put("result", false);
+    		result.put("type", "로그인 실패");
+    		result.put("message", "등록되지 않은 사용자입니다.");
+    	}
+    	
+    	return ResponseEntity.status(401).body(result);
+
     }
     
     //아이디 찾기

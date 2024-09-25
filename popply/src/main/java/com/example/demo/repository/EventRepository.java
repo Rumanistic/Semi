@@ -13,6 +13,9 @@ import com.example.demo.domain.Event;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long>  {
+	
+	@Query(value = "select * from event where is_deleted = :is_deleted order by 1 desc", nativeQuery = true)
+	List<Event> findAllByDeleted(@Param("is_deleted") Boolean b);
 
 	@Query(value = "select tags from event", nativeQuery = true)
 	List<String> findAllBy();

@@ -2,36 +2,23 @@ import './EventSubmit.css';
 import SemiCalendar from '../component/SemiCalendar';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { EventImages, EventParagraph } from '../styles/EventDetailStyle';
 
-function EventSubmit() {
+function EventEdit() {
 	const userId = sessionStorage.getItem("userId");
-	const name = sessionStorage.getItem("name");
-	const [openTime, setOpenTime] = useState({
-		hour: '9',
-		min: '0'
-	})
-	const [closeTime, setCloseTime] = useState({
-		hour: '9',
-		min: '0'
-	})
-	const [eventData, setEventData] = useState({
-		userId,
-		name,
-		title: '',
-		company: '',
-		type: 'p',
-		content: '',
-		startDate: '',
-		endDate: '',
-		openTime: '',
-		closeTime: '',
-		tags: ''
-	});
+	const {state} = useLocation();
+	const event = state.event;
+	const eventContentData = event.content;
+	
+	const [openTime, setOpenTime] = useState({hour: '9', min: '0'})
+	const [closeTime, setCloseTime] = useState({hour: '9', min: '0'})
+	
+	const [eventData, setEventData] = useState({...event});
 	const [alert, setAlert] = useState('');
 	const [cLen, setCLen] = useState(0);
 	const [value, setValue] = useState('');
-	const [spans, setSpans] = useState([]);
+	const [spans, setSpans] = useState(eventData.tags.split(','));
 	
 	const HOURS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 	const MINS = [0, 30];
@@ -124,11 +111,45 @@ function EventSubmit() {
 		};
 		
 		console.log(submitData);
-		axios.post('/event/submit', submitData, {
+		axios.put(`/event/${submitData.eventNo}`, submitData, {
 	    headers: {
 	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
 	    }
-		})
+		}).then(result => console.log(result))
+	}
+	
+	useEffect(() => {
+		const text = eventContentData;
+		const lastAlertIdx = text.lastIndexOf("[alert]");
+		
+		if(lastAlertIdx !== -1){
+			const alertTextContent = text.substring(lastAlertIdx + 7).trim();
+			setAlert(alertTextContent);
+		}
+	}, [eventContentData])
+	
+	const hashedContent = () => {
+		const text = eventContentData;
+		const firstAlertIdx = text.indexOf("[alert]");
+		const splitText = text.substring(0, firstAlertIdx).split(/<(?:\/)?[a-zA-Z][^>]*>/);
+		const imgRegex = /^image[0-9]*$/;
+		const hyphenRemover = /-/g;
+		
+		const checkDir = (createdDate) => {
+			const date = createdDate.replace(hyphenRemover, '');
+			
+			return date.substring(0,8);
+		}
+		
+		return (
+			<span>
+				{splitText.map((e, i) => {return (
+					imgRegex.test(e) ? 
+						<EventImages src={`/img/${eventData.company}${checkDir(eventData.createdDate)}/${eventData.company}_${e.substring(5)}.png`} alt=''/>:
+						<EventParagraph>{e}</EventParagraph>
+				)})}
+			</span>
+		)
 	}
 	
 	useEffect(() => {
@@ -144,17 +165,17 @@ function EventSubmit() {
 	useEffect(() => {
 		console.log(eventData);
 	}, [eventData])
-
+	
 	useEffect(() => {
-		console.log(alert);
-	}, [alert])
+		hashedContent();
+	}, [])
 
   return (
     <div>
     	<div className="event-container">
-    		<h1><input name="title" onChange={dataChange} placeholder='타이틀을 입력해주세요!' /></h1>
+    		<h1><input name="title" onChange={dataChange} placeholder='타이틀을 입력해주세요!' value={eventData.title}/></h1>
   			<div className="event-detail-item">
-          <h3><input name="company" onChange={dataChange} placeholder='회사(상호)명을 입력해주세요!' /></h3>
+          <h3><input name="company" onChange={dataChange} placeholder='회사(상호)명을 입력해주세요!' value={eventData.company}/></h3>
         </div>
         <div className="event-detail-item">
           {spans.map((s, i) => {
@@ -214,10 +235,10 @@ function EventSubmit() {
 
         <div className="event-detail-item">
           <h3>상세 정보</h3>
-          <p contentEditable={true} onInput={contentChange} style={{backgroundColor:'beige'}}>
-          	여기다 상세 정보를 입력하세요.<br/>
-          	이미지의 경우 클립보드의 복사 - 붙여넣기로 삽입이 가능합니다.<br/>
-          	단락이 끝났을 경우 Enter를, 끝나지 않았을 경우 Shift + Enter를 눌러 줄바꿈해주세요.
+          <p contentEditable={true} 
+	          onInput={contentChange} 
+	          style={{backgroundColor:'beige'}}>
+          	{hashedContent() }
           </p>
           <span>{cLen}/4000bytes</span>
         </div>
@@ -228,8 +249,11 @@ function EventSubmit() {
 
         <div className="event-detail-item">
           <h3>안내 및 주의사항</h3>
-          <textarea onChange={(e) => {setAlert(e.target.value)}}>
-          	안내 및 주의사항을 입력해주세요.
+          <textarea 
+          	value={alert}
+          	onChange={(e) => {setAlert(e.target.value)}}
+          >
+          	
           </textarea>
         </div>
 	      <button onClick={submitData}>등록</button>
@@ -238,4 +262,4 @@ function EventSubmit() {
   );
 }
 
-export default EventSubmit;
+export default EventEdit;

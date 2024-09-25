@@ -9,7 +9,6 @@ export const EventContainer = styled.div`
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  font-family: 'Pretendard-Regular', sans-serif;
 
   &:hover {
     transform: translateY(-5px);
@@ -17,10 +16,19 @@ export const EventContainer = styled.div`
   }
 `;
 
+// 이벤트 제목
+export const EventTitle = styled.h1`
+  font-size: 2.4rem;
+  color: #e74c3c;
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 700;
+`;
+
 // 이미지 컨테이너
-export const EventImages = styled.div`
-  margin-bottom: 20px;
-  font-family: 'Pretendard-Regular', sans-serif;
+export const EventImages = styled.img`
+	margin: 2px 0;
+	max-width: 100%;
 `;
 
 // 이벤트 상세 정보 아이템
@@ -35,23 +43,12 @@ export const EventDetailItem = styled.div`
   }
 `;
 
-// 이벤트 제목
-export const EventTitle = styled.h1`
-  font-size: 2.4rem;
-  color: #333; /* 검정색 */
-  text-align: center;
-  margin-bottom: 25px;
-  font-weight: 700;
-  font-family: 'Pretendard-Regular', sans-serif;
-`;
-
 // 이벤트 섹션 제목
 export const EventHeading = styled.h3`
   color: #6d4c41; /* 따뜻한 브라운 */
   font-size: 1.5rem;
   margin-top: 20px;
   margin-bottom: 10px;
-  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 
@@ -61,7 +58,6 @@ export const EventParagraph = styled.p`
   margin-bottom: 1.2rem;
   color: #333; /* 검정색 */
   line-height: 1.8;
-  font-family: 'Pretendard-Regular', sans-serif;
 
   span {
     font-weight: 500;
@@ -74,7 +70,6 @@ export const EventLocation = styled.p`
   font-size: 1.3rem;
   color: #333; /* 검정색 */
   font-weight: bold;
-  font-family: 'Pretendard-Regular', sans-serif;
 `;
 
 // 버튼 스타일
@@ -85,7 +80,6 @@ export const Button = styled.button`
   width: 200px;
   height: 50px;
   font-size: 1.1rem;
-  font-family: 'Pretendard-Regular', sans-serif;
   border-radius: 50px;
   margin-top: 20px;
   text-align: center;
@@ -104,5 +98,24 @@ export const Button = styled.button`
   &:active {
     background-color: #1976d2;
     transform: scale(0.98);
+  }
+`;
+
+
+
+// 반응형 스타일
+export const ResponsiveContainer = styled.div`
+  @media (max-width: 768px) {
+    ${EventContainer} {
+      padding: 20px;
+    }
+
+    ${EventTitle} {
+      font-size: 2rem;
+    }
+
+    ${EventParagraph} {
+      font-size: 1rem;
+    }
   }
 `;

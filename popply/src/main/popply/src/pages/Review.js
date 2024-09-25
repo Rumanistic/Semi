@@ -32,7 +32,7 @@ function Review({ eventNo, eventTitle }) {
   const navigate = useNavigate(); // useNavigate 사용
 
   // localStorage에서 사용자 ID 추출 
-  const savedUser = localStorage.getItem('user');
+  const savedUser = sessionStorage.getItem('name');
 
   // 리뷰 목록 가져오기
   useEffect(() => {
