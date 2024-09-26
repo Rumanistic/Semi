@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -108,11 +110,17 @@ public class EventController {
 		
 		List<Event> eList = eventService.getSearchListByTag(tag);
 		
-		System.out.println("Controller: " + eList.toString());
+		Set<Long> eListNos = new HashSet<Long>();
+		for(Event e : eList)
+			eListNos.add(e.getEventNo());
+		
 		// review group by event_no 쿼리
 		HashMap<Long, Double> rPoint = new HashMap<>();
-		rPoint.put(1l, 3.5d);
+		List<ReviewPoint> rPointsTaged = reviewService.getReviewPointAvg(eListNos);
 		
+		for(ReviewPoint rp : rPointsTaged) {
+			rPoint.put(rp.getEventNo(), rp.getReviewPointAvg());
+		}
 		
 		result.put("eList", eList);
 		result.put("rPoint", rPoint);
@@ -153,5 +161,12 @@ public class EventController {
 			return ResponseEntity.ok().body(result);			
 		}
 		return ResponseEntity.notFound().build();
+	}
+	
+	// Main페이지에서 리스트 호출 API
+	@GetMapping("/recent")
+	public ResponseEntity<List<Event>> getRecentEvents() {
+	    List<Event> recentEvents = eventService.getRecentEvents();
+	    return ResponseEntity.ok().body(recentEvents);
 	}
 }

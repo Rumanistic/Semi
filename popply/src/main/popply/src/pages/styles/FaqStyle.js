@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 // 기본 스타일 컨테이너
 export const RightFloatSpan = styled.span`
+	display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
   margin-bottom: 10px;
   margin-right: 70px;
   position: 'absolute'
@@ -14,6 +17,7 @@ export const RightFloatSpan = styled.span`
 `;
 
 export const FaqDetails = styled.details`
+	text-align: start;
   margin-bottom: 40px;
    font-size: 18px;
 `;
@@ -48,6 +52,7 @@ export const ModalBackgroundArea = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1001; /* header보다 위에 있어야됨 */
 `;
 
 /* 모달 컨텐츠 박스 */

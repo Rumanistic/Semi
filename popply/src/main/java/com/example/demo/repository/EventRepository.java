@@ -17,12 +17,14 @@ public interface EventRepository extends JpaRepository<Event, Long>  {
 	@Query(value = "select * from event where is_deleted = :is_deleted order by 1 desc", nativeQuery = true)
 	List<Event> findAllByDeleted(@Param("is_deleted") Boolean b);
 
-	@Query(value = "select tags from event", nativeQuery = true)
+	@Query(value = "select tags from event where is_deleted = 0", nativeQuery = true)
 	List<String> findAllBy();
 
-	@Query(value = "select * from event event where event.tags like (%:tag%)", nativeQuery = true)
+	@Query(value = "select * from event event where event.tags like (%:tag%) and is_deleted = 0 order by 1 desc", nativeQuery = true)
 	Set<Event> findAllBy(@Param("tag") String tag);
 
 	Optional<Event> findByEventNo(Long eventNo);
+	
+	List<Event> findTop8ByDeletedOrderByCreatedDateDesc(boolean deleted);
 
 }

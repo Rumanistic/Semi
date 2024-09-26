@@ -90,7 +90,7 @@ export const EventListSpan = styled.span`
   padding: 15px;
 `;
 
-export const Col1 = styled.div`
+export const Col12 = styled.div`
 	padding: 5px;
   min-width: 100%;
   max-height: 400px;

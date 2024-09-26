@@ -75,7 +75,7 @@ export const EventLocation = styled.p`
 // 버튼 스타일
 export const Button = styled.button`
   display: inline-block;
-  background-color: #42a5f5; /* 밝은 블루 */
+  background-color: #f08a5d; /* 밝은 블루 */
   color: white;
   width: 200px;
   height: 50px;
@@ -91,12 +91,12 @@ export const Button = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #1e88e5;
+    background-color: #e76f51;
     transform: scale(1.05);
   }
 
   &:active {
-    background-color: #1976d2;
+    background-color: #e76f51;
     transform: scale(0.98);
   }
 `;

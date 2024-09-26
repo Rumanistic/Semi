@@ -35,6 +35,7 @@ function Login({ setUser }) {
 					sessionStorage.setItem('name', loginData.name);
 					switch(loginData.type){
 						case 0:
+							console.log('admin Login')
 							permissions.push('admin');
 							break;
 						case 1:

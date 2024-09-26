@@ -17,7 +17,7 @@ public class AnswerController {
 	@Autowired
 	AnswerService as;
 
-	@PostMapping("/usersupport/{no}")
+	@PostMapping("/{no}")
 	public ResponseEntity<Void> registerUserSupportAnswer(@RequestBody Answer a){
 		return ResponseEntity.noContent().build();
 	}
