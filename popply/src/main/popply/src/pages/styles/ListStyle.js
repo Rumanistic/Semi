@@ -159,7 +159,7 @@ export const ListContentTagsContainer = styled.aside`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  min-width: 180px;
+  min-width: 250px;
   padding: 10px;
   max-width: 250px;
   justify-content: center;

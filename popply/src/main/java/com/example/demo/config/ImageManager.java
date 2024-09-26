@@ -107,14 +107,23 @@ public class ImageManager {
 		while(setTag.contains("<img")) {
 			int imgStart = setTag.indexOf("<img");
 			int imgEnd = setTag.indexOf(">", imgStart);
-			int baseStart = setTag.indexOf(base64, imgStart) + base64.length();
-			int baseEnd = setTag.indexOf("\"", baseStart);
+			int baseStart = setTag.indexOf(base64, imgStart);
+			int baseEnd = (baseStart != -1 ? setTag.indexOf("\"", baseStart) : -1);
 			int fileNameEnd = setTag.indexOf(".png", imgStart);
 			
-			System.out.println(imgStart +"|"+ imgEnd +"|"+ baseStart +"|"+ baseEnd +"|"+ fileNameEnd);
+			if(baseStart == -1 && imgStart == -1) {
+				break;
+			}
+			
+			System.out.println(
+					imgStart +"|"+ 
+					imgEnd +"|"+ 
+					baseStart +"|"+ 
+					baseEnd +"|"+ 
+					fileNameEnd);
 			
 			if(baseStart != -1 && baseEnd != -1 && fileNameEnd == -1) {
-				imgSrc = setTag.substring(baseStart, baseEnd);
+				imgSrc = setTag.substring(baseStart + base64.length(), baseEnd);
 				
 				String fileExt = ".png";
 				String fileName = new StringBuilder()
@@ -139,7 +148,7 @@ public class ImageManager {
 				setTag = setTag.replaceFirst("<img[^>]*>", "image" + count++);
 			}
 			
-			if(fileNameEnd != -1 && baseStart > imgEnd) {
+			if(baseStart == -1 && baseEnd == -1 && fileNameEnd != -1) {
 				String imgNum = setTag.substring(fileNameEnd-1, fileNameEnd); 
 //				System.out.println(imgNum +"|"+ setTag.charAt(93) + setTag.charAt(94) + setTag.charAt(95));
 				if(imgs.length() > 0) {
