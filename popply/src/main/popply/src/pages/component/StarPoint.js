@@ -9,20 +9,20 @@ function StarPoint(point) {
 			half = 0;
 			break;
 		default: 
-			half = 0.5;
+			half = 1;
 	}
-	let empty = (half === 0.5 ? 5-full-1 : 5-full);
+	let empty = (half === 1 ? 5-full-1 : 5-full);
 	
 	const stars = [];
 	
 	for(let i = 0; i < full; i++){
-		stars.push(<ListStyle.StarImg src="/img/FullStar.png" alt=""/>)
+		stars.push(<ListStyle.StarImg key={`full-${i}`} src="/img/FullStar.png" alt=""/>)
 	}
 	if(half > 0){
-		stars.push(<ListStyle.StarImg src="/img/HalfStar.png" alt=""/>)
+		stars.push(<ListStyle.StarImg key="half" src="/img/HalfStar.png" alt=""/>)
 	}
 	for(let i = 0; i < empty; i++){
-		stars.push(<ListStyle.StarImg src="/img/EmptyStar.png" alt=""/>)
+		stars.push(<ListStyle.StarImg key={`empty-${i}`} src="/img/EmptyStar.png" alt=""/>)
 	}
 	
 	return (

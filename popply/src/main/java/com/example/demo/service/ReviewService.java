@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Event;
 import com.example.demo.domain.Review;
 import com.example.demo.domain.ReviewPoint;
 import com.example.demo.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ReviewService {
@@ -42,6 +46,15 @@ public class ReviewService {
     
     public List<ReviewPoint> getReviewPointAvg(){
     	return reviewRepository.findAllByDeleted(0);
+    }
+    
+    public List<ReviewPoint> getReviewPointAvg(Set<Long> eNos){
+    	Set<ReviewPoint> pointSet = new HashSet<>();
+        for(Long eventNo : eNos) {
+            pointSet.addAll(reviewRepository.findAllByEventNoAndDeleted(eventNo, 0));
+        }
+        
+        return new ArrayList<>(pointSet);
     }
     
 }

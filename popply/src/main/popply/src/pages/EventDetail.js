@@ -76,7 +76,7 @@ function EventDetail() {
 
 const SetParagraph = ({content, company, createdDate}) => {
 	const text = content;
-	const splitText = text.split(/<(?:\/)?[a-zA-Z][^>]*>/);
+	const splitText = text.split(/<(?:\/)?[a-zA-Z][^>]*>/).filter(list => !/\[alert\](?:!\s\w)*[가-힣]*(?:\s[가-힣]*)*/.test(list));
 	const imgRegex = /^image[0-9]*$/;
 	const hyphenRemover = /-/g;
 	
@@ -91,8 +91,8 @@ const SetParagraph = ({content, company, createdDate}) => {
 			<EventHeading>상세 정보</EventHeading>
 			{splitText.map((e, i) => {return (
 				imgRegex.test(e) ? 
-					<EventImages src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt=''/>:
-					<EventParagraph>{e}</EventParagraph>
+					<EventImages src={`/img/${company}${checkDir(createdDate)}/${company}_${e.substring(5)}.png`} alt='' key={i}/>:
+					<EventParagraph key={i}>{e}</EventParagraph>
 			)})}
 		</EventDetailItem>
 	)

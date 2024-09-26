@@ -1,112 +1,150 @@
 import React, { useState, useEffect } from 'react';
 import './styles/Main.css';
 import './styles/Main_list.css';
+import axios from 'axios';
 
 const Main = () => {
-  const [imageIndex, setImageIndex] = useState(0);
-  const [currentItems, setCurrentItems] = useState([0, 1, 2]); // 현재 보여줄 리스트 인덱스
-  const images = [
-    `/img/main_img1.jpg`,
-    `/img/main_img2.jpg`,
-    `/img/main_img3.jpg`,
-  ];
-  const listItems = [
-    {
-      img: `/img/list1-img.jpg`,
-      title: "이토록 다채로운 블랙, 누아르 마르디 메크르디",
-      detail: "카페, 레코드숍, 리빙 편집숍이 한 건물에",
-    },
-    {
-      img: `/img/list2-img.jpg`,
-      title: "파친코2, 두 배로 몰입하는 방법",
-      detail: "프로젝트 렌트 3개 공간에 마련된 'Apple TV+ 파친코' 팝업스토어",
-    },
-    {
-      img: `/img/list3-img.jpg`,
-      title: "키아프 서울 2024에 주목할 시간",
-      detail: "예술이 깃든 9월 첫 주, 키아프 서울 'Kiaf SEOUL'과 함께!",
-    },
-  ];
+	const [events, setEvents] = useState([]);
+  const [banner, setBanner] = useState(0);
+  const [list, setList] = useState(0);
+  const [banners, setBanners] = useState([])
+  const [lists, setLists] = useState([])
+  
+	const tagRemover = /<[^>]*>/g;
+	const imgRemover = /image[0-9]+/g;
+	const alertRemover = /\[alert\](?:!\s\w)*[가-힣]*(?:\s[가-힣]*)*/g;
+  
+  // 서버에서 최근 8개의 이벤트를 가져옴
+  useEffect(() => {
+    axios.get('/event/recent')
+      .then(response => {
+				console.log(response.data);
+        setEvents(response.data);
+      })
+      .catch(error => {
+        console.error('서버로 요청 중 에러 발생:', error);
+      });
+  }, []);
+  
+  useEffect(() => {
+		if(events.length === 8){
+			const [bannersSlice, listsSlice] = [events.slice(0,3), events.slice(3,8)];
+			setBanners([...bannersSlice]);
+			setLists([...listsSlice]);
+		}
+	}, [events]);
 
-  const nextImage = () => {
-    setImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+  const totalBanners = 3;
+  
+  const nextBanner = () => {
+    if (banner < totalBanners - 1) {
+      setBanner(banner + 1);
+    } else {
+			setBanner(0);
+		}
   };
-
-  const previousImage = () => {
-    setImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  
+  const prevBanner = () => {
+    if (banner > 0) {
+      setBanner(banner - 1);
+    } else {
+			setBanner(2);
+		}
   };
-
-  const nextItem = () => {
-    setCurrentItems((prevItems) => {
-      const newItems = prevItems.map(item => (item + 1) % listItems.length);
-      return newItems;
-    });
+  
+  const nextList = () => {
+    if (list < 5) {
+      setList(list + 1);
+    } else {
+			setList(0);
+		}
   };
-
-  const previousItem = () => {
-    setCurrentItems((prevItems) => {
-      const newItems = prevItems.map(item => (item - 1 + listItems.length) % listItems.length);
-      return newItems;
-    });
+  
+  const prevList = () => {
+    if (list < 0) {
+      setList(list - 1);
+    } else {
+			setList(4);
+		}
   };
 
   // 3초마다 다음 이미지로 변경
   useEffect(() => {
-    const interval = setInterval(nextImage, 3000);
+    const interval = setInterval(nextBanner, 5000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <>
-      {/* 메인 이미지와 텍스트 */}
       <section className='main_container'> 
-        <figure>
-          <img  
-            src={images[imageIndex]}
+        {banners.length > 1 ? 
+	        <figure style={{ maxHeight: '700px' }}>
+          	<img  
+            src={parseImgSrc(banners[banner])}
             alt="Main" 
             className="main_image" 
-          />
-          <div className="overlay_text">
-            <h1 className="overlay_title">영화같은 하룻밤, 부커스 비치 호텔</h1>
-            <h3 className="overlay_detail">강원도 양양에 재현한 1970-80년대 미국의 레트로 무드</h3>
+          	/>
+          	<div className="overlay_text">
+            <h1 className="overlay_title">{banners[banner].title}</h1>
+            <h3 className="overlay_detail">{
+							`${banners[banner]
+								.content
+								.replace(tagRemover, '')
+								.replace(imgRemover, '')
+								.replace(alertRemover, '')
+								.substring(0, 80)}...`
+						}</h3>
           </div>
-        </figure>
+	      </figure> : null}
         <div className="main_button_container">
-          <button onClick={previousImage} className="main_toggle_button"> &lt; </button>
-          <button onClick={nextImage} className="main_toggle_button"> &gt; </button>
+          <button onClick={prevBanner} className="main_toggle_button"> &lt; </button>
+          <button onClick={nextBanner} className="main_toggle_button"> &gt; </button>
         </div>
       </section>
 
-      {/* 리스트 항목 */}
+
       <section className="list_container">
+        <h2 className='list_main_name'>POP IN POP-UP</h2>
         <div className="list_items"> 
-          <h2 className='list_main_name'>POP IN POP-UP</h2>
-          <div className="list_content">
-            <div className="list_carousel_button_container">
-              <button className="list_carousel-button" onClick={previousItem}>이전</button>
-              <button className="list_carousel-button" onClick={nextItem}>다음</button>
-            </div>
-            
+            <img className="list_btn" src='/img/lt.png' alt='' onClick={() => prevList()}/>
             <div className="list_items_container">
-              {currentItems.map(index => (
-                <article className="list_item" key={index}>
-                  <img src={listItems[index].img} alt="list_img" className="list_img" />
+              {lists.length > 1 && lists.map((e, i) => (
+                <article className="list_item" key={i}>
+                  <img src={parseImgSrc(lists[(list + i)% lists.length])} alt="list_img" className="list_img" />
                   <div className="text_content">
-                    <h3 className="list_subtitle">{listItems[index].title}</h3>
-                    <p className="list_detail">{listItems[index].detail}</p>
-                    <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>키워드 1</button>
-                    <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>키워드 2</button>
+                    <h3 className="list_subtitle">{lists[(list + i)% lists.length].title}</h3>
+                    <p className="list_detail">{
+											`${lists[(list + i)% lists.length]
+													.content
+													.replace(tagRemover, '')
+													.replace(imgRemover, '')
+													.replace(alertRemover, '')
+													.substring(0, 50)}...`}</p>
+                    <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>{`${lists[(list + i)% lists.length].tags.split(',')[0]}`}</button>&nbsp;&nbsp;&nbsp;
+                    <button className="list_button" onClick={() => alert('버튼이 클릭되었습니다!')}>{`${lists[(list + i)% lists.length].tags.split(',')[1]}`}</button>
                     </div>
-                  
                 </article>
               ))}
-              </div>
             </div>
-          
+            <img className="list_btn" src='/img/gt.png' alt='' onClick={() => nextList()}/>
         </div>
       </section>
     </>
   );
+}
+
+const parseImgSrc = (e) => {
+	const hyphenRemover = /-/g;
+	
+	const checkDir = (createdDate) => {
+		const date = createdDate.replace(hyphenRemover, '');
+		
+		return date.substring(0,8);
+	}
+	
+	return `/img/
+		${e.company}${checkDir(e.createdDate)}/
+		${e.images !== null && e.images !== '' ? e.images.split(',')[0] : 'FullStar'}.png`;
 }
 
 export default Main;

@@ -5,17 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { ContentHorizontalBar } from "../styles/UserSupportStyle";
 import './Faq.css';
 
-const userPermissions = ["user", "admin"];
-const userData = {userId: 'admin2', permissions: userPermissions}
+
+const userData = {userId: sessionStorage.getItem('userId') || '', permissions: sessionStorage.getItem('permissions') || ''}
 const isAdmin = userData.permissions.includes("admin");
 const userId = userData.userId;
 
 function Faq() {
-	const [faqList, setFaqList] = useState([
-		{ question: "원하는 주제의 팝업스토어들만 모아서 보고싶어요. 어떻게 해야 하나요?", answer: "'메인 - Pop-up - 원하시는 주제의 태그' 를 선택하셔서 회원님이 원하시는 주제의 팝업만 모아서 보실 수 있습니다!" },
-		{ question: "팝업스토어를 열려고 하는데 홈페이지에 등록 가능한가요?", answer: "'메인 - Support - 고객문의' 에서 입점문의가 가능합니다!" },
-		{ question: "팝업스토어를 친구와 공유하는 방법이 있나요?", answer: "네, 공유하시고자 하시는 팝업스토어 안내글 하단에 공유하기 버튼을 통해 sns로 정보를 공유하실 수 있습니다!" }
-	]);
+	const [faqList, setFaqList] = useState([]);
 
 	const [isOpen, setIsOpen] = useState(false);
 	const [modalType, setModalType] = useState('');
@@ -42,8 +38,7 @@ function Faq() {
 
 	useEffect(() => {
 		axios.get(`/faqs`).then(result => {
-		console.log(result.data);
-			// setFaqList(result.data);
+			setFaqList(result.data);
 		});
 	}, []);
 
@@ -92,9 +87,10 @@ function Faq() {
 		      {faqList.map((faq, i) => (
 		        <FaqStyle.FaqBox key={i}>  {/* 각 FAQ를 박스로 감싸서 경계 주기 */}
 		          <FaqStyle.FaqDetails>
-		            <summary style={{ fontSize: "20px" }}>{faq.question}</summary>
-		            <p>
+		            <summary style={{ fontSize: "20px", padding: '15px' }}>{faq.question}</summary>
+		            <p style={{display: 'inline',width: '85%', paddingLeft: '40px'}}>
 		              {faq.answer} &emsp; 
+		            </p>
 		              {
 		                isAdmin && 
 		                (<FaqStyle.RightFloatSpan>
@@ -117,7 +113,6 @@ function Faq() {
 		                  	(DeleteFaq(faq.faqNo))}>삭제</button>
 		                </FaqStyle.RightFloatSpan>)
 		              }
-		            </p>
 		          </FaqStyle.FaqDetails>
 		        </FaqStyle.FaqBox>
 		      ))}
@@ -192,29 +187,27 @@ function Faq() {
 				answer,
 				userId
 			};
-			
-		if(modalType === 'new') {
-			axios.post('/faqs/new', formData)
-					 .then(
-						 axios.get(`/faqs`)
-						 			.then(
-										result => {
-										 	setFaqList(result.data);
-										}
-									)
-					 )
-		} else if(modalType === 'edit'){
-			axios.put(`/faqs/${faq.faqNo}`, formData)
-					 .then(
-						 axios.get(`/faqs`)
-						 			.then(
-										result => {
-										 	setFaqList(result.data);
-										}
-									)
-					 )
-		}
-			
+			if(modalType === 'new') {
+				axios.post('/faqs/new', formData)
+						 .then(
+							 axios.get(`/faqs`)
+							 			.then(
+											result => {
+											 	setFaqList(result.data);
+											}
+										)
+						 )
+			} else if(modalType === 'edit'){
+				axios.put(`/faqs/${faq.faqNo}`, formData)
+						 .then(
+							 axios.get(`/faqs`)
+							 			.then(
+											result => {
+											 	setFaqList(result.data);
+											}
+										)
+						 )
+			}
 			onClose();
 		}
 		

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import StarPoint from "../component/StarPoint";
-import { Col1, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
+import { Col12, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 
 function PopupList() {
@@ -61,7 +61,7 @@ function PopupList() {
 						<button onClick={() => {navigate('/popup/submit')}}>등록</button>
 					</RightFloatSpan>
 				</div> : 
-				 <span></span>}
+				 null}
 				<ViewChangeSpanContainer onClick={viewToggleHandler} islistview={view}>
 					<ViewChangeSpan islistview={view}/>
 					<ViewChangeSpanHamburger islistview={view}/>
@@ -81,18 +81,19 @@ function ShowTag({tags, setList}){
 
 	// 태그 값 초기화
 	const [values, setValues] = useState(Array(tags.length).fill(false));
-	const [selectedTags, setSelectedTags] = useState(Array(tags.length).fill(''));
+	const [selectedTags, setSelectedTags] = useState([]);
 	
 	// 태그 선택 시 값 토글
 	const toggle = (e, i) => {
 		const valueToggle = [...values];
-		const selected = [...selectedTags];
+		let selected = [...selectedTags];
 		valueToggle[i] = !valueToggle[i];
 		setValues(valueToggle);
 		if(valueToggle[i]){
-			selected[i] = e;
+			selected.push(e);
 		} else {
-			selected[i] = '';
+			selected = selected.filter((queryTag)=> queryTag !== e);
+			console.log(selected);
 		}
 		setSelectedTags(selected);
 	}
@@ -100,7 +101,7 @@ function ShowTag({tags, setList}){
 	// 태그 전체 해제 시 값 초기화
 	const release = () => {
 		const releaseToggle = Array(tags.length).fill(false);
-		const releaseSelected = Array(tags.length).fill('');
+		const releaseSelected = [];
 		setValues(releaseToggle);
 		setSelectedTags(releaseSelected);
 	}
@@ -127,10 +128,12 @@ function ShowTag({tags, setList}){
 	
 	return (
 		<ListContentTagsContainer>
+			<span style={{position: "sticky", top: "130px"}}>
 			{<ListContentTag onClick={() => release()}>모든 태그 제거</ListContentTag>}
 			{tags.map((e, i) => {
 				return (<ListContentTag key={i} onClick={() => toggle(e, i)} value={values[i]}>{e}</ListContentTag>)
 			})}
+			</span>
 		</ListContentTagsContainer>
 	)
 }
@@ -144,11 +147,11 @@ function ShowList({list, view}){
 	const contentRegex = (content) => {
 		const tagRemover = /<[^>]*>/g;
 		const imgRemover = /image[0-9]+/g;
-		const alertRemover = /\[alert\]!\s*[가-힣]*(?:\s[가-힣]*)*/g;
+		const alertRemover = /\[alert\](?:!\s\w)*[가-힣]*(?:\s[가-힣]*)*/g;
 		
 		content = content.replace(tagRemover, '').replace(imgRemover, '').replace(alertRemover, '');
 		return (
-			<span>{content}</span>
+			<span>{content.length > 200 ? `${content.substring(0, 200)}...` : content}</span>
 		)
 	}
 	
@@ -167,7 +170,7 @@ function ShowList({list, view}){
 				<EventListSpan>
 					{eList.map((e, i) => {
 						return(
-							<Col1 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
+							<Col12 onClick={() => {navigate(`/event/${e.eventNo}`)}} key={e.eventNo}>
 								<span style={{alignSelf: "center", maxwidth: "400px", minWidth: "400px"}}>
 									<EventListSpanImage src={`/img/${
 										e.images !== null && e.images !== '' ? 
@@ -186,11 +189,14 @@ function ShowList({list, view}){
 									<span>{e.title}</span>
 									<span>{contentRegex(e.content)}</span>&emsp;
 								</span>&emsp;
+								<span style={{display: 'flex', flexFlow: 'column', justifyContent:'center'}}>
 								<span style={{alignSelf: "center"}}>{rPoint[e.eventNo] ? 
 								  StarPoint(rPoint[e.eventNo]) 
 								  : StarPoint(0.0)}
 								  </span>
-							</Col1>
+								  <span style={{alignSelf:'center'}}>{rPoint[e.eventNo] ? `리뷰 평점 : ${rPoint[e.eventNo].toFixed(1)} / 5.0` : '등록된 리뷰가 없습니다.'}</span> 
+								</span>
+							</Col12>
 						)
 					})}
 				</EventListSpan>
@@ -216,9 +222,12 @@ function ShowList({list, view}){
 								}} 
 								alt="" style={{width: '10%'}}/></span>
 								<span>{contentRegex(e.content)}</span>&emsp;
-								<span>{rPoint[e.eventNo] ? 
-								  StarPoint(rPoint[e.eventNo])
-								  : StarPoint(0.0)}</span>
+								<span style={{display:'flex', justifyContent: 'space-evenly'}}>
+									{rPoint[e.eventNo] ? 
+								  	StarPoint(rPoint[e.eventNo])
+								  	: StarPoint(0.0)}
+								  	<span style={{marginLeft:'10px', alignSelf:'center'}}>{rPoint[e.eventNo] ? `리뷰 평점 : ${rPoint[e.eventNo].toFixed(1)} / 5.0` : '등록된 리뷰가 없습니다.'}</span> 
+							  </span>
 							</Col4>
 						)
 					})}

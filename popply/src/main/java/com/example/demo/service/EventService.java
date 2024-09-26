@@ -59,4 +59,9 @@ public class EventService {
 	public void deleteEvent(Event e) {
 		eventRepository.save(e);
 	}
+	
+	// 삭제되지 않은 이벤트 중 최근 5개만 가져오기
+	public List<Event> getRecentEvents() {
+	    return eventRepository.findTop8ByDeletedOrderByCreatedDateDesc(false);
+	}
 }

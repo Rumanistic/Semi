@@ -17,6 +17,7 @@ function Header({user, setUser}) {
 
   return (
     <header className="header-all">
+      <img src="/img/logo.png" alt="" style={{float: 'left'}}/>
       <span className="header-logo" onClick={() => { navigate('/') }}>
         POPSPOT
       </span>
@@ -40,15 +41,12 @@ function Header({user, setUser}) {
 	          				className="nav-menu-search-text"
 	          				onChange={(e) => {setSearchQuery(e.target.value)}}
           				/>
-	          			<button 
-	          				style={{margin: 0, alignSelf: 'center', height: '36px'}}
-	          				onClick={
-											() => {
-												setSearch(!search);
-												console.log(searchQuery);
-											}
-										}
-	          			>검색</button>
+	          			<img 
+			          		src="/favicon.png" 
+			          		alt="Search" 
+			          		className="search-icon"
+			          		onClick={() => {setSearch(!search)}}
+		          		/>
 	          		</span>
           		}
 	          </span>

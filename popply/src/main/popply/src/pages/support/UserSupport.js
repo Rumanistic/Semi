@@ -7,7 +7,8 @@ import { RightFloatSpan } from "../styles/FaqStyle";
 
 function UserSupport() {
 	const [width, setWidth] = useState(window.innerWidth);
-	const userId = 'user02';
+	const userId = sessionStorage.getItem('userId') || '';
+	const userPermission = sessionStorage.getItem('permissions') || '';
 	
 	useEffect(() => {
 		const getNowWidth = () => {
@@ -27,14 +28,14 @@ function UserSupport() {
 		<ContentContainer width={width}>
 			<ContentVerticalSpan>
 				<ContentHorizontalBar borderpixel={3} />				
-					<UserSupportList userId={userId}/>
+					<UserSupportList userId={userId} userPermission={userPermission}/>
 				<ContentHorizontalBar borderpixel={3} />
 			</ContentVerticalSpan>
 		</ContentContainer>
 	)
 }
 
-function UserSupportList({userId}) {
+function UserSupportList({userId, userPermission}) {
 	const [sList, setSList] = useState([]);
 	
 	useEffect(() => {
@@ -66,8 +67,8 @@ function UserSupportList({userId}) {
 			{sList.map((e, i) => {
 				if(e.secret !== 1){
 					return (
-						<ContentHorizontalSpan redirect={'y'} onClick={() => navigate(`/supports/usersupport/detail/${e.supportNo}`)}>
-							<span className="no">{i+1}</span>
+						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/supports/usersupport/detail/${e.supportNo}`)}>
+							<span className="no">{sList.length - i}</span>
 							<span className="type">{getType(e.type)}</span>
 							<span className="secret"/>
 							<span className="userId">{e.userId}</span>
@@ -76,27 +77,27 @@ function UserSupportList({userId}) {
 					);
 				}
 				
-				if(e.userId !== userId){
-					return (
-						<ContentHorizontalSpan redirect={'n'}>
-							<span className="no">{i+1}</span>
+				if(e.userId === userId || userPermission.includes('admin')){
+					return(
+						<ContentHorizontalSpan key={i} redirect={'y'} onClick={() => navigate(`/supports/usersupport/detail/${e.supportNo}`)}>
+							<span className="no">{sList.length - i}</span>
 							<span className="type">{getType(e.type)}</span>
-							<span className="secret"> 🔒 </span>
+							<span className="secret"> 🔓 </span>
 							<span className="userId">{e.userId}</span>
-							<span className="title">비공개 문의사항입니다.</span>
+							<span className="title">{e.title}</span>
 						</ContentHorizontalSpan>
-					)
+					);
 				}
 				
-				return(
-					<ContentHorizontalSpan redirect={'y'} onClick={() => navigate(`/supports/usersupport/detail/${e.supportNo}`)}>
+				return (
+					<ContentHorizontalSpan redirect={'n'}>
 						<span className="no">{i+1}</span>
 						<span className="type">{getType(e.type)}</span>
-						<span className="secret"> 🔓 </span>
+						<span className="secret"> 🔒 </span>
 						<span className="userId">{e.userId}</span>
-						<span className="title">{e.title}</span>
+						<span className="title">비공개 문의사항입니다.</span>
 					</ContentHorizontalSpan>
-				);
+				)
 			})}
 		</ContentVerticalSpan>
 	)

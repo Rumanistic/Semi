@@ -16,7 +16,7 @@
 /* 메인위에 입혀질 텍스트 */
 .overlay_text {
     position: relative; /* 절대 위치 설정 */
-    bottom: 20px; /* 하단에서 20px 위에 위치 */
+    bottom: 50px; /* 하단에서 20px 위에 위치 */
     left: 50%; /* 수평 중앙 정렬 */
     transform: translate(-50%, -50%); /* 중앙 정렬을 위한 변환 */
     color: white; /* 텍스트 색상 */
@@ -24,6 +24,7 @@
     padding: 10px; /* 패딩 */
     font-size: calc(1rem + 1vw); /* 기본 폰트 크기 설정 (비율 유지) */
     font-family: 'Pretendard-Regular', sans-serif; /*기본 폰트 적용*/
+    text-shadow: 2px 2px 5px #000;
 }
 
 /* 메인위에 입혀질 텍스트 - 제목 */

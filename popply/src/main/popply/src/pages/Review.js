@@ -210,19 +210,16 @@ function Review({ eventNo, eventTitle }) {
                   {/* 탈퇴한 회원 표시 */}
                   <p>{review.userId ? `작성자 : ${review.userId}` : '탈퇴한 회원입니다'}</p>
 
-                  <p>
-                    {/* 리뷰 작성 날짜 표시 */}
-                    {review.createdDate && (
-                      <p>
-                        작성일 : {new Date(review.createdDate).toLocaleDateString('ko-KR', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </p>
-                    )}
-                  </p>
-
+                  {/* 리뷰 작성 날짜 표시 */}
+                  {review.createdDate && (
+                    <p>
+                      작성일 : {new Date(review.createdDate).toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
+                    </p>
+                  )}
                   {savedUser === review.userId.toString() && (
                     <div>
                       <ReviewButton onClick={() => handleEditClick(review)}>수정</ReviewButton>
