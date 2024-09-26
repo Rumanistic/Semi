@@ -115,7 +115,10 @@ function EventEdit() {
 	    headers: {
 	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
 	    }
-		}).then(result => navigate('/popup'))
+		}).then(result => {
+				console.log(result);
+				navigate('/popup');
+			})
 	}
 	
 	useEffect(() => {
