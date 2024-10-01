@@ -22,6 +22,7 @@ import PopupList from './pages/list/PopupList';
 function App({user, setUser}) {
 	
 	const [permissions, setPermissions] = useState(sessionStorage.getItem("permissions"));
+	const [tag, setTag] = useState('');
 	
 	useEffect(() => {
     setPermissions(sessionStorage.getItem("permissions"));
@@ -30,9 +31,10 @@ function App({user, setUser}) {
   const noPermissionRoutes = [
 		{ path:'/', element: <Main />},
 		{ path:'/login', element: <Login setUser={setUser}/>},
-		{ path:'/main', element: <Main />},
+		{ path:'/main', element: <Main setTag={setTag}/>},
 		{ path:'/signup', element:<Signup />},
 		{ path:'/popup', element: <PopupList />},
+		{ path:'/popup/tag?', element: <PopupList tag={tag}/>},
 		{ path:'/event/:no', element: <EventDetail />},
 		{ path:'/review', element: <Review />},
 		{ path:'/supports/*', element: <Support />},
