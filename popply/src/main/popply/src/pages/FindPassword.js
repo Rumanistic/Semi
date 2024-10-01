@@ -20,7 +20,7 @@ function FindPassword() {
 
   const handleFindPassword = () => {
     // 서버에 아이디, 이메일, 전화번호로 비밀번호 재설정 요청
-    axios.post('/api/find-password', { userId, email, phone })
+    axios.post('/users/find-password', { userId, email, phone })
       .then(response => {
         if (response.data.success) {
           setIsVerified(true); // 검증 성공 시 비밀번호 변경 가능
@@ -37,7 +37,7 @@ function FindPassword() {
 
   const handleChangePassword = () => {
     // 서버에 새로운 비밀번호로 변경 요청, phone 필드도 함께 보냅니다
-    axios.post('/api/change-password', { userId, phone, newPassword })
+    axios.post('/users/change-password', { userId, phone, newPassword })
       .then(response => {
         if (response.data.success) {
           setMessage('비밀번호가 변경되었습니다.');

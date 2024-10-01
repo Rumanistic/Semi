@@ -15,7 +15,7 @@ const Footer = () => {
   return (
     <FooterMain>
       <FooterHorizontalSpan style={{ justifyContent: 'start', padding: '5px 0', maxHeight: '50px' }}>
-        <img src='/img/logo.png' alt='' style={{ height: '100%' }} />
+        <img src='/img/logo.png' alt='' style={{ height: '50px' }} />
         <img src='/img/popspot.png' alt='' style={{ height: '90%', marginLeft: '10px' }} />
         <img src='/img/tjoeun.png' alt='' style={{ height: '90%', marginLeft: '10px' }} />
       </FooterHorizontalSpan>
@@ -26,14 +26,14 @@ const Footer = () => {
             더조은컴퓨터아카데미<br /><br />
             자바&클라우드 활용 풀스택 취업캠프과정 세미프로젝트
           </p>
-          <p>
-            ◎ 제작 참여<br />
-            └ 김현수(조장) 김솔 김효빈 최서진 <br />
-          </p>
         </FooterContentSpan>
         <FooterVerticalBar />
         <FooterContentSpan>
-          <FooterHorizontalSpan>
+        	<p>
+            ◎ 제작 참여<br />
+            └ 김현수(조장) 김솔 김효빈 최서진 <br />
+          </p>
+          <FooterHorizontalSpan style={{justifyContent: 'space-around'}}>
 	        	<p>Contact...</p>
             {members.map((member, i) => (
               <FooterVerticalSpan

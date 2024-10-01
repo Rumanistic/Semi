@@ -5,10 +5,12 @@ import StarPoint from "../component/StarPoint";
 import { Col12, Col4, EventCardSpan, EventCardSpanImage, EventListSpan, EventListSpanImage, ListContentContainer, ListContentTag, ListContentTagsContainer, ListHeaderContainer, ListHeaderContainerHead1, ViewChangeSpan, ViewChangeSpanContainer, ViewChangeSpanDot, ViewChangeSpanHamburger } from "../styles/ListStyle";
 import { RightFloatSpan } from "../styles/FaqStyle";
 
-function PopupList() {
+function PopupList({tag}) {
 	const [list, setList] = useState({eList:[], rPoint: {}});
 	const [tags, setTags] = useState([]);
 	const [view, setView] = useState('list');
+	
+	const selectedTag = tag || '';
 	
 	const navigate = useNavigate();
 	
@@ -18,8 +20,13 @@ function PopupList() {
 	
 	// 페이지 리스트 렌더링
 	useEffect(() => {
-		axios.get(`/event/popup/lists`)
-				 .then(result => setList(result.data));
+		if(selectedTag !== ''){
+			axios.get('/event/popup/lists/search/tags', {params: {tags: selectedTag}}).then(
+					result => setList(result.data));
+		}else {
+			axios.get(`/event/popup/lists`)
+					 .then(result => setList(result.data));			
+		}
 		axios.get(`/event/popup/tags`)
 				 .then(result => {
 					 	setTags(result.data.split(','))
