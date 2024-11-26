@@ -37,7 +37,7 @@ function Faq() {
 	}
 
 	useEffect(() => {
-		axios.get(`/faqs`).then(result => {
+		axios.get(`http://localhost:8080/faqs`).then(result => {
 			setFaqList(result.data);
 		});
 	}, []);
@@ -188,9 +188,9 @@ function Faq() {
 				userId
 			};
 			if(modalType === 'new') {
-				axios.post('/faqs/new', formData)
+				axios.post('http://localhost:8080/faqs/new', formData)
 						 .then(
-							 axios.get(`/faqs`)
+							 axios.get(`http://localhost:8080/faqs`)
 							 			.then(
 											result => {
 											 	setFaqList(result.data);
@@ -200,7 +200,7 @@ function Faq() {
 			} else if(modalType === 'edit'){
 				axios.put(`/faqs/${faq.faqNo}`, formData)
 						 .then(
-							 axios.get(`/faqs`)
+							 axios.get(`http://localhost:8080/faqs`)
 							 			.then(
 											result => {
 											 	setFaqList(result.data);

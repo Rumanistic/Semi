@@ -36,7 +36,7 @@ function Review({ eventNo, eventTitle }) {
 
   // 리뷰 목록 가져오기
   useEffect(() => {
-    axios.get(`/review/${eventNo}`)
+    axios.get(`http://localhost:8080/review/${eventNo}`)
       .then(response => setReviews(response.data))
       .catch(error => console.error('리뷰 데이터를 가져오는 중 오류가 발생했습니다.', error));
   }, [eventNo]);
@@ -57,9 +57,9 @@ function Review({ eventNo, eventTitle }) {
       userId: savedUser
     };
 
-    axios.post('/review/insert', newReviewData)
+    axios.post('http://localhost:8080/review/insert', newReviewData)
       .then(response => {
-        axios.get(`/review/${eventNo}`)
+        axios.get(`http://localhost:8080/review/${eventNo}`)
           .then(response => setReviews(response.data))
           .catch(error => console.error('리뷰 데이터를 가져오는 중 오류가 발생했습니다.', error));
         
@@ -82,7 +82,7 @@ function Review({ eventNo, eventTitle }) {
     }
 
     if (window.confirm('이 리뷰를 삭제하시겠습니까?')) {
-      axios.delete(`/review/delete/${reviewNo}`)
+      axios.delete(`http://localhost:8080/review/delete/${reviewNo}`)
         .then(() => {
           alert('삭제되었습니다.');
           setReviews(reviews.filter(review => review.reviewNo !== reviewNo));
@@ -118,7 +118,7 @@ function Review({ eventNo, eventTitle }) {
       rating: editingRating,
     };
 
-    axios.put(`/review/update/${editingReviewNo}`, updatedReviewData)
+    axios.put(`http://localhost:8080/review/update/${editingReviewNo}`, updatedReviewData)
       .then(response => {
         setReviews(reviews.map(review =>
           review.reviewNo === editingReviewNo ? response.data : review

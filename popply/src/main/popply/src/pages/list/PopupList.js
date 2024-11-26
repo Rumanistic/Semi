@@ -21,13 +21,13 @@ function PopupList({tag}) {
 	// 페이지 리스트 렌더링
 	useEffect(() => {
 		if(selectedTag !== ''){
-			axios.get('/event/popup/lists/search/tags', {params: {tags: selectedTag}}).then(
+			axios.get('http://localhost:8080/event/popup/lists/search/tags', {params: {tags: selectedTag}}).then(
 					result => setList(result.data));
 		}else {
-			axios.get(`/event/popup/lists`)
+			axios.get(`http://localhost:8080/event/popup/lists`)
 					 .then(result => setList(result.data));			
 		}
-		axios.get(`/event/popup/tags`)
+		axios.get(`http://localhost:8080/event/popup/tags`)
 				 .then(result => {
 					 	setTags(result.data.split(','))
 					 });
@@ -117,16 +117,16 @@ function ShowTag({tags, setList}){
 	useEffect(() => {
 		const searchTags = selectedTags.filter(tag => tag !== '');
 		if(searchTags.length === 0){
-			axios.get(`/event/popup/lists`).then(
+			axios.get(`http://localhost:8080/event/popup/lists`).then(
 				result => setList(result.data))
 		}
 		else {
 			if (searchTags.length === 1){
-				axios.get('/event/popup/lists/search/tags', {params: {tags: searchTags.join('')}}).then(
+				axios.get('http://localhost:8080/event/popup/lists/search/tags', {params: {tags: searchTags.join('')}}).then(
 					result => setList(result.data));
 			}
 			else {
-				axios.get('/event/popup/lists/search/tags', {params: {tags: searchTags.join(',')}}).then(
+				axios.get('http://localhost:8080/event/popup/lists/search/tags', {params: {tags: searchTags.join(',')}}).then(
 					result => setList(result.data));
 			}
 		}

@@ -25,7 +25,7 @@ function UserSupportRegister() {
 	const titleRef =useRef(null);
 	
 	const [inquiryData, setInquiryData] = useState({
-		userId: 'user02',
+		userId: sessionStorage.getItem('userId'),
 		title: '',
 		type: 1,
 		inquiry: '',

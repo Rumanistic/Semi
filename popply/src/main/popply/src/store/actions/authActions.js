@@ -4,7 +4,7 @@ import { LOGIN_SUCCESS, LOGOUT_SUCCESS, SIGNUP_SUCCESS, UPDATE_PROFILE_SUCCESS, 
 // 로그인 액션
 export const login = (credentials) => async (dispatch) => {
   try {
-    const res = await axios.post('/api/login', credentials);
+    const res = await axios.post('http://localhost:8080/api/login', credentials);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -17,7 +17,7 @@ export const login = (credentials) => async (dispatch) => {
 // 로그아웃 액션
 export const logout = () => async (dispatch) => {
   try {
-    await axios.post('/api/logout');
+    await axios.post('http://localhost:8080/api/logout');
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {
     throw error;
@@ -27,7 +27,7 @@ export const logout = () => async (dispatch) => {
 // 회원가입 액션
 export const signup = (userData) => async (dispatch) => {
   try {
-    const res = await axios.post('/api/signup', userData);
+    const res = await axios.post('http://localhost:8080/api/signup', userData);
     dispatch({
       type: SIGNUP_SUCCESS,
       payload: res.data,

@@ -22,7 +22,7 @@ function Login({ setUser }) {
     e.preventDefault();
 
     // 서버에 로그인 요청 보내기
-    axios.post('/users/login', { userId, userPwd }) // userIdOrEmail 필드로 전송
+    axios.post('http://localhost:8080/users/login', { userId, userPwd }) // userIdOrEmail 필드로 전송
     .then(response => {
       if (response.data.result) {
 					const loginData = response.data.userData
