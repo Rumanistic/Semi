@@ -116,6 +116,8 @@ function EventSubmit() {
 		let contentData = eventData.content.concat("[alert]",alert);
 		let tags = spans.join(',');
 		
+		console.log(spans);
+		
 		console.log(contentData);
 		let submitData = {
 			...eventData,
@@ -124,7 +126,7 @@ function EventSubmit() {
 		};
 		
 		console.log(submitData);
-		axios.post('/event/submit', submitData, {
+		axios.post('http://localhost:8080/event/submit', submitData, {
 	    headers: {
 	        'Content-Type': 'application/json; charset=UTF-8'  // UTF-8 설정
 	    }
@@ -161,7 +163,10 @@ function EventSubmit() {
         <div className="event-detail-item">
           {spans.map((s, i) => {
 						return(
-							<label key={i} style={{marginRight: '2px', marginLeft: '2px'}}>{s} <button value={s} onClick={(e) => {deleteItem(e.target.value)}}>x</button></label>
+							<label key={i} style={{marginRight: '2px', marginLeft: '2px'}}>
+								{s} 
+								<button value={s} onClick={(e) => {deleteItem(e.target.value)}}>x</button>
+							</label>
 						)
 					})}
         	<input name="tags" value={value} onChange={(e) => {setValue(e.target.value)}} onKeyDown={onKeyPressed} placeholder='태그를 입력 후 엔터를 눌러주세요!(최대 5개)' />

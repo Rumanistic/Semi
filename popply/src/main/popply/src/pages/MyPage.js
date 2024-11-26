@@ -30,7 +30,7 @@ const MyPage = () => {
     }
 
     // 서버에 비밀번호 확인 요청
-    axios.post('/users/verify-password', { userId: savedUser, userPwd: password })
+    axios.post('http://localhost:8080/users/verify-password', { userId: savedUser, userPwd: password })
       .then(response => {
         if (response.data.success) {
           setUserInfo(response.data.userInfo); // 성공 시 사용자 정보 설정
@@ -55,7 +55,7 @@ const MyPage = () => {
 
   const handleSaveChanges = () => {
     // 서버에 수정된 사용자 정보 업데이트 요청
-    axios.post('/users/update-user-info', userInfo)
+    axios.post('http://localhost:8080/users/update-user-info', userInfo)
       .then(response => {
         if (response.data.success) {
           setIsEditing(false);

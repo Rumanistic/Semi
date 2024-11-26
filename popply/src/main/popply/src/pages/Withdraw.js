@@ -42,7 +42,7 @@ const Withdraw = () => {
     }
   
     // 탈퇴 처리 진행
-    axios.post('/users/withdraw', userData)
+    axios.post('http://localhost:8080/users/withdraw', userData)
       .then(() => {
         alert('회원 탈퇴가 완료되었습니다.');
         

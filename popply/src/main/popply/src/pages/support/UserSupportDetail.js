@@ -41,7 +41,7 @@ function UserSupportDetail() {
 	})
 	
 	useEffect(() => {
-		axios.get(`/supports/usersupport/${no}`).then(result => {
+		axios.get(`http://localhost:8080/supports/usersupport/${no}`).then(result => {
 			const support = result.data.support;
 			const answer = result.data.answer;
 			
@@ -104,7 +104,7 @@ function RegisterAnswer({state, supportNo, answer, stateChange}) {
 	const answerSubmit = () => {
 		console.log("등록이벤트");
 		console.log("등록한 답변:", newAnswer);
-		axios.post(`/answer/${supportNo}`, {
+		axios.post(`http://localhost:8080/answer/${supportNo}`, {
 	    answer: newAnswer,
 	    supportNo: supportNo
 		}, {

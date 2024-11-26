@@ -19,7 +19,7 @@ function EventDetail() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`/detail/${no}`)
+    axios.get(`http://localhost:8080/detail/${no}`)
       .then(result => setEvent(result.data))
       .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
   }, [no]);

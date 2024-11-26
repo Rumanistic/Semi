@@ -50,7 +50,7 @@ const Signup = () => {
   const checkUserId = () => {
     if (!userData.userId) return;
 
-    axios.post(`/users/check-username/${userData.userId}`)
+    axios.post(`http://localhost:8080/users/check-username/${userData.userId}`)
       .then(response => {
         if (response.data) {
           setIsUserIdAvailable(true);
@@ -118,7 +118,7 @@ const Signup = () => {
       type: userData.accountType,
     };
 
-    axios.post('/users/signup', userToSubmit)
+    axios.post('http://localhost:8080/users/signup', userToSubmit)
       .then(() => {
         alert('회원가입이 완료되었습니다');
         navigate('/login');

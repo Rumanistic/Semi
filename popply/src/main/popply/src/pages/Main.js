@@ -21,7 +21,7 @@ const Main = ({setTag}) => {
   
   // 서버에서 최근 8개의 이벤트를 가져옴
   useEffect(() => {
-    axios.get('/event/recent')
+    axios.get('http://localhost:8080/event/recent')
       .then(response => {
 				console.log(response.data);
         setEvents(response.data);
