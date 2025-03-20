@@ -13,31 +13,34 @@ import {
   Button
 } from './styles/EventDetailStyle'; // 여기에 폰트가 설정되어 있음
 
+// 이벤트 상세 정보를 보여주는 페이지 컴포넌트
 function EventDetail() {
   const { no } = useParams(); // URL에서 이벤트 번호를 가져옴
-  const [event, setEvent] = useState(null);
-  const navigate = useNavigate();
+  const [event, setEvent] = useState(null); 
+  const navigate = useNavigate(); // 페이지 이동을 위한 Hook
 
+ // 컴포넌트가 실행되거나 no 값이 변경될 때 실행됨
   useEffect(() => {
-    axios.get(`http://localhost:8080/detail/${no}`)
-      .then(result => setEvent(result.data))
-      .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err));
-  }, [no]);
-  
+    axios.get(`http://localhost:8080/detail/${no}`) // 백엔드에서 해당 이벤트 데이터를 요청
+      .then(result => setEvent(result.data)) //데이터를 상태에 저장
+      .catch(err => console.error('이벤트 정보를 불러오는 중 오류가 발생했습니다.', err)); // 오류 처리
+  }, [no]); // no 값이 변경될 때마다 실행
+
+  // 이벤트 삭제 함수
   const doDelete = () => {
 		axios.delete(`/event/${no}`)
-			.then(result => {alert(result.data.msg);
-				navigate("/popup");
+			.then(result => {alert(result.data.msg); // 서버에서 밥ㄷ은 응답 메시지를 알림으로 출력
+				navigate("/popup"); 
 			})
 	}
 	
 	const doEdit = () => {
-		navigate('/popup/edit', {state: {event}})
+		navigate('/popup/edit', {state: {event}}) // 수정할 이벤트 정보를 함께 전달
 	}
 
   return (
     <div>
-      {event ? (
+      {event ? ( // 이벤트 데이터가 존재하는 경우 화면에 표시
         <EventContainer>
           {/* 이미지 출력 */}
           <EventTitle>{event.title}</EventTitle>
