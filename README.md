@@ -87,7 +87,7 @@
 
 #### 메인페이지 기능
 <p align="center">
-  <img asr="./assets/main.gif" width="600" />
+  <img src="./assets/main.gif" width="600" />
 </p>
 > 이벤트 데이터 불러오기: 서버에서 최근 8개의 이벤트 데이터를 가져와 banners(3개)와 lists(5개)로 분리하여 저장<br>
 > 배너 자동 변경: 5초마다 setInterval을 이용해 배너가 자동으로 변경되며, 좌우 버튼으로 수동 조작 가능<br>
