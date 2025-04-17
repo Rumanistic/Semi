@@ -41,7 +41,7 @@
 <details>
 <summary><strong>📌 ERD 보기</strong></summary>
 <div markdown="1">
-  <img src="https://raw.githubusercontent.com/0biin0/0biin0/main/image/uml_popspot.png" width="800px"/>
+  <img src="./assets/다이어그램.png" />
 </div>
 </details>
 
