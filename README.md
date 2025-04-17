@@ -106,6 +106,9 @@
 > 이벤트 상세 페이지 이동 → 리스트/카드 클릭 시 해당 이벤트의 상세 페이지로 이동
 
 #### 4. ⭐️⭐️⭐️ 🔍 상세 페이지/리뷰페이지
+<p align="center">
+  <img src="./assets/detailPage.gif" width="600" />
+</p>
 #### 상세페이지 기능
 > 이벤트 정보 불러오기 → useParams로 이벤트 번호(no)를 받아와 axios.get으로 이벤트 상세 정보 조회<br>
 > 이벤트 수정 및 삭제 → 이벤트 작성자만 수정(doEdit), 삭제(doDelete) 가능<br>
