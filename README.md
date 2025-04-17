@@ -58,8 +58,8 @@
 ## 🧩 프로젝트 설계
 
 <details>
-<summary><strong>📌 ERD 보기</strong></summary>
-<p align="center"
+<strong>📌 ERD</strong>
+<p align="center">
   <img src="./assets/다이어그램.png" width="600"/>
 </p>
 </details>
