@@ -50,11 +50,18 @@
 #### 1. 로그인/회원가입
 
 #### ⭐ 로그인 기능
-<img src="https://github.com/user-attachments/assets/ca6cb51f-2d0c-4f84-908c-d1101613670c" width="400"/>
-> 모든 페이지에서 로그인 버튼 클릭 시 로그인 화면으로 이동. <br>
-> 로그인 성공하면 sessionStorage에 userId, name, permissions 저장<br>
-> 권한(permissions)은 user, admin, planner 중 하나 이상 저장<br>
-> 로그아웃 시 sessionStorage.clear()로 정보 삭제<br>
+<h3>🔐 로그인 기능 시연</h3>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ca6cb51f-2d0c-4f84-908c-d1101613670c" width="600"/>
+</p>
+
+<ul>
+  <li>모든 페이지에서 <strong>로그인 버튼 클릭 시 로그인 화면</strong>으로 이동</li>
+  <li>로그인 성공 시 <code>sessionStorage</code>에 <code>userId</code>, <code>name</code>, <code>permissions</code> 저장</li>
+  <li>사용자 권한은 <code>user</code>, <code>admin</code>, <code>planner</code> 중 하나 이상</li>
+  <li>로그아웃 시 <code>sessionStorage.clear()</code>로 정보 삭제</li>
+</ul>
 
 #### 회원가입/회원탈퇴
 > 아이디 중복 체크 및 유효성 검사 → 사용자가 입력한 아이디, 이메일, 비밀번호, 생년월일, 전화번호 등의 유효성을 검사하고, 아이디 중복 여부를 확인<br>
