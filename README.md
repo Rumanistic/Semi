@@ -50,6 +50,7 @@
 #### 1. 로그인/회원가입
 
 #### ⭐ 로그인 기능
+<img src=![Image](https://github.com/user-attachments/assets/ca6cb51f-2d0c-4f84-908c-d1101613670c)/>
 > 모든 페이지에서 로그인 버튼 클릭 시 로그인 화면으로 이동. <br>
 > 로그인 성공하면 sessionStorage에 userId, name, permissions 저장<br>
 > 권한(permissions)은 user, admin, planner 중 하나 이상 저장<br>
