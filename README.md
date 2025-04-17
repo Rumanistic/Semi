@@ -59,9 +59,9 @@
 
 <details>
 <summary><strong>📌 ERD 보기</strong></summary>
-<div markdown="1">
-  <img src="./assets/다이어그램.png" />
-</div>
+<p align="center"
+  <img src="./assets/다이어그램.png" width="600"/>
+</p>
 </details>
 
 ---
